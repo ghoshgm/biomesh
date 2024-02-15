@@ -1,5 +1,7 @@
 
 find_package(MPI REQUIRED)
-if(${MPI_FOUND})
-  set(CMAKE_REQUIRED_LIBRARIES MPI::MPI_CXX)
+
+find_package(VTK REQUIRED)
+if(${VTK_FOUND})
+  message(STATUS "Found VTK: ${VTK_DIR} (found version ${VTK_VERSION})")
 endif()

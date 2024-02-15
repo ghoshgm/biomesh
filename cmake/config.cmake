@@ -25,6 +25,7 @@ message(STATUS "Size of double - ${SIZEOF_DOUBLE} bytes.")
 
 # Check for headers.
 if(${MPI_FOUND})
+  set(CMAKE_REQUIRED_LIBRARIES MPI::MPI_CXX)
   check_include_file(mpi.h HAVE_MPI_H)
 endif()
 check_include_file(stdint.h HAVE_STDINT_H)
