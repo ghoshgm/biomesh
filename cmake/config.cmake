@@ -32,3 +32,22 @@ check_include_file(math.h HAVE_MATH_H)
 check_include_file_cxx("memory" HAVE_MEMORY_H)
 check_include_file_cxx("algorithm" HAVE_ALGORITHM_H)
 check_include_file_cxx("vector" HAVE_VECTOR_H)
+
+# Set macros for configure macros.
+if(mpi)
+  set(BIOMESH_ENABLE_MPI 1)
+  set(BIOMESH_CC \"${MPI_C_COMPILER}\")
+  set(BIOMESH_CPP \"${MPI_CXX_COMPILER}\")
+else()
+  set(BIOMESH_CC \"${CMAKE_C_COMPILER}\")
+  set(BIOMESH_CPP \"${CMAKE_CXX_COMPILER}\")
+endif()
+
+set(BIOMESH_CPPFLAGS \"${CMAKE_CXX_FLAGS}\")
+
+if(CMAKE_BUILD_TYPE MATCHES "debug")
+  set(BIOMESH_ENABLE_DEBUG 1)
+endif()
+
+# Generate configure file.
+configure_file(${CMAKE_CURRENT_LIST_DIR}/biomesh_config.h.in ${PROJECT_BINARY_DIR}/include/biomesh_config.h)
