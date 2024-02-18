@@ -51,4 +51,4 @@ if(CMAKE_BUILD_TYPE MATCHES "debug")
 endif()
 
 # Generate configure file.
-configure_file(${CMAKE_CURRENT_LIST_DIR}/biomesh_config.h.in ${PROJECT_BINARY_DIR}/include/biomesh_config.h)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/biomesh_config.hpp.in ${PROJECT_BINARY_DIR}/include/biomesh_config.hpp)
