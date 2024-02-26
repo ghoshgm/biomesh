@@ -1,5 +1,7 @@
 
-find_package(MPI REQUIRED)
+if(mpi)
+ find_package(MPI REQUIRED)
+endif()
 
 find_package(VTK REQUIRED)
 if(${VTK_FOUND})
