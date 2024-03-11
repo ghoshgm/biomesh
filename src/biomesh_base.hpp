@@ -7,9 +7,9 @@
 
 /* Utility macros. */
 #ifdef BIOMESH_ENABLE_DEBUG
-#define BIOMESH_ASSERT(c) assert(c == 1) 
+#define BIOMESH_ASSERT(c) assert (c == true)
 #else
-#define BIOMESH_ASSERT(c) ((void) (0))
+#define BIOMESH_ASSERT(c) ((void)(0))
 #endif
 
 #endif
