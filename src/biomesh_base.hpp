@@ -19,7 +19,7 @@
   while (0)
 #else
 #define BIOMESH_ASSERT(c) ((void)(0))
-#define BIOMESH_LDEBUG(mpirank, fmt, ...) ((void)(0))
+#define BIOMESH_LDEBUG(mpirank, format, ...) ((void)(0))
 #endif
 
 #endif
