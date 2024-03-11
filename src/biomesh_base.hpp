@@ -22,4 +22,12 @@
 #define BIOMESH_LDEBUG(mpirank, format, ...) ((void)(0))
 #endif
 
+#define BIOMESH_LINFO(mpirank, format, ...)                                   \
+  do                                                                          \
+    {                                                                         \
+      std::string message = "[BIOMESH %d INFO] " + std::string (format);      \
+      printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
+    }                                                                         \
+  while (0)
+
 #endif
