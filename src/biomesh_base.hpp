@@ -13,7 +13,7 @@
 #define BIOMESH_LDEBUG(mpirank, format, ...)                                  \
   do                                                                          \
     {                                                                         \
-      std::string message = "[biomesh %d] " + std::string (format);           \
+      std::string message = "[BIOMESH %d DEBUG] " + std::string (format);     \
       printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
     }                                                                         \
   while (0)
