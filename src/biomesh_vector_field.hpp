@@ -12,11 +12,11 @@ namespace biomesh
 class vector_field
 {
 public:
-  vector_field();
+  vector_field(const std::string& file_name);
   vector_field(const vector_field& other);
   vector_field(const vector_field&& other);
   ~vector_field();
-  void read_vtk_file(const std::string& file_name);
+  void load_vtk_grid();
   void generate_field();
 
 private:
