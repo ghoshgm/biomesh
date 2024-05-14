@@ -8,6 +8,9 @@
 #include <string>
 
 /* Utility macros. */
+#define BIOMESH_SUCCESS 1
+#define BIOMESH_ERROR 0
+
 #ifdef BIOMESH_ENABLE_DEBUG
 #define BIOMESH_ASSERT(c) assert (c == true)
 #define BIOMESH_LDEBUG(mpirank, format, ...)                                  \
