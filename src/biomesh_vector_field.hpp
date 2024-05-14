@@ -2,6 +2,7 @@
 #ifndef BIOMESH_VECTOR_FIELD_HPP
 #define BIOMESH_VECTOR_FIELD_HPP
 
+#include <vtkSmartPointer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkStructuredGridReader.h>
 
@@ -17,12 +18,12 @@ public:
   vector_field (const vector_field &other);
   vector_field (const vector_field &&other);
   ~vector_field ();
-  void load_vtk_grid ();
-  void generate_field ();
+  int load_vtk_grid ();
+  int generate_field ();
 
 private:
   std::string m_file_name;
-  std::unique_ptr<vtkStructuredGrid> m_sgrid;
+  vtkSmartPointer<vtkStructuredGrid> m_sgrid;
 };
 } // namespace biomesh
 
