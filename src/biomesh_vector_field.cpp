@@ -10,20 +10,33 @@ vector_field::vector_field (const std::string &file_name)
 {
 }
 
+vector_field::~vector_field () {}
+
 int
 vector_field::load_vtk_grid ()
 {
-  BIOMESH_ASSERT (!file_name.empty ());
+  BIOMESH_ASSERT (!m_file_name.empty ());
+  BIOMESH_LINFO (0, "File: " + m_file_name);
 
 #ifndef BIOMESH_ENABLE_MPI
-  std::unique_ptr<vtkStructuredGridReader> m_sgrid_reader
-      = std::make_unique<vtkStructuredGridReader> ();
-  BIOMESH_ASSERT (this->m_sgrid_reader != nullptr);
-  reader->SetFileName (this->file_name.c_str ());
+  /* Initialize serial reader. */
+  vtkSmartPointer<vtkStructuredGridReader> reader
+      = vtkSmartPointer<vtkStructuredGridReader>::New ();
+  BIOMESH_ASSERT (reader != nullptr);
+
+  /* Read the file. */
+  BIOMESH_LINFO (0, "Read vtk file start.");
+  reader->SetFileName (this->m_file_name.c_str ());
   reader->Update ();
   BIOMESH_ASSERT (reader->IsFileValid ("structured"));
+  BIOMESH_LINFO (0, "Read vtk file finish.");
+
+  /* Obtain the structured grid data. */
   m_sgrid = reader->GetOutput ();
   BIOMESH_ASSERT (this->m_sgrid != nullptr);
+#ifdef BIOMESH_ENABLE_DEBUG
+  m_sgrid->Print (std::cout);
+#endif
 #endif
 
   /* TODO: Add the parallel xml reader when the parallel file format is
