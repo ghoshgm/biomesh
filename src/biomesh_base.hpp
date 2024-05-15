@@ -16,7 +16,8 @@
 #define BIOMESH_LDEBUG(mpirank, format, ...)                                  \
   do                                                                          \
     {                                                                         \
-      std::string message = "[BIOMESH %d DEBUG] " + std::string (format);     \
+      std::string message                                                     \
+          = "[BIOMESH %d DEBUG] " + std::string (format) + "\n";              \
       printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
     }                                                                         \
   while (0)
@@ -28,7 +29,8 @@
 #define BIOMESH_LINFO(mpirank, format, ...)                                   \
   do                                                                          \
     {                                                                         \
-      std::string message = "[BIOMESH %d INFO] " + std::string (format);      \
+      std::string message                                                     \
+          = "[BIOMESH %d INFO] " + std::string (format) + "\n";               \
       printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
     }                                                                         \
   while (0)
@@ -40,7 +42,7 @@
           = "[BIOMESH %d TRACE] " + std::string ("FILE:" __FILE__) + " "      \
             + std::string ("LINE:") + std::to_string (__LINE__) + " "         \
             + std::string ("FUNCTION:") + std::string (__PRETTY_FUNCTION__)   \
-            + " " + std::string (format);                                     \
+            + " " + std::string (format) + "\n";                              \
       printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
     }                                                                         \
   while (0)
