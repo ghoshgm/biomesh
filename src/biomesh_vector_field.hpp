@@ -57,10 +57,8 @@ public:
   /**
    * @brief Read structured grid data from a vtk file.
    *
-   * The file format can be the legacy vtk format or the
-   * parallel XML format. The XML format is preferable when MPI
-   * is enabled.
-   * Only the structured grid data structure is supported.
+   * Only The legacy VTK file format for structured grid is supported.
+   * The structured data structure is replicated on every MPI rank.
    */
   int load_vtk_grid ();
 
