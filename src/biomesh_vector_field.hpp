@@ -72,7 +72,7 @@ public:
    * The function flags vectors which are not part of the
    * actual muscle geometry.
    */
-  int generate_field ();
+  int preprocess ();
 
 private:
   std::string m_file_name;
