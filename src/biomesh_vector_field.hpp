@@ -11,14 +11,67 @@
 
 namespace biomesh
 {
+/**
+ * @brief Class to load and preprocess vector data from a vtk file.
+ *
+ * The input is a vtk file which encodes the vtk structured
+ * grid data structure. The vertices of the grid cells hold
+ * the vectors ( one vector per vertex ).
+ *
+ * The class performs preprocessing of the vtk data.
+ * The processed vector field will be used for generating
+ * the 1D grids.
+ *
+ * The output is a vtk structured grid which holds all the necessary vector
+ * data for generating muscle fibers (1D grids).
+ */
 class vector_field
 {
 public:
+  /**
+   * Default constructor.
+   *
+   * @param[in] file_name Name of the vtk file.
+   */
   vector_field (const std::string &file_name);
+
+  /**
+   * Copy constructor.
+   *
+   * @param[in] other Instantiated vector field object.
+   */
   vector_field (const vector_field &other);
+
+  /**
+   * Move constructor.
+   *
+   * @param[in] other Instantiated vector field object.
+   */
   vector_field (const vector_field &&other);
+
+  /**
+   * Destructor.
+   */
   ~vector_field ();
+
+  /**
+   * @brief Read structured grid data from a vtk file.
+   *
+   * The file format can be the legacy vtk format or the
+   * parallel XML format. The XML format is preferable when MPI
+   * is enabled.
+   * Only the structured grid data structure is supported.
+   */
   int load_vtk_grid ();
+
+  /**
+   * @brief Preprocess vector data.
+   *
+   * The muscle geometry is enclosed within the structured grid.
+   * Not every vector contributes to the muscle geometry.
+   * The function flags vectors which are not part of the
+   * actual muscle geometry.
+   */
   int generate_field ();
 
 private:
