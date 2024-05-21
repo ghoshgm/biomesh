@@ -47,7 +47,7 @@ public:
    *
    * @param[in] other Instantiated vector field object.
    */
-  vector_field (const vector_field &&other);
+  vector_field (vector_field &&other);
 
   /**
    * Destructor.
