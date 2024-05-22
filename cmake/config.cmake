@@ -35,13 +35,17 @@ check_include_file_cxx("algorithm" HAVE_ALGORITHM_H)
 check_include_file_cxx("vector" HAVE_VECTOR_H)
 
 # Set macros for configure macros.
-if(mpi)
+if(ENABLE_MPI)
   set(BIOMESH_ENABLE_MPI 1)
   set(BIOMESH_CC \"${MPI_C_COMPILER}\")
   set(BIOMESH_CPP \"${MPI_CXX_COMPILER}\")
 else()
   set(BIOMESH_CC \"${CMAKE_C_COMPILER}\")
   set(BIOMESH_CPP \"${CMAKE_CXX_COMPILER}\")
+endif()
+
+if(ENABLE_3D)
+  set(BIOMESH_ENABLE_3D 1)
 endif()
 
 set(BIOMESH_CPPFLAGS \"${CMAKE_CXX_FLAGS}\")

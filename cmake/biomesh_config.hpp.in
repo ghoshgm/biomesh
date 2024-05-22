@@ -8,3 +8,5 @@
 #cmakedefine BIOMESH_ENABLE_DEBUG 1
 
 #cmakedefine BIOMESH_ENABLE_MPI 1
+
+#cmakedefine BIOMESH_ENABLE_3D 1

@@ -1,5 +1,5 @@
 
-if(mpi)
+if(ENABLE_MPI)
   # Test for MPI installation.
   add_executable(test_mpi test_mpi.cpp)
   target_include_directories(test_mpi PUBLIC ${MPI_CXX_INCLUDE_DIRS})
