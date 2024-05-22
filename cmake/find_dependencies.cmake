@@ -1,5 +1,5 @@
 
-if(mpi)
+if(ENABLE_MPI)
  find_package(MPI REQUIRED)
 endif()
 
