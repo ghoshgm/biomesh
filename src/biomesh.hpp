@@ -36,12 +36,12 @@ public:
   /**
    * Get the set of vertices for this fiber.
    */
-  std::vector<vertex> get_vertices ();
+  std::vector<vertex> get_vertices () const;
 
   /**
    * Get the vertex at a specified index.
    */
-  vertex operator[] (int index);
+  vertex operator[] (int index) const;
 
 private:
   std::vector<vertex> m_vset; /* Set of vertices. */
