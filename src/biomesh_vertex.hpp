@@ -4,32 +4,32 @@
 
 /**
  * @brief Class for cartesian coordinates.
-*/
+ */
 class vertex
 {
 public:
   /**
    * Default constructor.
-  */
-  vertex();
+   */
+  vertex ();
 
   /**
    * Custom constructor.
-  */
-  vertex(double x, double y
+   */
+  vertex (double x, double y
 #ifdef BIOMESH_ENABLE_3D
-    ,double z
+          ,
+          double z
 #endif
   );
 
   /**
    * Getter for co-ordinate in the X,Y,Z direction.
-  */
-  double operator()(char dir);
+   */
+  double operator() (char dir);
 
 private:
   double m_x, m_y, m_z; /* Cartesian coordinates. */
 };
-
 
 #endif
