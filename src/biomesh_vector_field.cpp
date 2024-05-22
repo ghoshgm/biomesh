@@ -10,17 +10,17 @@ vector_field::vector_field (const std::string &file_name)
 {
 }
 
-vector_field::vector_field(const vector_field& other)
+vector_field::vector_field (const vector_field &other)
 {
   this->m_file_name = other.m_file_name;
-  this->m_sgrid->DeepCopy(other.m_sgrid);
+  this->m_sgrid->DeepCopy (other.m_sgrid);
 }
 
-vector_field::vector_field(vector_field&& other)
+vector_field::vector_field (vector_field &&other)
 {
   this->m_file_name = other.m_file_name;
-  other.m_file_name.clear();
-  this->m_sgrid->ShallowCopy(other.m_sgrid);
+  other.m_file_name.clear ();
+  this->m_sgrid->ShallowCopy (other.m_sgrid);
 }
 
 vector_field::~vector_field () {}
