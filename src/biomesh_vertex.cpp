@@ -33,8 +33,10 @@ vertex::operator() (char dir) const
     return m_x;
   if (dir == 'y')
     return m_y;
+#ifdef BIOMESH_ENABLE_3D
   if (dir == 'z')
     return m_z;
+#endif
 }
 
 static bool
@@ -51,9 +53,8 @@ dcomp (double num1, double num2, int max_ulps)
       0x80000000 - num2_int;
     }
   int64_t diff = std::abs (num1_int - num2_int);
-  if (diff <= max_ulps)
-    return true;
-  return false;
+
+  return (diff <= max_ulps) ? true : false;
 }
 
 bool
@@ -61,8 +62,9 @@ vertex::operator== (const vertex &other) const
 {
   return (dcomp (this->m_x, other.m_x, 1) && dcomp (this->m_y, other.m_y, 1)
 #ifdef BIOMESH_ENABLE_3D
-          && dcomp (this->m_x, other.m_x, 1));
+          && dcomp (this->m_z, other.m_z, 1))
 #endif
+      ;
 }
 
-}
+} // namespace biomesh

@@ -23,7 +23,7 @@ public:
    *
    * @param[in] x The x coordiante.
    * @param[in] y The y coordiante.
-   * @param[in] z The z coordiante.
+   * @param[in] z The z coordiante. (Only if 3D is enabled.)
    */
   vertex (double x, double y
 #ifdef BIOMESH_ENABLE_3D
@@ -37,7 +37,7 @@ public:
    *
    * Set dir to 'x' for x coordinate.
    * Set dir to 'y' for y coordinate.
-   * Set dir to 'z' for z coordinate.
+   * Set dir to 'z' for z coordinate. (Only if 3D is enabled.)
    *
    * @param[in] dir The coordinate direction.
    */

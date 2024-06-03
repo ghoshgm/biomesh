@@ -55,4 +55,4 @@ vector_field::load_vtk_grid ()
 
   return (m_sgrid != nullptr) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
-}
+} // namespace biomesh
