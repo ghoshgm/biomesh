@@ -44,10 +44,6 @@ else()
   set(BIOMESH_CPP \"${CMAKE_CXX_COMPILER}\")
 endif()
 
-if(ENABLE_3D)
-  set(BIOMESH_ENABLE_3D 1)
-endif()
-
 set(BIOMESH_CPPFLAGS \"${CMAKE_CXX_FLAGS}\")
 
 if(CMAKE_BUILD_TYPE MATCHES "debug")
