@@ -9,10 +9,17 @@ namespace biomesh
 
 /**
  * Derived class for 2D vertices/points in the Eucledian space.
-*/
+ */
 class vertex2D : public vertex
 {
 public:
+  /**
+   * Default constructor.
+   *
+   * Sets the coordinates to 0.
+   */
+  vertex2D ();
+
   /**
    * Constructor.
    *
