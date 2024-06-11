@@ -12,7 +12,7 @@ namespace biomesh
 /**
  * Base class for vertices/points in the Euclidean space.
  * This class defines all basic functions and members.
-*/
+ */
 class vertex
 {
 public:
@@ -34,6 +34,9 @@ public:
    *
    * If this function is called via vertex2D then
    * the Z coordinate will always be 0.
+   *
+   * If dir does not match 'x' or 'y' or 'z' then
+   * DOUBLE_MAX will be returned.
    *
    * @param[in] dir The required coordinates value.
    */

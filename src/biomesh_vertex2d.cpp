@@ -4,6 +4,8 @@
 namespace biomesh
 {
 
+vertex2D::vertex2D () {}
+
 vertex2D::vertex2D (double x, double y)
 {
   m_x = x;
