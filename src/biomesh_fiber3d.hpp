@@ -21,15 +21,35 @@ class fiber3D : public fiber
 public:
   /**
    * Default constructor.
+   */
+  fiber3D ();
+
+  /**
+   * Constructor.
    *
    * @param[in] seed The initial vertex of the fiber.
    */
   fiber3D (const vertex3D &seed);
 
   /**
+   * Copy constructor.
+   */
+  fiber3D (const fiber3D &other);
+
+  /**
+   * Move constructor.
+   */
+  fiber3D (fiber3D &&other);
+
+  /**
    * Destructor.
    */
   ~fiber3D ();
+
+  /**
+   * Function to generate fiber coordinates.
+   */
+  int generate_fiber ();
 
 private:
   vertex3D m_seed;
