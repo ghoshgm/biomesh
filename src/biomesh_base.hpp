@@ -5,6 +5,7 @@
 #include <biomesh_config.hpp>
 #include <cassert>
 #include <cstdio>
+#include <iostream>
 #include <string>
 
 /* Utility macros. */
