@@ -6,8 +6,7 @@
 #include <vtkStructuredGrid.h>
 #include <vtkStructuredGridReader.h>
 
-#include <biomesh.hpp>
-#include <memory>
+#include <biomesh_base.hpp>
 
 namespace biomesh
 {
