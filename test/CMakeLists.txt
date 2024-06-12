@@ -12,6 +12,11 @@ add_executable(test_vtk test_vtk.cpp)
 target_link_libraries(test_vtk PUBLIC ${VTK_LIBRARIES})
 add_test(NAME test_vtk COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_vtk)
 
+# Test for Eigen installation.
+add_executable(test_eigen test_eigen.cpp)
+target_link_libraries(test_eigen PUBLIC Eigen3::Eigen)
+add_test(NAME test_eigen COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_eigen)
+
 # Test for VTK structured grid reader.
 add_executable(test_vtk_structured_grid test_vtk_structured_grid.cpp)
 target_include_directories(test_vtk_structured_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
