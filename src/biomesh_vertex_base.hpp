@@ -2,6 +2,7 @@
 #ifndef BIOMESH_VERTEX_BASE_HPP
 #define BIOMESH_VERTEX_BASE_HPP
 
+#include <Eigen/Dense>
 #include <limits>
 
 #include <biomesh_base.hpp>
@@ -50,7 +51,7 @@ public:
   bool operator== (const vertex &other) const;
 
 protected:
-  double m_x, m_y, m_z; /* The coordinate values. */
+  Eigen::Vector3d m_position; /* The X,Y,Z coordinates of the vertex. */
 };
 
 } // namespace biomesh

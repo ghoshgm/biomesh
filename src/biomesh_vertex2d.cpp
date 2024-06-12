@@ -8,8 +8,8 @@ vertex2D::vertex2D () {}
 
 vertex2D::vertex2D (double x, double y)
 {
-  m_x = x;
-  m_y = y;
+  m_position (0) = x;
+  m_position (1) = y;
 }
 
 vertex2D::~vertex2D () {}

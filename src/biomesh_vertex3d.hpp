@@ -14,6 +14,11 @@ class vertex3D : public vertex
 {
 public:
   /**
+   * Default constructor.
+   */
+  vertex3D ();
+
+  /**
    * Constructor.
    *
    * @param[in] x The X coordinate
