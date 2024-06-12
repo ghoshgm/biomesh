@@ -1,17 +1,14 @@
 
 #include <iostream>
 #include <Eigen/Dense>
-
-using Eigen::MatrixXd;
+#include <cassert>
 
 int main()
 {
-  MatrixXd m(2,2);
-  m(0,0) = 3;
-  m(1,0) = 2.4;
-  m(0,1) = -1;
-  m(1,1) = 0;
-  std::cout << m << std::endl;
+  Eigen::Vector2d v1(0.99,2.0);
+  Eigen::Vector2d v2(0.998,2.0);
+
+  assert(v1 != v2);
 
   return EXIT_SUCCESS;
 }
