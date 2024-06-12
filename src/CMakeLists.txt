@@ -14,4 +14,5 @@ target_include_directories(biomesh PUBLIC ${PROJECT_SOURCE_DIR}/src
 target_link_libraries(biomesh PUBLIC
 $<$<BOOL:${MPI_CXX_FOUND}>:${MPI_CXX_LIBRARIES}>
                            ${VTK_LIBRARIES}
+                           Eigen3::Eigen
                      )
