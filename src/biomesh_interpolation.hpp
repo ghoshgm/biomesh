@@ -21,6 +21,7 @@ namespace interpolation
  *
  * The numbering is assumed to be CCW.
  * The start is assumed to be the lower left vertex of the rectangle.
+ * The lower left vertex should have the lowest X,Y coordinates.
  *
  * @param[in] vertex_min The vertex with the lowest X,Y coorindates.
  * @param[in] vertex_max The vertex with the highest X,Y coorindates.
