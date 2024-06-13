@@ -26,4 +26,10 @@ fiber3D::generate_fiber ()
 {
 }
 
+bool
+fiber3D::operator== (const fiber3D &other) const
+{
+  return this->m_seed == other.m_seed;
+}
+
 } // namespace biomesh
