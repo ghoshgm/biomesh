@@ -56,6 +56,11 @@ public:
    */
   int generate_fiber ();
 
+  /**
+   * Test equality of two fibers.
+   */
+  bool operator== (const fiber2D &other) const;
+
 private:
   vertex2D m_seed;
   std::vector<vertex2D> m_fiber_vertices;
