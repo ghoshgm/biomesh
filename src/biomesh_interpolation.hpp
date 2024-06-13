@@ -5,6 +5,7 @@
 #include <biomesh_base.hpp>
 #include <biomesh_vertex2d.hpp>
 #include <biomesh_vertex3d.hpp>
+#include <cmath>
 
 /**
  * File for interpolation methods in 2D/3D.
