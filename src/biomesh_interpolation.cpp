@@ -18,7 +18,7 @@ bilinear (const vertex2D &vertex_min, const vertex2D &vertex_max,
 
   double ymax_diff = vertex_max ('y') - probe ('y');
   double ymin_diff = probe ('y') - vertex_min ('y');
-  Eigen::Matrix<double, 2, 1> y_vec{ { xmax_diff }, { xmin_diff } };
+  Eigen::Matrix<double, 2, 1> y_vec{ { ymax_diff }, { ymin_diff } };
 
   Eigen::Matrix2d scalars;
   scalars (0, 0) = scalar1;
