@@ -15,4 +15,5 @@ target_link_libraries(biomesh PUBLIC
 $<$<BOOL:${MPI_CXX_FOUND}>:${MPI_CXX_LIBRARIES}>
                            ${VTK_LIBRARIES}
                            Eigen3::Eigen
+                           ${JSONCPP_LIBRARIES}
                      )
