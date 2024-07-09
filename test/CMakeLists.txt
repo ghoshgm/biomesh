@@ -34,3 +34,8 @@ add_executable(test_interpolation test_interpolation.cpp)
 target_include_directories(test_interpolation PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_interpolation PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen)
 add_test(NAME test_interpolation COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_interpolation)
+
+# Test for jsoncpp installation.
+add_executable(test_jsoncpp test_json.cpp)
+target_link_libraries(test_jsoncpp PUBLIC ${JSONCPP_LIBRARIES})
+add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp)
