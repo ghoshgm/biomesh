@@ -38,4 +38,4 @@ add_test(NAME test_interpolation COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_interp
 # Test for jsoncpp installation.
 add_executable(test_jsoncpp test_json.cpp)
 target_link_libraries(test_jsoncpp PUBLIC ${JSONCPP_LIBRARIES})
-add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp)
+add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp ${CMAKE_SOURCE_DIR}/test/read_sample.json)
