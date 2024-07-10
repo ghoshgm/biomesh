@@ -6,9 +6,9 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/json.h>
 
-int main()
+int main(int argc, char** argv)
 {
-  std::ifstream file("/home/ghoshgm/Desktop/dev/biomesh/test/read_sample.json");
+  std::ifstream file(argv[1]);
   assert(file.is_open());
 
   Json::Value val;
