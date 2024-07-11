@@ -3,23 +3,13 @@
 #include <fstream>
 #include <string>
 #include <cassert>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/json.h>
+#include <biomesh_json_parser.hpp>
 
 int main(int argc, char** argv)
 {
-  std::ifstream file(argv[1]);
-  assert(file.is_open());
-
-  Json::Value val;
-  Json::Reader reader;
-
-  reader.parse(file,val);
-
-  std::cout << val << std::endl;
-  std::cout << val["x"] << std::endl;
-  std::cout << val["y"] << std::endl;
-  std::cout << val["z"] << std::endl;
+  biomesh::json_parser jp(argv[1]);
+  int ret = jp.read();
+  assert(ret == true);
 
   return EXIT_SUCCESS;
 }
