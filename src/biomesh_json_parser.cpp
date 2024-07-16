@@ -22,6 +22,7 @@ json_parser::read ()
   BIOMESH_ASSERT (success == true);
 
   m_file.close ();
+  BIOMESH_ASSERT (!m_file.is_open ());
 
   return (success == true) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
