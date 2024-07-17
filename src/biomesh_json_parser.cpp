@@ -18,7 +18,7 @@ json_parser::read ()
   BIOMESH_ASSERT (m_file.is_open ());
 
   Json::Reader reader;
-  bool success = reader.parse (m_file, m_data);
+  bool success = reader.parse (m_file, m_jstring);
   BIOMESH_ASSERT (success == true);
 
   m_file.close ();
@@ -28,9 +28,9 @@ json_parser::read ()
 }
 
 Json::Value
-json_parser::get_json_data () const
+json_parser::get_json_string () const
 {
-  return m_data;
+  return m_jstring;
 }
 
 }

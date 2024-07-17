@@ -14,7 +14,7 @@ namespace biomesh
 class json_parser
 {
 private:
-  Json::Value m_data;
+  Json::Value m_jstring;
   std::string m_file_name;
 
 public:
@@ -36,9 +36,9 @@ public:
   int read ();
 
   /**
-   * Function to retrive the data object obtained from the JSON file.
+   * Function to retrive JSON string from the JSON file.
    */
-  Json::Value get_json_data () const;
+  Json::Value get_json_string () const;
 };
 
 }
