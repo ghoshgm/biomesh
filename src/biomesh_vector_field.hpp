@@ -71,6 +71,8 @@ public:
    */
   int preprocess ();
 
+  vtkSmartPointer<vtkStructuredGrid> get_grid () const;
+
 private:
   std::string m_file_name;
   vtkSmartPointer<vtkStructuredGrid> m_sgrid;

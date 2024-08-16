@@ -52,11 +52,6 @@ public:
   ~fiber2D ();
 
   /**
-   * Function to generate fiber coordinates.
-   */
-  int generate_fiber ();
-
-  /**
    * Test equality of two fibers.
    */
   bool operator== (const fiber2D &other) const;

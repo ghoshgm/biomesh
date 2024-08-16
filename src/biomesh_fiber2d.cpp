@@ -21,11 +21,6 @@ fiber2D::fiber2D (fiber2D &&other)
 
 fiber2D::~fiber2D () {}
 
-int
-fiber2D::generate_fiber ()
-{
-}
-
 bool
 fiber2D::operator== (const fiber2D &other) const
 {
