@@ -55,4 +55,11 @@ vector_field::load_vtk_grid ()
 
   return (m_sgrid != nullptr) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
+
+vtkSmartPointer<vtkStructuredGrid>
+vector_field::get_grid () const
+{
+  return m_sgrid;
+}
+
 } // namespace biomesh
