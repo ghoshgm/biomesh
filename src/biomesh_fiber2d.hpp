@@ -56,6 +56,11 @@ public:
    */
   bool operator== (const fiber2D &other) const;
 
+  /**
+   * Generate fiber coordinates.
+   */
+  int generate_fiber (const vector_field &vfield, size_t fpoint_count);
+
 private:
   vertex2D m_seed;
   std::vector<vertex2D> m_fiber_vertices;
