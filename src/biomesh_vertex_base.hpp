@@ -50,6 +50,16 @@ public:
    */
   bool operator== (const vertex &other) const;
 
+  /**
+   * Copy assignment operator.
+   */
+  void operator= (const vertex &other);
+
+  /**
+   * Print coordinates.
+   */
+  void print ();
+
 protected:
   Eigen::Vector3d m_position; /* The X,Y,Z coordinates of the vertex. */
 };

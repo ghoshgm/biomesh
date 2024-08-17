@@ -28,4 +28,17 @@ vertex::operator== (const vertex &other) const
   return (this->m_position == other.m_position);
 }
 
+void
+vertex::operator= (const vertex &other)
+{
+  m_position = other.m_position;
+}
+
+void
+vertex::print ()
+{
+  std::cout << "x: " << m_position (0) << " y: " << m_position (1)
+            << " z: " << m_position (2) << std::endl;
+}
+
 } // namespace biomesh

@@ -13,7 +13,8 @@ int
 fiber_grid2D::generate_fiber_grid (const vector_field &vfield,
                                    size_t fpoint_count)
 {
-  m_jparser.read ();
+  int ret = m_jparser.read ();
+  BIOMESH_ASSERT (ret == true);
   auto data = m_jparser.get_json_string ();
   m_fiber_count = data["seed_points"].size ();
   BIOMESH_ASSERT (m_fiber_count > 0);
