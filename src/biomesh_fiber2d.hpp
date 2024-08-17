@@ -57,7 +57,11 @@ public:
   bool operator== (const fiber2D &other) const;
 
   /**
-   * Generate fiber coordinates.
+   * Generate fiber.
+   *
+   * @param[in] vfield The vector field which will be used to interpolate grid
+   * point in a fiber.
+   * @param[in] fpoint_count The number of grid points on a single grid.
    */
   void generate_fiber (const vector_field &vfield, size_t fpoint_count);
 

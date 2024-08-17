@@ -18,9 +18,17 @@
 
 namespace biomesh
 {
+/**
+ * @brief Base class for fiber grid class.
+ * The fiber grid is the collection of the all the fibers
+ * in the muscle geometry.
+ */
 class fiber_grid
 {
 protected:
+  /**
+   * Default constructor.
+   */
   fiber_grid ();
 
 protected:
