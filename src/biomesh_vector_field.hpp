@@ -71,6 +71,9 @@ public:
    */
   int preprocess ();
 
+  /**
+   * Getter to the underlying VTK structured grid.
+   */
   vtkSmartPointer<vtkStructuredGrid> get_grid () const;
 
 private:
