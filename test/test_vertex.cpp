@@ -32,5 +32,16 @@ int main()
   std::cout << v1('x') << " " << v1('y') << " " << v1('z') << std::endl;
   std::cout << v4('x') << " " << v4('y') << " " << v4('z') << std::endl;
 
+  /* Test for copy assignment. */
+  vertex2D v2d_original(1.0,2.0);
+  vertex2D v2d_copy;
+  v2d_copy = v2d_original;
+  assert(v2d_copy == v2d_original);
+
+  vertex3D v3d_original(1.0,2.0,3.0);
+  vertex3D v3d_copy;
+  v3d_copy = v3d_original;
+  assert(v3d_copy == v3d_original);
+
   return EXIT_SUCCESS;
 }

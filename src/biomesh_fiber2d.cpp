@@ -27,63 +27,56 @@ fiber2D::operator== (const fiber2D &other) const
   return this->m_seed == other.m_seed;
 }
 
-int
+void
 fiber2D::generate_fiber (const vector_field &vfield, size_t fpoint_count)
 {
-#if 0
-      /* Obtain the structured grid. */
-      auto sgrid = vfield.get_grid ();
+  /* Obtain the structured grid. */
+  auto sgrid = vfield.get_grid ();
+  BIOMESH_ASSERT (sgrid != nullptr);
 
-      /* Loop over the starter cells. */
-      for (size_t ii = 0; ii < 1; ++ii)
+  /* Loop over the starter cells. */
+  for (size_t ii = 0; ii < 1; ++ii)
+    {
+      /* Grab the cell. */
+      vtkCell *cell = sgrid->GetCell (ii);
+      BIOMESH_ASSERT (cell != nullptr);
+
+      /* Grab min vertex. */
+      vertex2D l1 ((sgrid->GetPoint (0))[0], (sgrid->GetPoint (0))[1]);
+      /* Grab max vertex. */
+      vertex2D l3 ((sgrid->GetPoint (3))[0], (sgrid->GetPoint (3))[1]);
+
+      /* Grab the vectors. */
+      vtkIdList *pids = cell->GetPointIds ();
+      BIOMESH_ASSERT (pids != nullptr);
+      int arridx = 1;
+      vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+      BIOMESH_ASSERT (pids != nullptr);
+      double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
+      double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
+      double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
+      double v2y = (da->GetTuple3 (pids->GetId (1)))[1];
+      double v3x = (da->GetTuple3 (pids->GetId (2)))[0];
+      double v3y = (da->GetTuple3 (pids->GetId (2)))[1];
+      double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
+      double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
+
+      /* Iteratively generate grid point on every fiber. */
+      vertex2D m_next = m_seed;
+      for (size_t jj = 0; jj < fpoint_count; ++jj)
         {
-          /* Grab the cell. */
-          vtkCell *cell = sgrid->GetCell (ii);
+          double x
+              = interpolation::bilinear (l1, l3, m_next, v1x, v2x, v3x, v4x);
+          double y
+              = interpolation::bilinear (l1, l3, m_next, v1y, v2y, v3y, v4y);
 
-          /* Grab the locations of the vectors. */
-          double* l1 = sgrid->GetPoint(0);
-          //vertex v1(l1[0],l1[1]);
-          double* l2 = sgrid->GetPoint(1);
-          double* l3 = sgrid->GetPoint(3);
-          double* l4 = sgrid->GetPoint(2);
+          vertex2D temp (x, y);
+          temp.print ();
+          m_fiber_vertices.push_back (temp);
 
-          vtkIdList *pids = cell->GetPointIds ();
-
-          
-
-          /* Generate grid point on the fiber. */
-          for (size_t jj = 0; jj < fpoint_count; ++jj)
-            {
-            }
+          m_next = temp;
         }
-#endif
-
-#if 0
-      for(int cidx = 0; cidx < 1; ++cidx)
-      {
-        
-      }
-
-      /* TODO: Move this for-loop into fiber class.
-         Otherwise it would be difficult to test for 2D and 3D.
-         For now this only works for 2D.      
-       */
-      for(size_t jj = 0; jj < fpoint_count; ++jj)
-      {
-        /* seed point. */
-        vertex seed (x, y, z);
-
-        /* Next computed vertex. */
-        vertex next;
-
-        /* Initialize fiber. */
-        m_fiber_set[ii](seed);
-
-        /* Bilinear interpolation. */
-        //double x = interpolation::bilinear();
-        //double y = interpolation::bilinear();
-      }
-#endif
+    }
 }
 
 } // namespace biomesh

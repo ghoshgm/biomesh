@@ -14,14 +14,10 @@ bilinear (const vertex2D &vertex_min, const vertex2D &vertex_max,
 {
   double xmax_diff = vertex_max ('x') - probe ('x');
   double xmin_diff = probe ('x') - vertex_min ('x');
-  BIOMESH_ASSERT (xmax_diff > 0.0);
-  BIOMESH_ASSERT (xmin_diff > 0.0);
   Eigen::Matrix<double, 1, 2> x_vec{ { xmax_diff, xmin_diff } };
 
   double ymax_diff = vertex_max ('y') - probe ('y');
   double ymin_diff = probe ('y') - vertex_min ('y');
-  BIOMESH_ASSERT (ymax_diff > 0.0);
-  BIOMESH_ASSERT (ymin_diff > 0.0);
   Eigen::Matrix<double, 2, 1> y_vec{ { ymax_diff }, { ymin_diff } };
 
   Eigen::Matrix2d scalars;

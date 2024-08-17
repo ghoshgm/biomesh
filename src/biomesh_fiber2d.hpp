@@ -59,7 +59,7 @@ public:
   /**
    * Generate fiber coordinates.
    */
-  int generate_fiber (const vector_field &vfield, size_t fpoint_count);
+  void generate_fiber (const vector_field &vfield, size_t fpoint_count);
 
 private:
   vertex2D m_seed;
