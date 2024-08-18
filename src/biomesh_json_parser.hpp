@@ -39,6 +39,22 @@ public:
    * Function to retrive JSON string from the JSON file.
    */
   Json::Value get_json_string () const;
+
+  /**
+   * @brief Function to export fiber grid to JSON format.
+   *
+   * This function should be only called when the computation
+   * of fibers is completed.
+   *
+   * The default directory for the generated JSON file
+   * is the build directory.
+   *
+   * @param[in] fiber_grid The vector of fibers computed by libbiomesh.
+   * @param[in] file_name The desired name of the JSON file.
+   */
+  template <typename fiber>
+  void export_fiber_grid_json (std::vector<fiber> &fiber_grid,
+                               std::string &file_name);
 };
 
 }

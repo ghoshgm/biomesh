@@ -55,6 +55,18 @@ public:
   ~fiber2D ();
 
   /**
+   * Return the grid point count.
+   */
+  size_t size () const;
+
+  /**
+   * Return vertex at the specified index.
+   *
+   * @param[in] idx The index at which fiber vertex is located.
+   */
+  vertex2D operator[] (int idx) const;
+
+  /**
    * Test equality of two fibers.
    */
   bool operator== (const fiber2D &other) const;

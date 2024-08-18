@@ -35,6 +35,19 @@ fiber3D::generate_fiber ()
 {
 }
 
+size_t
+fiber3D::size () const
+{
+  return m_gpoint_count;
+}
+
+vertex3D
+fiber3D::operator[] (int idx) const
+{
+  BIOMESH_ASSERT (idx >= 0 && idx < m_gpoint_count);
+  return m_fiber_vertices[idx];
+}
+
 bool
 fiber3D::operator== (const fiber3D &other) const
 {

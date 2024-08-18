@@ -1,6 +1,9 @@
 
 #include "biomesh_json_parser.hpp"
 
+#include <biomesh_fiber2d.hpp>
+#include <biomesh_fiber3d.hpp>
+
 namespace biomesh
 {
 
@@ -33,4 +36,30 @@ json_parser::get_json_string () const
   return m_jstring;
 }
 
+template <typename fiber>
+void
+json_parser::export_fiber_grid_json (std::vector<fiber> &fiber_grid,
+                                     std::string &file_name)
+{
+  std::ofstream file_id;
+  Json::Value fiber_root;
+  Json::StyledWriter writer;
+  std::vector<Json::Value> jfiber;
+
+  for (int ii = 0; ii < fiber_grid.size (); ++ii)
+    {
+      std::string fiber_name = "fiber" + std::to_string (ii);
+      for (int jj = 0; jj < fiber_grid[ii].size (); ++jj)
+        {
+          jfiber[ii][jj]["x"] = fiber_grid[ii][jj]('x');
+          jfiber[ii][jj]["y"] = fiber_grid[ii][jj]('y');
+          jfiber[ii][jj]["z"] = fiber_grid[ii][jj]('z');
+        }
+      fiber_root[fiber_name] = jfiber[ii];
+    }
+
+  file_id.open (file_name);
+  file_id << writer.write (fiber_root);
+  file_id.close ();
+}
 }
