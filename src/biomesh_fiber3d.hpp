@@ -22,14 +22,14 @@ public:
   /**
    * Default constructor.
    */
-  fiber3D ();
+  fiber3D (size_t gpoint_count);
 
   /**
    * Constructor.
    *
    * @param[in] seed The initial vertex of the fiber.
    */
-  fiber3D (const vertex3D &seed);
+  fiber3D (const vertex3D &seed, size_t gpoint_count);
 
   /**
    * Copy constructor.
@@ -58,6 +58,7 @@ public:
 
 private:
   vertex3D m_seed;
+  size_t m_gpoint_count;
   std::vector<vertex3D> m_fiber_vertices;
 };
 

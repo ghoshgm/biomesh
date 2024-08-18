@@ -21,15 +21,18 @@ class fiber2D : public fiber
 public:
   /**
    * Default constructor.
+   *
+   * @param[in] gpoint_count The number of grid points on fiber.
    */
-  fiber2D ();
+  fiber2D (size_t gpoint_count);
 
   /**
    * Constructor.
    *
    * @param[in] seed The initial vertex of the fiber.
+   * @param[in] gpoint_count The number of grid points on fiber.
    */
-  fiber2D (const vertex2D &seed);
+  fiber2D (const vertex2D &seed, size_t gpoint_count);
 
   /**
    * Copy constructor.
@@ -67,6 +70,7 @@ public:
 
 private:
   vertex2D m_seed;
+  size_t m_gpoint_count;
   std::vector<vertex2D> m_fiber_vertices;
 };
 
