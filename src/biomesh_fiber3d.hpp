@@ -47,6 +47,18 @@ public:
   ~fiber3D ();
 
   /**
+   * Return the grid point count.
+   */
+  size_t size () const;
+
+  /**
+   * Return vertex at the specified index.
+   *
+   * @param[in] idx The index at which fiber vertex is located.
+   */
+  vertex3D operator[] (int idx) const;
+
+  /**
    * Function to generate fiber coordinates.
    */
   int generate_fiber ();

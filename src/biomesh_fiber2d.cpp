@@ -30,6 +30,19 @@ fiber2D::fiber2D (fiber2D &&other)
 
 fiber2D::~fiber2D () {}
 
+size_t
+fiber2D::size () const
+{
+  return m_gpoint_count;
+}
+
+vertex2D
+fiber2D::operator[] (int idx) const
+{
+  BIOMESH_ASSERT (idx >= 0 && idx < m_gpoint_count);
+  return m_fiber_vertices[idx];
+}
+
 bool
 fiber2D::operator== (const fiber2D &other) const
 {
