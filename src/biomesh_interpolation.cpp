@@ -22,9 +22,9 @@ bilinear (const vertex2D &vertex_min, const vertex2D &vertex_max,
 
   Eigen::Matrix2d scalars;
   scalars (0, 0) = scalar1;
-  scalars (0, 1) = scalar3;
+  scalars (0, 1) = scalar4;
   scalars (1, 0) = scalar2;
-  scalars (1, 1) = scalar4;
+  scalars (1, 1) = scalar3;
 
   double xdiff = vertex_max ('x') - vertex_min ('x');
   double ydiff = vertex_max ('y') - vertex_min ('y');
