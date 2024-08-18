@@ -31,8 +31,7 @@ public:
   /**
    * Function to generate the fiber coordinates.
    */
-  virtual void generate_fiber (const vector_field &vfield, size_t fpoint_count)
-      = 0;
+  virtual void generate_fiber (const vector_field &vfield) = 0;
 };
 
 } // namespace biomesh

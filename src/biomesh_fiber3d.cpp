@@ -6,12 +6,14 @@ namespace biomesh
 fiber3D::fiber3D (size_t gpoint_count) : m_gpoint_count{ gpoint_count }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
+  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber3D::fiber3D (const vertex3D &seed, size_t gpoint_count)
     : m_seed{ seed }, m_gpoint_count{ gpoint_count }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
+  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber3D::fiber3D (const fiber3D &other)

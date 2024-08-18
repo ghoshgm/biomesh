@@ -6,12 +6,14 @@ namespace biomesh
 fiber2D::fiber2D (size_t gpoint_count) : m_gpoint_count{ gpoint_count }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
+  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber2D::fiber2D (const vertex2D &seed, size_t gpoint_count)
     : m_seed{ seed }, m_gpoint_count{ gpoint_count }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
+  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber2D::fiber2D (const fiber2D &other)
@@ -35,7 +37,7 @@ fiber2D::operator== (const fiber2D &other) const
 }
 
 void
-fiber2D::generate_fiber (const vector_field &vfield, size_t fpoint_count)
+fiber2D::generate_fiber (const vector_field &vfield)
 {
   /* Obtain the structured grid. */
   auto sgrid = vfield.get_grid ();
@@ -49,9 +51,9 @@ fiber2D::generate_fiber (const vector_field &vfield, size_t fpoint_count)
       BIOMESH_ASSERT (cell != nullptr);
 
       /* Grab min vertex. */
-      vertex2D l1 ((sgrid->GetPoint (0))[0], (sgrid->GetPoint (0))[1]);
+      vertex2D lmin ((sgrid->GetPoint (0))[0], (sgrid->GetPoint (0))[1]);
       /* Grab max vertex. */
-      vertex2D l3 ((sgrid->GetPoint (3))[0], (sgrid->GetPoint (3))[1]);
+      vertex2D lmax ((sgrid->GetPoint (3))[0], (sgrid->GetPoint (3))[1]);
 
       /* Grab the vectors. */
       vtkIdList *pids = cell->GetPointIds ();
@@ -70,12 +72,12 @@ fiber2D::generate_fiber (const vector_field &vfield, size_t fpoint_count)
 
       /* Iteratively generate grid point on every fiber. */
       vertex2D m_next = m_seed;
-      for (size_t jj = 0; jj < fpoint_count; ++jj)
+      for (size_t jj = 0; jj < m_gpoint_count - 1; ++jj)
         {
-          double x
-              = interpolation::bilinear (l1, l3, m_next, v1x, v2x, v3x, v4x);
-          double y
-              = interpolation::bilinear (l1, l3, m_next, v1y, v2y, v3y, v4y);
+          double x = interpolation::bilinear (lmin, lmax, m_next, v1x, v2x,
+                                              v3x, v4x);
+          double y = interpolation::bilinear (lmin, lmax, m_next, v1y, v2y,
+                                              v3y, v4y);
 
           vertex2D temp (x, y);
           temp.print ();

@@ -18,6 +18,7 @@ fiber_grid2D::generate_fiber_grid (const vector_field &vfield,
   auto data = m_jparser.get_json_string ();
   m_fiber_count = data["seed_points"].size ();
   BIOMESH_ASSERT (m_fiber_count > 0);
+  m_fiber_set.reserve (m_fiber_count);
 
   /* Loop over the fibers. */
   for (size_t fcount = 0; fcount < m_fiber_count; ++fcount)
@@ -28,13 +29,13 @@ fiber_grid2D::generate_fiber_grid (const vector_field &vfield,
       vertex2D seed (x, y);
 
       /* Initialize the fiber. */
-      fiber2D fiber (seed);
+      fiber2D fiber (seed, fpoint_count);
 
       /* Generate fiber. */
-      fiber.generate_fiber (vfield, fpoint_count);
+      fiber.generate_fiber (vfield);
 
       /* Push fiber to fiber grid. */
-      m_fiber_set.push_back (fiber);
+      m_fiber_set.emplace_back (fiber);
     }
 
   return BIOMESH_SUCCESS;
