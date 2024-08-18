@@ -8,5 +8,5 @@ POINTS 4 float
 1 1 0 
 POINT_DATA 4
 VECTORS vectors double
-0.1 0 0 1.1 0 0 0.1 0 0 
-1.1 0 0 
+0.1 0 0 1.1 0 0 0.1 1 0 
+1.1 1 0 
