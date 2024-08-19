@@ -31,6 +31,18 @@ public:
    */
   int generate_fiber_grid (const vector_field &vfield, size_t fpoint_count);
 
+  /**
+   * Return the fiber at the specified index.
+   *
+   * @param[in] idx The index at which fiber needs to retrieved.
+   */
+  fiber2D operator[] (int idx) const;
+
+  /**
+   * Return the fiber count.
+   */
+  size_t size () const;
+
 private:
   json_parser m_jparser;
   std::vector<fiber2D> m_fiber_set; /* Set of 1D fiber grids. */

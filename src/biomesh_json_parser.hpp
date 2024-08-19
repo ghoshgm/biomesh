@@ -19,6 +19,11 @@ private:
 
 public:
   /**
+   * Default constructor.
+   */
+  json_parser ();
+
+  /**
    * Constructor.
    *
    * @param[in] file_name The path to json file.
@@ -51,10 +56,11 @@ public:
    *
    * @param[in] fiber_grid The vector of fibers computed by libbiomesh.
    * @param[in] file_name The desired name of the JSON file.
+   * This is just the name of the file and not the path to the file.
    */
-  template <typename fiber>
-  void export_fiber_grid_json (std::vector<fiber> &fiber_grid,
-                               std::string &file_name);
+  template <class T>
+  void export_fiber_grid_json (const T &fiber_grid,
+                               std::string file_name) const;
 };
 
 }
