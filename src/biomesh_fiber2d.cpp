@@ -56,6 +56,8 @@ fiber2D::generate_fiber (const vector_field &vfield)
   auto sgrid = vfield.get_grid ();
   BIOMESH_ASSERT (sgrid != nullptr);
 
+  BIOMESH_LINFO (0, "Fiber begin.");
+
   /* Loop over the starter cells. */
   for (size_t ii = 0; ii < 1; ++ii)
     {
@@ -93,13 +95,14 @@ fiber2D::generate_fiber (const vector_field &vfield)
                                               v3y, v4y);
 
           vertex2D temp (x, y);
-          temp.print ();
           m_fiber_vertices.emplace_back (temp);
 
           m_next = temp;
         }
     }
   BIOMESH_ASSERT (m_fiber_vertices.size () >= 0);
+
+  BIOMESH_LINFO (0, "Fiber end.");
 }
 
 } // namespace biomesh
