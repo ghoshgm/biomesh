@@ -21,6 +21,11 @@ class fiber3D : public fiber
 public:
   /**
    * Default constructor.
+   *
+   * The seed coordinates are set to 0 by default.
+   *
+   * @param[in] gpoint_count The number of grid points on fiber.
+   * Let's say you want 4 grid points then the first point will be the seed.
    */
   fiber3D (size_t gpoint_count);
 
@@ -28,6 +33,8 @@ public:
    * Constructor.
    *
    * @param[in] seed The initial vertex of the fiber.
+   * @param[in] gpoint_count The number of grid points on fiber.
+   * Let's say you want 4 grid points then the first point will be the seed.
    */
   fiber3D (const vertex3D &seed, size_t gpoint_count);
 
