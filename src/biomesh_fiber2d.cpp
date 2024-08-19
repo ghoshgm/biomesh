@@ -75,7 +75,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
       BIOMESH_ASSERT (pids != nullptr);
       int arridx = 1;
       vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-      BIOMESH_ASSERT (pids != nullptr);
+      BIOMESH_ASSERT (da != nullptr);
       double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
       double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
       double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
