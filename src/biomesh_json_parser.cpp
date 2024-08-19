@@ -1,11 +1,12 @@
 
 #include "biomesh_json_parser.hpp"
 
-#include <biomesh_fiber2d.hpp>
-#include <biomesh_fiber3d.hpp>
+#include <biomesh_fiber_grid2D.hpp>
 
 namespace biomesh
 {
+
+json_parser::json_parser () {}
 
 json_parser::json_parser (const std::string &file_name)
     : m_file_name{ file_name }
@@ -36,16 +37,18 @@ json_parser::get_json_string () const
   return m_jstring;
 }
 
-template <typename fiber>
+template <class T>
 void
-json_parser::export_fiber_grid_json (std::vector<fiber> &fiber_grid,
-                                     std::string &file_name)
+json_parser::export_fiber_grid_json (const T &fiber_grid,
+                                     std::string file_name) const
 {
+  BIOMESH_ASSERT (!file_name.empty ());
   std::ofstream file_id;
   Json::Value fiber_root;
   Json::StyledWriter writer;
   std::vector<Json::Value> jfiber;
 
+  jfiber.reserve (fiber_grid.size ());
   for (int ii = 0; ii < fiber_grid.size (); ++ii)
     {
       std::string fiber_name = "fiber" + std::to_string (ii);
@@ -58,8 +61,15 @@ json_parser::export_fiber_grid_json (std::vector<fiber> &fiber_grid,
       fiber_root[fiber_name] = jfiber[ii];
     }
 
+  std::cout << fiber_root << std::endl;
+
   file_id.open (file_name);
+  BIOMESH_ASSERT (file_id.is_open ());
   file_id << writer.write (fiber_root);
   file_id.close ();
 }
+
+template void
+json_parser::export_fiber_grid_json (const fiber_grid2D &fiber_grid,
+                                     std::string file_name) const;
 }

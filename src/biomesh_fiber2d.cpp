@@ -33,13 +33,13 @@ fiber2D::~fiber2D () {}
 size_t
 fiber2D::size () const
 {
-  return m_gpoint_count;
+  return m_fiber_vertices.size ();
 }
 
 vertex2D
 fiber2D::operator[] (int idx) const
 {
-  BIOMESH_ASSERT (idx >= 0 && idx < m_gpoint_count);
+  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
   return m_fiber_vertices[idx];
 }
 
@@ -99,6 +99,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
           m_next = temp;
         }
     }
+  BIOMESH_ASSERT (m_fiber_vertices.size () >= 0);
 }
 
 } // namespace biomesh
