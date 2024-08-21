@@ -50,34 +50,30 @@ json_parser::export_fiber_grid_json (const T &fiber_grid,
 
   BIOMESH_LINFO (0, "Export fibers begin.");
 
-  /* Convert fiber data to JSON format. */
-  jfiber.reserve (fiber_grid.size ());
   /* Loop over every fiber. */
   for (int ii = 0; ii < fiber_grid.size (); ++ii)
     {
-      /* Identifier for the fiber in the JSON file. */
-      std::string fiber_name = "fiber" + std::to_string (ii);
-
       /* Loop over every vertex in a single fiber. */
       for (int jj = 0; jj < fiber_grid[ii].size (); ++jj)
         {
-          jfiber[ii][jj]["x"] = fiber_grid[ii][jj]('x');
-          jfiber[ii][jj]["y"] = fiber_grid[ii][jj]('y');
-          jfiber[ii][jj]["z"] = fiber_grid[ii][jj]('z');
+          fiber_root[ii][jj]["x"] = fiber_grid[ii][jj]('x');
+          fiber_root[ii][jj]["y"] = fiber_grid[ii][jj]('y');
+          fiber_root[ii][jj]["z"] = fiber_grid[ii][jj]('z');
         }
-      /* Root of the JSON file. */
-      fiber_root[fiber_name] = jfiber[ii];
+      BIOMESH_ASSERT (!fiber_root.isNull ());
+      /* Push fiber into JSON string format. */
+      jfiber.push_back (fiber_root[ii]);
     }
-  BIOMESH_ASSERT (!fiber_root.isNull ());
 
   /* Set directory for the JSON file. */
-  std::string build_dir = BIOMESH_BUILD_DIR;
-  std::string file_path = build_dir + "/" + file_name;
+  std::string file_path = std::string (BIOMESH_BUILD_DIR) + "/" + file_name;
 
   /* Write to JSON file. */
   file_id.open (file_path);
   BIOMESH_ASSERT (file_id.is_open ());
-  file_id << writer.write (fiber_root);
+  for (int ii = 0; ii < jfiber.size (); ++ii)
+    file_id << writer.write (jfiber[ii]);
+
   file_id.close ();
 
   BIOMESH_LINFO (0, "Export fibers end.");
