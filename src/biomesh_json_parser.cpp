@@ -18,13 +18,18 @@ json_parser::~json_parser () {}
 int
 json_parser::read ()
 {
+  /* Open the JSON file. */
   std::ifstream m_file (m_file_name);
   BIOMESH_ASSERT (m_file.is_open ());
 
-  Json::Reader reader;
+  /* Read the JSON file. */
+  BIOMESH_LINFO(0, "Input JSON file path: " + m_file_name);
+  BIOMESH_LINFO(0, "JSON file read begin.");
   bool success = reader.parse (m_file, m_jstring);
   BIOMESH_ASSERT (success == true);
+  BIOMESH_LINFO(0, "JSON file read end.");
 
+  /* Close the JSON file. */
   m_file.close ();
   BIOMESH_ASSERT (!m_file.is_open ());
 
@@ -75,6 +80,8 @@ json_parser::export_fiber_grid_json (const T &fiber_grid,
     file_id << writer.write (jfiber[ii]);
 
   file_id.close ();
+  BIOMESH_ASSERT (!file_id.is_open ());
+  BIOMESH_LINFO(0, "The JSON file is written to: " + file_path);
 
   BIOMESH_LINFO (0, "Export fibers end.");
 }

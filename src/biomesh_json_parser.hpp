@@ -16,6 +16,7 @@ class json_parser
 private:
   Json::Value m_jstring;
   std::string m_file_name;
+  Json::Reader reader;
 
 public:
   /**
