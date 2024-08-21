@@ -3,8 +3,8 @@
 
 namespace biomesh
 {
-vector_field::vector_field (const std::string &file_name)
-    : m_file_name{ file_name }, m_sgrid{
+vector_field::vector_field (const std::string &file_path)
+    : m_file_path{ file_path }, m_sgrid{
         vtkSmartPointer<vtkStructuredGrid>::New ()
       }
 {
@@ -12,14 +12,14 @@ vector_field::vector_field (const std::string &file_name)
 
 vector_field::vector_field (const vector_field &other)
 {
-  this->m_file_name = other.m_file_name;
+  this->m_file_path = other.m_file_path;
   this->m_sgrid->DeepCopy (other.m_sgrid);
 }
 
 vector_field::vector_field (vector_field &&other)
 {
-  this->m_file_name = other.m_file_name;
-  other.m_file_name.clear ();
+  this->m_file_path = other.m_file_path;
+  other.m_file_path.clear ();
   this->m_sgrid->ShallowCopy (other.m_sgrid);
 }
 
@@ -28,8 +28,8 @@ vector_field::~vector_field () {}
 int
 vector_field::load_vtk_grid ()
 {
-  BIOMESH_ASSERT (!m_file_name.empty ());
-  BIOMESH_LINFO (0, "File: " + m_file_name);
+  BIOMESH_ASSERT (!m_file_path.empty ());
+  BIOMESH_LINFO (0, "File: " + m_file_path);
 
   /* Initialize serial reader. */
   vtkSmartPointer<vtkStructuredGridReader> reader
@@ -38,7 +38,7 @@ vector_field::load_vtk_grid ()
 
   /* Read the file. */
   BIOMESH_LINFO (0, "Read vtk file start.");
-  reader->SetFileName (this->m_file_name.c_str ());
+  reader->SetFileName (this->m_file_path.c_str ());
   reader->Update ();
   BIOMESH_ASSERT (reader->IsFileValid ("structured"));
   BIOMESH_LINFO (0, "Read vtk file finish.");

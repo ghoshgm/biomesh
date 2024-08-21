@@ -30,9 +30,9 @@ public:
   /**
    * Default constructor.
    *
-   * @param[in] file_name Name of the vtk file.
+   * @param[in] file_path Path to the vtk file.
    */
-  vector_field (const std::string &file_name);
+  vector_field (const std::string &file_path);
 
   /**
    * Copy constructor.
@@ -77,7 +77,7 @@ public:
   vtkSmartPointer<vtkStructuredGrid> get_grid () const;
 
 private:
-  std::string m_file_name;
+  std::string m_file_path;
   vtkSmartPointer<vtkStructuredGrid> m_sgrid;
 };
 } // namespace biomesh
