@@ -58,20 +58,34 @@ fiber2D::generate_fiber (const vector_field &vfield)
 
   BIOMESH_LINFO (0, "Fiber begin.");
 
-  /* Loop over the starter cells. */
-  for (size_t ii = 0; ii < 1; ++ii)
+  /**
+   * Search the cell which contains the seed point of this fiber.
+   *
+   * The 'FindCell' function in the VTK lib returns more information
+   * than needed. We are only interested in the return value of the
+   * function. The variables 'subid', 'pcoords' and 'weights' are
+   * return variables which are not needed
+   * but are essential to avoid segfaults.
+   */
+  int subid;
+  double pcoords[3];
+  double weights[VTK_CELL_SIZE];
+  double spoint[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
+
+  auto seed_cell_id
+      = sgrid->FindCell (spoint, nullptr, -1, 0, subid, pcoords, weights);
+  if (seed_cell_id >= 0)
     {
       /* Grab the cell. */
-      vtkCell *cell = sgrid->GetCell (ii);
-      BIOMESH_ASSERT (cell != nullptr);
+      vtkCell *seed_cell = sgrid->GetCell (seed_cell_id);
+      BIOMESH_ASSERT (seed_cell != nullptr);
 
-      /* Grab min vertex. */
+      /* Find min and max vertex location. */
       vertex2D lmin ((sgrid->GetPoint (0))[0], (sgrid->GetPoint (0))[1]);
-      /* Grab max vertex. */
       vertex2D lmax ((sgrid->GetPoint (3))[0], (sgrid->GetPoint (3))[1]);
 
       /* Grab the vectors. */
-      vtkIdList *pids = cell->GetPointIds ();
+      vtkIdList *pids = seed_cell->GetPointIds ();
       BIOMESH_ASSERT (pids != nullptr);
       int arridx = 1;
       vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
@@ -85,7 +99,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
       double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
       double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
 
-      /* Iteratively generate grid point on every fiber. */
+      /* Iteratively generate grid points of the fiber. */
       vertex2D m_next = m_seed;
       for (size_t jj = 0; jj < m_gpoint_count - 1; ++jj)
         {
