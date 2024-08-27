@@ -126,7 +126,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
       point[1] = next ('y');
       point[2] = next ('z');
     }
-  BIOMESH_ASSERT (m_fiber_vertices.size () >= 0);
 
   BIOMESH_LINFO (0, "Fiber end.");
 }
