@@ -86,14 +86,19 @@ fiber2D::generate_fiber (const vector_field &vfield)
       vtkCell *seed_cell = sgrid->GetCell (current_cellid);
       BIOMESH_ASSERT (seed_cell != nullptr);
 
-      /* Find min and max vertex location. */
-      vertex2D lmin ((sgrid->GetPoint (0))[0], (sgrid->GetPoint (0))[1]);
-      vertex2D lmax ((sgrid->GetPoint (3))[0], (sgrid->GetPoint (3))[1]);
-
-      /* Grab the vectors. */
+      /* Grab the point indices. */
       vtkIdList *pids = seed_cell->GetPointIds ();
       BIOMESH_ASSERT (pids != nullptr);
 
+      /* Find min and max vertex location. */
+      int pid_min = pids->GetId (0);
+      int pid_max = pids->GetId (2);
+      vertex2D lmin ((sgrid->GetPoint (pid_min))[0],
+                     (sgrid->GetPoint (pid_min))[1]);
+      vertex2D lmax ((sgrid->GetPoint (pid_max))[0],
+                     (sgrid->GetPoint (pid_max))[1]);
+
+      /* Grab the vectors. */
       double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
       double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
       double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
