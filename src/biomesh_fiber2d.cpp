@@ -69,6 +69,10 @@ fiber2D::generate_fiber (const vector_field &vfield)
   double pcoords[3];
   double weights[VTK_CELL_SIZE];
 
+  int arridx = 1;
+  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  BIOMESH_ASSERT (da != nullptr);
+
   /* Search seed point initially. */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
   vertex2D next = m_seed;
@@ -89,9 +93,9 @@ fiber2D::generate_fiber (const vector_field &vfield)
       /* Grab the vectors. */
       vtkIdList *pids = seed_cell->GetPointIds ();
       BIOMESH_ASSERT (pids != nullptr);
-      int arridx = 1;
-      vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-      BIOMESH_ASSERT (da != nullptr);
+      // int arridx = 1;
+      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors",
+      // arridx); BIOMESH_ASSERT (da != nullptr);
       double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
       double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
       double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
