@@ -27,7 +27,7 @@ add_test(NAME test_vtk_structured_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_
 add_executable(test_fiber_grid test_fiber_grid.cpp)
 target_include_directories(test_fiber_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_fiber_grid PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen)
-add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid ${CMAKE_SOURCE_DIR}/test/sgrid_example.vtk ${CMAKE_SOURCE_DIR}/test/fiber_grid_example.json)
+add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid ${CMAKE_SOURCE_DIR}/test/sgrid_example.vtk ${CMAKE_SOURCE_DIR}/test/fiber_grid_example1.json)
 
 # Test for vertex class.
 add_executable(test_vertex test_vertex.cpp)
