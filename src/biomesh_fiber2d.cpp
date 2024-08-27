@@ -79,11 +79,11 @@ fiber2D::generate_fiber (const vector_field &vfield)
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
       /* Search for 'point' in the VTK structured grid. */
-      auto current_cellid
+      auto cellid
           = sgrid->FindCell (point, nullptr, -1, 0, subid, pcoords, weights);
 
       /* Grab the cell. */
-      vtkCell *seed_cell = sgrid->GetCell (current_cellid);
+      vtkCell *seed_cell = sgrid->GetCell (cellid);
       BIOMESH_ASSERT (seed_cell != nullptr);
 
       /* Grab the point indices. */
