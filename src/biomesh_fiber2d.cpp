@@ -59,8 +59,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
   BIOMESH_LINFO (0, "Fiber begin.");
 
   /**
-   * Search the cell which contains the seed point of this fiber.
-   *
    * The 'FindCell' function in the VTK lib returns more information
    * than needed. We are only interested in the return value of the
    * function. The variables 'subid', 'pcoords' and 'weights' are
@@ -70,14 +68,18 @@ fiber2D::generate_fiber (const vector_field &vfield)
   int subid;
   double pcoords[3];
   double weights[VTK_CELL_SIZE];
-  double spoint[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
 
-  auto seed_cell_id
-      = sgrid->FindCell (spoint, nullptr, -1, 0, subid, pcoords, weights);
-  if (seed_cell_id >= 0)
+  /* Search seed point initially. */
+  double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
+  vertex2D next = m_seed;
+  for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
+      /* Search for 'point' in the VTK structured grid. */
+      auto current_cellid
+          = sgrid->FindCell (point, nullptr, -1, 0, subid, pcoords, weights);
+
       /* Grab the cell. */
-      vtkCell *seed_cell = sgrid->GetCell (seed_cell_id);
+      vtkCell *seed_cell = sgrid->GetCell (current_cellid);
       BIOMESH_ASSERT (seed_cell != nullptr);
 
       /* Find min and max vertex location. */
@@ -99,22 +101,25 @@ fiber2D::generate_fiber (const vector_field &vfield)
       double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
       double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
 
-      /* Iteratively generate grid points of the fiber. */
-      vertex2D m_next = m_seed;
-      for (size_t jj = 0; jj < m_gpoint_count - 1; ++jj)
-        {
-          double x = interpolation::bilinear (lmin, lmax, m_next, v1x, v2x,
-                                              v3x, v4x);
-          double y = interpolation::bilinear (lmin, lmax, m_next, v1y, v2y,
-                                              v3y, v4y);
+      /* Compute next grid vertex using bilinear interpolation. */
+      double x
+          = interpolation::bilinear (lmin, lmax, next, v1x, v2x, v3x, v4x);
+      double y
+          = interpolation::bilinear (lmin, lmax, next, v1y, v2y, v3y, v4y);
 
-          vertex2D temp (x, y);
-          m_fiber_vertices.emplace_back (temp);
+      /* Push to fiber grid data structure. */
+      vertex2D temp (x, y);
+      m_fiber_vertices.emplace_back (temp);
 
-          m_next = temp;
-        }
-      BIOMESH_ASSERT (m_fiber_vertices.size () >= 0);
+      /* Update grid point for next computation. */
+      next = temp;
+
+      /* Update 'point' for possible searching. */
+      point[0] = next ('x');
+      point[1] = next ('y');
+      point[2] = next ('z');
     }
+  BIOMESH_ASSERT (m_fiber_vertices.size () >= 0);
 
   BIOMESH_LINFO (0, "Fiber end.");
 }
