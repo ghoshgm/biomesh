@@ -45,7 +45,7 @@ json_parser::get_json_string () const
 
 template <class T>
 void
-json_parser::export_fiber_grid_json (const T &fiber_grid,
+json_parser::export_fiber_grid_json (const T &fgrid,
                                      std::string file_name) const
 {
   BIOMESH_ASSERT (!file_name.empty ());
@@ -57,14 +57,14 @@ json_parser::export_fiber_grid_json (const T &fiber_grid,
   BIOMESH_LINFO (0, "Export fibers begin.");
 
   /* Loop over every fiber. */
-  for (int ii = 0; ii < fiber_grid.size (); ++ii)
+  for (int ii = 0; ii < fgrid.size (); ++ii)
     {
       /* Loop over every vertex in a single fiber. */
-      for (int jj = 0; jj < fiber_grid[ii].size (); ++jj)
+      for (int jj = 0; jj < fgrid[ii].size (); ++jj)
         {
-          fiber_root[ii][jj]["x"] = fiber_grid[ii][jj]('x');
-          fiber_root[ii][jj]["y"] = fiber_grid[ii][jj]('y');
-          fiber_root[ii][jj]["z"] = fiber_grid[ii][jj]('z');
+          fiber_root[ii][jj]["x"] = fgrid[ii][jj]('x');
+          fiber_root[ii][jj]["y"] = fgrid[ii][jj]('y');
+          fiber_root[ii][jj]["z"] = fgrid[ii][jj]('z');
         }
       BIOMESH_ASSERT (!fiber_root.isNull ());
       /* Push fiber into JSON string format. */
@@ -88,6 +88,6 @@ json_parser::export_fiber_grid_json (const T &fiber_grid,
 }
 
 template void json_parser::export_fiber_grid_json (
-    const fgrid<fiber2D, vertex2D> &fiber_grid, std::string file_name) const;
+    const fiber_grid<fiber2D, vertex2D> &fgrid, std::string file_name) const;
 
 }

@@ -13,12 +13,12 @@ int main(int argc, char** argv)
   field.load_vtk_grid();
 
   /* Generate fibers. */
-  fgrid<fiber2D,vertex2D> f(argv[2]);
+  fiber_grid<fiber2D,vertex2D> f(argv[2]);
   f.generate_fiber_grid(field, 15);
 
   /* Write fibers to JSON format. */
   json_parser jp;
-  jp.export_fiber_grid_json< fgrid<fiber2D,vertex2D> >(f,"test.json");
+  jp.export_fiber_grid_json< fiber_grid<fiber2D,vertex2D> >(f,"test.json");
 
   return EXIT_SUCCESS;
 }
