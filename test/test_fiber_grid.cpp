@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include <biomesh_vector_field.hpp>
-#include <biomesh_fiber_grid2D.hpp>
 #include <biomesh_json_parser.hpp>
 #include <biomesh_fiber_grid.hpp>
 

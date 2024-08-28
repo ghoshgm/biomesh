@@ -2,7 +2,6 @@
 #include "biomesh_json_parser.hpp"
 
 #include <biomesh_fiber_grid.hpp>
-#include <biomesh_fiber_grid2D.hpp>
 
 namespace biomesh
 {
