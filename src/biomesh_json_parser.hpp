@@ -33,11 +33,16 @@ public:
 
   /**
    * Function to read JSON file and store the data.
+   *
+   * @return Success if the file was read without error otherwise Error is
+   * returned.
    */
   int read ();
 
   /**
    * Function to retrive JSON string from the JSON file.
+   *
+   * @return The JSON string.
    */
   Json::Value get_json_string () const;
 

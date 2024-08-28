@@ -35,6 +35,8 @@ public:
    * @param[in] vfield The vector field which will be used to interpolate grid
    * point in a fiber.
    * @param[in] fpoint_count The number of grid points on a single grid.
+   *
+   * @return Success if the fiber grid is valid otherwise Error is returned.
    */
   int generate_fiber_grid (const vector_field &vfield, size_t fpoint_count);
 
@@ -42,11 +44,15 @@ public:
    * Return the fiber at the specified index.
    *
    * @param[in] idx The index at which fiber needs to retrieved.
+   *
+   * @return The fiber at index 'idx'.
    */
   fiber operator[] (int idx) const;
 
   /**
    * Return the fiber count.
+   *
+   * @return The fiber count in the fiber grid.
    */
   size_t size () const;
 

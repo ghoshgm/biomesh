@@ -58,6 +58,9 @@ public:
    *
    * Only The legacy VTK file format for structured grid is supported.
    * The structured data structure is replicated on every MPI rank.
+   *
+   * @return Success if the file was read without error otherwise Error is
+   * returned.
    */
   int load_vtk_grid ();
 
