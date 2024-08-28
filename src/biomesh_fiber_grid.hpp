@@ -18,7 +18,7 @@
 
 namespace biomesh
 {
-template <class fiber, class vertex> class fgrid
+template <class fiber, class vertex> class fiber_grid
 {
 public:
   /**
@@ -27,7 +27,7 @@ public:
    * @param[in] file_name The path to the JSON file which holds the seed
    * coordinates of the fiber.
    */
-  fgrid (const std::string &file_name);
+  fiber_grid (const std::string &file_name);
 
   /**
    * Function to generate all fibers from the JSON file.
@@ -57,7 +57,7 @@ private:
 };
 
 template <class fiber, class vertex>
-inline fgrid<fiber, vertex>::fgrid (const std::string &file_name)
+inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
     : m_jparser{ file_name }
 {
   m_fiber_count = 0;
@@ -65,8 +65,8 @@ inline fgrid<fiber, vertex>::fgrid (const std::string &file_name)
 
 template <class fiber, class vertex>
 inline int
-fgrid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
-                                           size_t fpoint_count)
+fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
+                                                size_t fpoint_count)
 {
   int ret = m_jparser.read ();
   BIOMESH_ASSERT (ret == true);
@@ -100,14 +100,14 @@ fgrid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
 
 template <class fiber, class vertex>
 inline fiber
-fgrid<fiber, vertex>::operator[] (int idx) const
+fiber_grid<fiber, vertex>::operator[] (int idx) const
 {
   return m_fiber_set[idx];
 }
 
 template <class fiber, class vertex>
 inline size_t
-fgrid<fiber, vertex>::size () const
+fiber_grid<fiber, vertex>::size () const
 {
   return m_fiber_set.size ();
 }
