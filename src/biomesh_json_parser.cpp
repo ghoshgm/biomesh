@@ -8,8 +8,8 @@ namespace biomesh
 
 json_parser::json_parser () {}
 
-json_parser::json_parser (const std::string &file_name)
-    : m_file_name{ file_name }
+json_parser::json_parser (const std::string &file_path)
+    : m_file_path{ file_path }
 {
 }
 
@@ -19,11 +19,11 @@ int
 json_parser::read ()
 {
   /* Open the JSON file. */
-  std::ifstream m_file (m_file_name);
+  std::ifstream m_file (m_file_path);
   BIOMESH_ASSERT (m_file.is_open ());
 
   /* Read the JSON file. */
-  BIOMESH_LINFO (0, "Input JSON file path: " + m_file_name);
+  BIOMESH_LINFO (0, "Input JSON file path: " + m_file_path);
   BIOMESH_LINFO (0, "JSON file read begin.");
   bool success = reader.parse (m_file, m_jstring);
   BIOMESH_ASSERT (success == true);
