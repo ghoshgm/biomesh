@@ -1,6 +1,7 @@
 
 #include "biomesh_json_parser.hpp"
 
+#include <biomesh_fiber_grid.hpp>
 #include <biomesh_fiber_grid2D.hpp>
 
 namespace biomesh
@@ -87,7 +88,7 @@ json_parser::export_fiber_grid_json (const T &fiber_grid,
   BIOMESH_LINFO (0, "Export fibers end.");
 }
 
-template void
-json_parser::export_fiber_grid_json (const fiber_grid2D &fiber_grid,
-                                     std::string file_name) const;
+template void json_parser::export_fiber_grid_json (
+    const fgrid<fiber2D, vertex2D> &fiber_grid, std::string file_name) const;
+
 }
