@@ -13,11 +13,6 @@ namespace biomesh
 
 class json_parser
 {
-private:
-  Json::Value m_jstring;
-  std::string m_file_name;
-  Json::Reader reader;
-
 public:
   /**
    * Default constructor.
@@ -27,9 +22,9 @@ public:
   /**
    * Constructor.
    *
-   * @param[in] file_name The path to json file.
+   * @param[in] file_path The path to json file.
    */
-  json_parser (const std::string &file_name);
+  json_parser (const std::string &file_path);
 
   /**
    * Destructor.
@@ -62,6 +57,11 @@ public:
   template <class T>
   void export_fiber_grid_json (const T &fiber_grid,
                                std::string file_name) const;
+
+private:
+  Json::Value m_jstring;
+  std::string m_file_path;
+  Json::Reader reader;
 };
 
 }
