@@ -40,6 +40,8 @@ public:
    * DOUBLE_MAX will be returned.
    *
    * @param[in] dir The required coordinates value.
+   *
+   * @return The magnitude of the desired coordinate.
    */
   double operator() (char dir) const;
 
@@ -47,6 +49,8 @@ public:
    * Function to test the equality of two vertices.
    *
    * @param[in] other The reference vertex object for comparison.
+   *
+   * @return True/False depending on the result.
    */
   bool operator== (const vertex &other) const;
 

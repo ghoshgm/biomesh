@@ -60,6 +60,8 @@ public:
 
   /**
    * Return the grid point count.
+   *
+   * @return The grid point count.
    */
   size_t size () const;
 
@@ -67,11 +69,15 @@ public:
    * Return vertex at the specified index.
    *
    * @param[in] idx The index at which fiber vertex is located.
+   *
+   * @return The vertex at index 'idx'.
    */
   vertex2D operator[] (int idx) const;
 
   /**
    * Test equality of two fibers.
+   *
+   * @return True if equal otherwise false.
    */
   bool operator== (const fiber2D &other) const;
 
