@@ -3,6 +3,7 @@
 #include <biomesh_vector_field.hpp>
 #include <biomesh_fiber_grid2D.hpp>
 #include <biomesh_json_parser.hpp>
+#include <biomesh_fiber_grid.hpp>
 
 using namespace biomesh;
 
@@ -13,12 +14,12 @@ int main(int argc, char** argv)
   field.load_vtk_grid();
 
   /* Generate fibers. */
-  fiber_grid2D fg(argv[2]);
-  fg.generate_fiber_grid(field, 15);
+  fgrid<fiber2D,vertex2D> f(argv[2]);
+  f.generate_fiber_grid(field, 15);
 
   /* Write fibers to JSON format. */
   json_parser jp;
-  jp.export_fiber_grid_json<fiber_grid2D>(fg,"test.json");
+  jp.export_fiber_grid_json< fgrid<fiber2D,vertex2D> >(f,"test.json");
 
   return EXIT_SUCCESS;
 }
