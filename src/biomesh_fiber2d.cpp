@@ -73,7 +73,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
   BIOMESH_ASSERT (da != nullptr);
 
-  /* Search seed point initially. */
+  /* The 'point' variable is only required for  */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
   vertex2D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
