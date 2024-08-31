@@ -37,7 +37,7 @@ vertex::operator= (const vertex &other)
 void
 vertex::scale (double scaling_factor, int scale_up)
 {
-  BIOMESH_ASSERT (scale_up == 1 || scale_up == 0)
+  BIOMESH_ASSERT (scale_up == 1 || scale_up == 0);
   if (scale_up == 1)
     m_position *= scaling_factor;
   else if(scale_up == 0)
