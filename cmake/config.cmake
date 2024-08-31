@@ -1,6 +1,8 @@
 
 include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
+include(CheckSymbolExists)
+include(CheckCXXSymbolExists)
 include(ProcessorCount)
 include(CheckTypeSize)
 
@@ -27,12 +29,18 @@ message(STATUS "Size of double - ${SIZEOF_DOUBLE} bytes.")
 if(${MPI_FOUND})
   set(CMAKE_REQUIRED_LIBRARIES MPI::MPI_CXX)
   check_include_file(mpi.h HAVE_MPI_H)
+  set(CMAKE_REQUIRED_LIBRARIES)
 endif()
 check_include_file(stdint.h HAVE_STDINT_H)
 check_include_file(math.h HAVE_MATH_H)
 check_include_file_cxx("memory" HAVE_MEMORY_H)
 check_include_file_cxx("algorithm" HAVE_ALGORITHM_H)
 check_include_file_cxx("vector" HAVE_VECTOR_H)
+
+# Check for functions.
+set(CMAKE_REQUIRED_LIBRARIES m)
+check_symbol_exists(sqrt math.h HAVE_SQRT)
+check_symbol_exists(fabs math.h HAVE_FABS)
 
 # Set macros for configure macros.
 if(ENABLE_MPI)
