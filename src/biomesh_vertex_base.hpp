@@ -60,7 +60,7 @@ public:
   void operator= (const vertex &other);
 
   /**
-   * Function to scaling vertex location.
+   * Function for scaling vertex location.
    *
    * This performs component wise multplication/division with a scalar value.
    *
