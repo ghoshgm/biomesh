@@ -40,8 +40,19 @@ vertex::scale (double scaling_factor, int scale_up)
   BIOMESH_ASSERT (scale_up == 1 || scale_up == 0);
   if (scale_up == 1)
     m_position *= scaling_factor;
-  else if(scale_up == 0)
+  else if (scale_up == 0)
     m_position /= scaling_factor;
+}
+
+double
+vertex::distance (const vertex &other) const
+{
+  double x_abs = std::fabs (other.m_position (0) - m_position (0));
+  double y_abs = std::fabs (other.m_position (1) - m_position (1));
+  double z_abs = std::fabs (other.m_position (2) - m_position (2));
+
+  return std::sqrt (std::pow (x_abs, 2) + std::pow (y_abs, 2)
+                    + std::pow (z_abs, 2));
 }
 
 void

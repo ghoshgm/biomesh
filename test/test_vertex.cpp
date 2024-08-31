@@ -60,5 +60,16 @@ int main()
   vertex3D v3d_down(1.0,2.0,3.0);
   assert(v3d == v3d_down);
 
+  /* Test for distance function. */
+  vertex2D origin2d(0.0,0.0);
+  vertex2D end2d(1.0,1.0);
+  double dist2d = origin2d.distance(end2d);
+  assert(std::sqrt(2) == dist2d);
+  
+  vertex3D origin3d(0.0,0.0,0.0);
+  vertex3D end3d(1.0,1.0,1.0);
+  double dist3d = origin3d.distance(end3d);
+  assert(std::sqrt(3) == dist3d);
+  
   return EXIT_SUCCESS;
 }
