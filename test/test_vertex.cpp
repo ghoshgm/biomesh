@@ -43,5 +43,22 @@ int main()
   v3d_copy = v3d_original;
   assert(v3d_copy == v3d_original);
 
+  /* Test for scaling operation. */
+  vertex2D v2d(1.0,2.0);
+  v2d.scale(2.0,1);
+  vertex2D v2d_up(2.0,4.0);
+  assert(v2d == v2d_up);
+  v2d.scale(2.0,0);
+  vertex2D v2d_down(1.0,2.0);
+  assert(v2d == v2d_down);
+  
+  vertex3D v3d(1.0,2.0,3.0);
+  v3d.scale(2.0,1);
+  vertex3D v3d_up(2.0,4.0,6.0);
+  assert(v3d == v3d_up);
+  v3d.scale(2.0,0);
+  vertex3D v3d_down(1.0,2.0,3.0);
+  assert(v3d == v3d_down);
+
   return EXIT_SUCCESS;
 }

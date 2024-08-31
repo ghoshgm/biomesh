@@ -60,6 +60,17 @@ public:
   void operator= (const vertex &other);
 
   /**
+   * Function to scaling vertex location.
+   *
+   * This performs component wise multplication/division with a scalar value.
+   *
+   * @param[in] scaling_factor The factor by which the coordinates need to be
+   * scaled.
+   * @param[in] scale_up 1 = scale up and 0 = scale down.
+   */
+  void scale (double scaling_factor, int scale_up);
+
+  /**
    * Print coordinates.
    */
   void print ();
