@@ -35,6 +35,15 @@ vertex::operator= (const vertex &other)
 }
 
 void
+vertex::scale (double scaling_factor, int scale_up)
+{
+  if (scale_up == 1)
+    m_position *= scaling_factor;
+  else
+    m_position /= scaling_factor;
+}
+
+void
 vertex::print ()
 {
   std::cout << "x: " << m_position (0) << " y: " << m_position (1)
