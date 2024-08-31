@@ -3,6 +3,7 @@
 #define BIOMESH_VERTEX_BASE_HPP
 
 #include <Eigen/Dense>
+#include <cmath>
 #include <limits>
 
 #include <biomesh_base.hpp>
@@ -69,6 +70,11 @@ public:
    * @param[in] scale_up 1 = scale up and 0 = scale down.
    */
   void scale (double scaling_factor, int scale_up);
+
+  /**
+   * Function to compute the eucledian distance between two vertices.
+   */
+  double distance (const vertex &other) const;
 
   /**
    * Print coordinates.
