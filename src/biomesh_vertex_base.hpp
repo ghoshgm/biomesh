@@ -61,15 +61,31 @@ public:
   void operator= (const vertex &other);
 
   /**
-   * Function for scaling a vertex.
+   * Function for scaling all coordinates of a vertex.
    *
    * This performs component wise multplication/division with a scalar value.
    *
    * @param[in] scaling_factor The factor by which the coordinates need to be
-   * scaled.
-   * @param[in] scale_up 1 = scale up and 0 = scale down.
+   * scaled. If the scaling factor is positive then the vertex is scaled up
+   * else if the scaling factor is negative then the vertex is scaled down.
    */
-  void scale (double scaling_factor, int scale_up);
+  void scale (double scaling_factor);
+
+  /**
+   * Function for scaling a single coordinate of a vertex.
+   *
+   * This performs multplication/division with a scalar value.
+   *
+   * @param[in] dir The coordinate direction that needs to be scaled.
+   * Set to 'x' to scale the x-coordinate.
+   * Set to 'y' to scale the y-coordinate.
+   * Set to 'z' to scale the z-coordinate.
+   *
+   * @param[in] scaling_factor The factor by which the coordinate need to be
+   * scaled. If the scaling factor is positive then the vertex is scaled up
+   * else if the scaling factor is negative then the vertex is scaled down.
+   */
+  void scale (char dir, double scaling_factor);
 
   /**
    * Function to compute the eucledian distance between two vertices.
