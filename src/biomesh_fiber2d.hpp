@@ -27,7 +27,7 @@ public:
    * @param[in] gpoint_count The number of grid points on fiber.
    * Let's say you want 4 grid points then the first point will be the seed.
    */
-  fiber2D (size_t gpoint_count);
+  fiber2D (size_t gpoint_count, double width);
 
   /**
    * Constructor.
@@ -36,7 +36,7 @@ public:
    * @param[in] gpoint_count The number of grid points on fiber.
    * Let's say you want 4 grid points then the first point will be the seed.
    */
-  fiber2D (const vertex2D &seed, size_t gpoint_count);
+  fiber2D (const vertex2D &seed, size_t gpoint_count, double width);
 
   /**
    * Copy constructor.
@@ -92,6 +92,7 @@ public:
 private:
   vertex2D m_seed;
   size_t m_gpoint_count;
+  double m_width;
   std::vector<vertex2D> m_fiber_vertices;
 };
 

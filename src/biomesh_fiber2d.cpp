@@ -3,14 +3,17 @@
 
 namespace biomesh
 {
-fiber2D::fiber2D (size_t gpoint_count) : m_gpoint_count{ gpoint_count }
+fiber2D::fiber2D (size_t gpoint_count, double width) 
+: m_gpoint_count{ gpoint_count },
+  m_width {width}
 {
   m_fiber_vertices.reserve (m_gpoint_count);
   m_fiber_vertices.emplace_back (m_seed);
 }
 
-fiber2D::fiber2D (const vertex2D &seed, size_t gpoint_count)
-    : m_seed{ seed }, m_gpoint_count{ gpoint_count }
+fiber2D::fiber2D (const vertex2D &seed, size_t gpoint_count, double width)
+    : m_seed{ seed }, m_gpoint_count{ gpoint_count },
+      m_width {width}
 {
   m_fiber_vertices.reserve (m_gpoint_count);
   m_fiber_vertices.emplace_back (m_seed);

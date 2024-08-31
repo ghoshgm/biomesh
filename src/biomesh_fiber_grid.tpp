@@ -9,13 +9,14 @@ inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
 template <class fiber, class vertex>
 inline int
 fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
-                                                size_t fpoint_count)
+                                                size_t fpoint_count, double width)
 {
   int ret = m_jparser.read ();
   BIOMESH_ASSERT (ret == true);
   auto data = m_jparser.get_json_string ();
   m_fiber_count = data["seed_points"].size ();
   BIOMESH_ASSERT (this->m_fiber_count > 0);
+  BIOMESH_ASSERT (width > 0.0);
 
   /* Loop over the fibers. */
   for (size_t fcount = 0; fcount < this->m_fiber_count; ++fcount)
@@ -26,7 +27,7 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       vertex seed (x, y);
 
       /* Initialize the fiber. */
-      fiber f (seed, fpoint_count);
+      fiber f (seed, fpoint_count, width);
 
       /* Generate fiber. */
       f.generate_fiber (vfield);
