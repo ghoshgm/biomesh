@@ -16,6 +16,9 @@ include(cmake/config.cmake)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 add_subdirectory(src)
 
+# Build examples.
+add_subdirectory(examples)
+
 # Unit tests.
 include(CTest)
 add_subdirectory(test)
