@@ -44,65 +44,52 @@ int main()
   assert(v3d_copy == v3d_original);
 
   /* Test for scaling operation. */
-#if 0
   vertex2D v2d(1.0,2.0);
+  
   v2d.scale(2.0);
-  vertex2D v2d_up(2.0,4.0);
-  assert(v2d == v2d_up);
+  v2d.print();
+  assert(v2d == vertex2D(3.0,4.0));
 
   v2d.scale(-2.0);
-  vertex2D v2d_down(1.0,2.0);
-  assert(v2d == v2d_down);
+  assert(v2d == vertex2D(1.0,2.0));
   
   v2d.scale('x',2.0);
-  vertex2D v2d_xup(2.0,2.0);
-  assert(v2d == v2d_xup);
+  assert(v2d == vertex2D(3.0,2.0));
 
   v2d.scale('x',-2.0);
-  vertex2D v2d_xdown(1.0,2.0);
-  assert(v2d == v2d_xdown);
+  assert(v2d == vertex2D(1.0,2.0));
 
   v2d.scale('y',2.0);
-  vertex2D v2d_yup(1.0,4.0);
-  assert(v2d == v2d_yup);
+  assert(v2d == vertex2D(1.0,4.0));
 
   v2d.scale('y',-2.0);
-  vertex2D v2d_ydown(1.0,2.0);
-  assert(v2d == v2d_ydown);
+  assert(v2d == vertex2D(1.0,2.0));
 
   vertex3D v3d(1.0,2.0,3.0);
+  
   v3d.scale(2.0);
-  vertex3D v3d_up(2.0,4.0,6.0);
-  assert(v3d == v3d_up);
+  assert(v3d == vertex3D(3.0,4.0,5.0));
   
   v3d.scale(-2.0);
-  vertex3D v3d_down(1.0,2.0,3.0);
-  assert(v3d == v3d_down);
+  assert(v3d == vertex3D(1.0,2.0,3.0));
 
   v3d.scale('x',2.0);
-  vertex3D v3d_xup(2.0,2.0,3.0);
-  assert(v3d == v3d_xup);
+  assert(v3d == vertex3D(3.0,2.0,3.0));
 
   v3d.scale('x',-2.0);
-  vertex3D v3d_xdown(1.0,2.0,3.0);
-  assert(v3d == v3d_xdown);
+  assert(v3d == vertex3D(1.0,2.0,3.0));
 
   v3d.scale('y',2.0);
-  vertex3D v3d_yup(1.0,4.0,3.0);
-  assert(v3d == v3d_yup);
+  assert(v3d == vertex3D(1.0,4.0,3.0));
 
   v3d.scale('y',-2.0);
-  vertex3D v3d_ydown(1.0,2.0,3.0);
-  assert(v3d == v3d_ydown);
+  assert(v3d == vertex3D(1.0,2.0,3.0));
 
   v3d.scale('z',2.0);
-  vertex3D v3d_zup(1.0,2.0,6.0);
-  assert(v3d == v3d_zup);
+  assert(v3d == vertex3D(1.0,2.0,5.0));
 
   v3d.scale('z',-2.0);
-  vertex3D v3d_zdown(1.0,2.0,3.0);
-  assert(v3d == v3d_zdown);
-#endif
+  assert(v3d == vertex3D(1.0,2.0,3.0));
 
   /* Test for distance function. */
   vertex2D origin2d(0.0,0.0);
