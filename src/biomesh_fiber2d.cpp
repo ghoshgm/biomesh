@@ -74,8 +74,13 @@ fiber2D::generate_fiber (const vector_field &vfield)
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
   BIOMESH_ASSERT (da != nullptr);
 
+  /* If the computed vertex lies outside the vector field then it will ignored.
+   */
+  size_t actual_gpoint_count = 0;
+
   /* The 'point' variable is only required for VTK searching. */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
+
   vertex2D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
@@ -83,84 +88,91 @@ fiber2D::generate_fiber (const vector_field &vfield)
       auto cellid
           = sgrid->FindCell (point, nullptr, -1, 0, subid, pcoords, weights);
 
-      /* Grab the cell. */
-      vtkCell *seed_cell = sgrid->GetCell (cellid);
-      BIOMESH_ASSERT (seed_cell != nullptr);
-
-      /* Grab the point indices. */
-      vtkIdList *pids = seed_cell->GetPointIds ();
-      BIOMESH_ASSERT (pids != nullptr);
-
-      /* Find min and max vertex location. */
-      int pid_min = pids->GetId (0);
-      int pid_max = pids->GetId (2);
-      vertex2D lmin ((sgrid->GetPoint (pid_min))[0],
-                     (sgrid->GetPoint (pid_min))[1]);
-      vertex2D lmax ((sgrid->GetPoint (pid_max))[0],
-                     (sgrid->GetPoint (pid_max))[1]);
-
-      /* Grab the vectors. */
-      double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
-      double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
-      double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
-      double v2y = (da->GetTuple3 (pids->GetId (1)))[1];
-      double v3x = (da->GetTuple3 (pids->GetId (2)))[0];
-      double v3y = (da->GetTuple3 (pids->GetId (2)))[1];
-      double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
-      double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
-
-      /* Compute next grid vertex using bilinear interpolation. */
-      double x
-          = interpolation::bilinear (lmin, lmax, next, v1x, v2x, v3x, v4x);
-      double y
-          = interpolation::bilinear (lmin, lmax, next, v1y, v2y, v3y, v4y);
-
-      /**
-       *  Peform scaling to adjust for grid width.
-       *
-       *  scaling factor = grid width - eucledian distance between 'temp' and
-       * 'next'.
-       *
-       *  Check if the vector formed using 'temp' and 'next'
-       *  is parallel to one of the coordiante axes. If yes then
-       *  we scale only one coordinate otherwise we perform
-       *  scaling on all three coordinates.
-       *
-       *   If 'y' and 'z' are equal then scale the 'x' coordinate.
-       *   If 'x' and 'z' are equal then scale the 'y' coordinate.
-       *   If 'x' and 'y' are equal then scale the 'z' coordinate.
-       */
-      vertex2D temp (x, y);
-      double offset = m_width - next.distance (temp);
-      if (next ('y') == temp ('y') && next ('z') == temp ('z'))
+      /* Ignore 'point' if it lies outside the vector field. */
+      if (cellid >= 0)
         {
-          temp.scale ('x', offset);
-        }
-      else if (next ('x') == temp ('x') && next ('z') == temp ('z'))
-        {
-          temp.scale ('y', offset);
-        }
-      else if (next ('x') == temp ('x') && next ('y') == temp ('y'))
-        {
-          temp.scale ('z', offset);
-        }
-      else
-        {
-          temp.scale (offset);
-        }
+          /* Grab the cell. */
+          vtkCell *seed_cell = sgrid->GetCell (cellid);
+          BIOMESH_ASSERT (seed_cell != nullptr);
 
-      /* Push to fiber grid data structure. */
-      m_fiber_vertices.emplace_back (temp);
+          /* Grab the point indices. */
+          vtkIdList *pids = seed_cell->GetPointIds ();
+          BIOMESH_ASSERT (pids != nullptr);
 
-      /* Update grid point for next computation. */
-      next = temp;
+          /* Find min and max vertex location. */
+          int pid_min = pids->GetId (0);
+          int pid_max = pids->GetId (2);
+          vertex2D lmin ((sgrid->GetPoint (pid_min))[0],
+                         (sgrid->GetPoint (pid_min))[1]);
+          vertex2D lmax ((sgrid->GetPoint (pid_max))[0],
+                         (sgrid->GetPoint (pid_max))[1]);
 
-      /* Update 'point' for possible searching. */
-      point[0] = next ('x');
-      point[1] = next ('y');
-      point[2] = next ('z');
+          /* Grab the vectors. */
+          double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
+          double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
+          double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
+          double v2y = (da->GetTuple3 (pids->GetId (1)))[1];
+          double v3x = (da->GetTuple3 (pids->GetId (2)))[0];
+          double v3y = (da->GetTuple3 (pids->GetId (2)))[1];
+          double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
+          double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
+
+          /* Compute next grid vertex using bilinear interpolation. */
+          double x
+              = interpolation::bilinear (lmin, lmax, next, v1x, v2x, v3x, v4x);
+          double y
+              = interpolation::bilinear (lmin, lmax, next, v1y, v2y, v3y, v4y);
+
+          /**
+           *  Peform scaling to adjust for grid width.
+           *
+           *  scaling factor = grid width - eucledian distance between 'temp'
+           * and 'next'.
+           *
+           *  Check if the vector formed using 'temp' and 'next'
+           *  is parallel to one of the coordiante axes. If yes then
+           *  we scale only one coordinate otherwise we perform
+           *  scaling on all three coordinates.
+           *
+           *   If 'y' and 'z' are equal then scale the 'x' coordinate.
+           *   If 'x' and 'z' are equal then scale the 'y' coordinate.
+           *   If 'x' and 'y' are equal then scale the 'z' coordinate.
+           */
+          vertex2D temp (x, y);
+          double offset = m_width - next.distance (temp);
+          if (next ('y') == temp ('y') && next ('z') == temp ('z'))
+            {
+              temp.scale ('x', offset);
+            }
+          else if (next ('x') == temp ('x') && next ('z') == temp ('z'))
+            {
+              temp.scale ('y', offset);
+            }
+          else if (next ('x') == temp ('x') && next ('y') == temp ('y'))
+            {
+              temp.scale ('z', offset);
+            }
+          else
+            {
+              temp.scale (offset);
+            }
+
+          /* Push to fiber grid data structure. */
+          m_fiber_vertices.emplace_back (temp);
+          ++actual_gpoint_count;
+
+          /* Update grid point for next computation. */
+          next = temp;
+
+          /* Update 'point' for possible searching. */
+          point[0] = next ('x');
+          point[1] = next ('y');
+          point[2] = next ('z');
+        }
     }
-
+  std::cout << "[BIOMESH 0 INFO] "
+            << "Fiber vertex count = " << (actual_gpoint_count + 1)
+            << std::endl;
   BIOMESH_LINFO (0, "Fiber end.");
 }
 
