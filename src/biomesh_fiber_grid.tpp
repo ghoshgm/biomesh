@@ -9,7 +9,8 @@ inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
 template <class fiber, class vertex>
 inline int
 fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
-                                                size_t fpoint_count, double width)
+                                                size_t fpoint_count,
+                                                double width)
 {
   int ret = m_jparser.read ();
   BIOMESH_ASSERT (ret == true);

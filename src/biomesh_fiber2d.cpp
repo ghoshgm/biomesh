@@ -3,17 +3,15 @@
 
 namespace biomesh
 {
-fiber2D::fiber2D (size_t gpoint_count, double width) 
-: m_gpoint_count{ gpoint_count },
-  m_width {width}
+fiber2D::fiber2D (size_t gpoint_count, double width)
+    : m_gpoint_count{ gpoint_count }, m_width{ width }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
   m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber2D::fiber2D (const vertex2D &seed, size_t gpoint_count, double width)
-    : m_seed{ seed }, m_gpoint_count{ gpoint_count },
-      m_width {width}
+    : m_seed{ seed }, m_gpoint_count{ gpoint_count }, m_width{ width }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
   m_fiber_vertices.emplace_back (m_seed);
@@ -76,7 +74,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
   BIOMESH_ASSERT (da != nullptr);
 
-  /* The 'point' variable is only required for  */
+  /* The 'point' variable is only required for VTK searching. */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
   vertex2D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
@@ -117,8 +115,41 @@ fiber2D::generate_fiber (const vector_field &vfield)
       double y
           = interpolation::bilinear (lmin, lmax, next, v1y, v2y, v3y, v4y);
 
-      /* Push to fiber grid data structure. */
+      /**
+       *  Peform scaling to adjust for grid width.
+       *
+       *  scaling factor = grid width - eucledian distance between 'temp' and
+       * 'next'.
+       *
+       *  Check if the vector formed using 'temp' and 'next'
+       *  is parallel to one of the coordiante axes. If yes then
+       *  we scale only one coordinate otherwise we perform
+       *  scaling on all three coordinates.
+       *
+       *   If 'y' and 'z' are equal then scale the 'x' coordinate.
+       *   If 'x' and 'z' are equal then scale the 'y' coordinate.
+       *   If 'x' and 'y' are equal then scale the 'z' coordinate.
+       */
       vertex2D temp (x, y);
+      double offset = m_width - next.distance (temp);
+      if (next ('y') == temp ('y') && next ('z') == temp ('z'))
+        {
+          temp.scale ('x', offset);
+        }
+      else if (next ('x') == temp ('x') && next ('z') == temp ('z'))
+        {
+          temp.scale ('y', offset);
+        }
+      else if (next ('x') == temp ('x') && next ('y') == temp ('y'))
+        {
+          temp.scale ('z', offset);
+        }
+      else
+        {
+          temp.scale (offset);
+        }
+
+      /* Push to fiber grid data structure. */
       m_fiber_vertices.emplace_back (temp);
 
       /* Update grid point for next computation. */
