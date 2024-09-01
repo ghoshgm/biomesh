@@ -48,17 +48,17 @@ vertex::scale (char dir, double scaling_factor)
 {
   BIOMESH_ASSERT (dir == 'x' || dir == 'y' || dir == 'z');
   if (dir == 'x' && scaling_factor > 0.0)
-    m_position (0) *= scaling_factor;
+    m_position (0) += scaling_factor;
   if (dir == 'x' && scaling_factor < 0.0)
-    m_position (0) /= std::fabs (scaling_factor);
+    m_position (0) -= std::fabs (scaling_factor);
   if (dir == 'y' && scaling_factor > 0.0)
-    m_position (1) *= scaling_factor;
+    m_position (1) += scaling_factor;
   if (dir == 'y' && scaling_factor < 0.0)
-    m_position (1) /= std::fabs (scaling_factor);
+    m_position (1) -= std::fabs (scaling_factor);
   if (dir == 'z' && scaling_factor > 0.0)
-    m_position (2) *= scaling_factor;
+    m_position (2) += scaling_factor;
   if (dir == 'z' && scaling_factor < 0.0)
-    m_position (2) /= std::fabs (scaling_factor);
+    m_position (2) -= std::fabs (scaling_factor);
 }
 
 double
