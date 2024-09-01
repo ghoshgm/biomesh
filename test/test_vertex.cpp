@@ -47,7 +47,6 @@ int main()
   vertex2D v2d(1.0,2.0);
   
   v2d.scale(2.0);
-  v2d.print();
   assert(v2d == vertex2D(3.0,4.0));
 
   v2d.scale(-2.0);
