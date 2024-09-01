@@ -51,7 +51,7 @@ public:
    *
    * @param[in] other The reference vertex object for comparison.
    *
-   * @return True/False depending on the result.
+   * @return True if equal else false.
    */
   bool operator== (const vertex &other) const;
 
