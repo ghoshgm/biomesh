@@ -19,17 +19,17 @@ void
 vertex3D::scale (double scaling_factor)
 {
   if (scaling_factor > 0.0)
-  {
-    m_position(0) += scaling_factor;
-    m_position(1) += scaling_factor;
-    m_position(2) += scaling_factor;
-  }
+    {
+      m_position (0) += scaling_factor;
+      m_position (1) += scaling_factor;
+      m_position (2) += scaling_factor;
+    }
   else if (scaling_factor < 0.0)
-  {
-    m_position(0) -= std::fabs (scaling_factor);
-    m_position(1) -= std::fabs (scaling_factor);
-    m_position(2) -= std::fabs (scaling_factor);
-  }
+    {
+      m_position (0) -= std::fabs (scaling_factor);
+      m_position (1) -= std::fabs (scaling_factor);
+      m_position (2) -= std::fabs (scaling_factor);
+    }
 }
 
 void
