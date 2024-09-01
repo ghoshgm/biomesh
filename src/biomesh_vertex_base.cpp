@@ -38,9 +38,9 @@ void
 vertex::scale (double scaling_factor)
 {
   if (scaling_factor > 0.0)
-    m_position *= scaling_factor;
+    m_position += scaling_factor;
   else if (scaling_factor < 0.0)
-    m_position /= std::fabs (scaling_factor);
+    m_position -= std::fabs (scaling_factor);
 }
 
 void
