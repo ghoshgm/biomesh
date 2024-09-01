@@ -74,10 +74,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
   BIOMESH_ASSERT (da != nullptr);
 
-  /* If the computed vertex lies outside the vector field then it will ignored.
-   */
-  size_t actual_gpoint_count = 0;
-
   /* The 'point' variable is only required for VTK searching. */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
 
@@ -159,7 +155,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
 
           /* Push to fiber grid data structure. */
           m_fiber_vertices.emplace_back (temp);
-          ++actual_gpoint_count;
 
           /* Update grid point for next computation. */
           next = temp;
@@ -171,7 +166,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
         }
     }
   std::cout << "[BIOMESH 0 INFO] "
-            << "Fiber vertex count = " << (actual_gpoint_count + 1)
+            << "Fiber vertex count = " << m_fiber_vertices.size ()
             << std::endl;
   BIOMESH_LINFO (0, "Fiber end.");
 }
