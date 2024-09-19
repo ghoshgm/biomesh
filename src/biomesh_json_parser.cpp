@@ -52,23 +52,20 @@ json_parser::export_fiber_grid_json (const T &fgrid,
   std::ofstream file_id;
   Json::Value fiber_root;
   Json::StyledWriter writer;
-  std::vector<Json::Value> jfiber;
 
   BIOMESH_LINFO (0, "Export fibers begin.");
-
-  /* Loop over every fiber. */
-  for (int ii = 0; ii < fgrid.size (); ++ii)
+  std::vector<Json::Value> jfiber (fgrid.size ());
+  for (unsigned ii = 0; ii < fgrid.size (); ++ii)
     {
-      /* Loop over every vertex in a single fiber. */
-      for (int jj = 0; jj < fgrid[ii].size (); ++jj)
+      std::string fiber_name = "fiber" + std::to_string (ii);
+      for (unsigned jj = 0; jj < fgrid[ii].size (); ++jj)
         {
-          fiber_root[ii][jj]["x"] = fgrid[ii][jj]('x');
-          fiber_root[ii][jj]["y"] = fgrid[ii][jj]('y');
-          fiber_root[ii][jj]["z"] = fgrid[ii][jj]('z');
+          jfiber[ii][jj]["x"] = fgrid[ii][jj]('x');
+          jfiber[ii][jj]["y"] = fgrid[ii][jj]('y');
+          jfiber[ii][jj]["z"] = fgrid[ii][jj]('z');
         }
+      fiber_root[fiber_name] = jfiber[ii];
       BIOMESH_ASSERT (!fiber_root.isNull ());
-      /* Push fiber into JSON string format. */
-      jfiber.push_back (fiber_root[ii]);
     }
 
   /* Set directory for the JSON file. */
@@ -77,9 +74,7 @@ json_parser::export_fiber_grid_json (const T &fgrid,
   /* Write to JSON file. */
   file_id.open (file_path);
   BIOMESH_ASSERT (file_id.is_open ());
-  for (int ii = 0; ii < jfiber.size (); ++ii)
-    file_id << writer.write (jfiber[ii]);
-
+  file_id << writer.write (fiber_root);
   file_id.close ();
   BIOMESH_ASSERT (!file_id.is_open ());
   BIOMESH_LINFO (0, "The JSON file is written to: " + file_path);
