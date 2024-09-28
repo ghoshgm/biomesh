@@ -90,6 +90,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
           /* Grab the cell. */
           vtkCell *seed_cell = sgrid->GetCell (cellid);
           BIOMESH_ASSERT (seed_cell != nullptr);
+          BIOMESH_ASSERT (seed_cell->GetCellType () == VTK_QUAD);
 
           /* Grab the point indices. */
           vtkIdList *pids = seed_cell->GetPointIds ();
