@@ -46,3 +46,9 @@ add_executable(test_jsoncpp test_json.cpp)
 target_include_directories(test_jsoncpp PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_jsoncpp PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
 add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp ${CMAKE_SOURCE_DIR}/test/read_sample.json)
+
+# Test for mapping functions.
+add_executable(test_mapping test_mapping.cpp)
+target_include_directories(test_mapping PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_mapping PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
+add_test(NAME test_mapping COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_mapping)
