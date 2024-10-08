@@ -101,5 +101,10 @@ int main()
   double dist3d = origin3d.distance(end3d);
   assert(std::sqrt(3) == dist3d);
   
+  /* Test for helper constructor for 2D vertex. */
+  double z = 0.0;
+  vertex2D vh(1.0,2.0,z);
+  assert(vh('z') == 0.0);
+
   return EXIT_SUCCESS;
 }
