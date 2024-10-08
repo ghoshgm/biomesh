@@ -24,7 +24,7 @@ namespace mapping
  * mapped.
  * @param[in] vertices The vertices of the hexahedron.
  *
- * @return cartesian_coords The mapped cartesian coordinates.
+ * @return The mapped cartesian coordinates.
  */
 template <class vertex>
 vertex isoparametric (const vertex &parametric_coords,
