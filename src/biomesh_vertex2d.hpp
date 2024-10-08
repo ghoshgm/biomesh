@@ -29,6 +29,18 @@ public:
   vertex2D (double x, double y);
 
   /**
+   * Constructor.
+   *
+   * This is a helper constructor to avoid complicated templated code.
+   * The Z coordinate must be set to 0.
+   *
+   * @param[in] x The X coordinate
+   * @param[in] y The Y coordinate
+   * @param[in] z The Z coordinate
+   */
+  vertex2D (double x, double y, double z);
+
+  /**
    * Destructor.
    */
   ~vertex2D ();
