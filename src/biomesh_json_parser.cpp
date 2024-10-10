@@ -84,5 +84,7 @@ json_parser::export_fiber_grid_json (const T &fgrid,
 
 template void json_parser::export_fiber_grid_json (
     const fiber_grid<fiber2D, vertex2D> &fgrid, std::string file_name) const;
+template void json_parser::export_fiber_grid_json (
+    const fiber_grid<fiber3D, vertex3D> &fgrid, std::string file_name) const;
 
 }
