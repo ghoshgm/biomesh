@@ -27,7 +27,7 @@ public:
    * @param[in] gpoint_count The number of grid points on fiber.
    * Let's say you want 4 grid points then the first point will be the seed.
    */
-  fiber3D (size_t gpoint_count);
+  fiber3D (size_t gpoint_count, double width);
 
   /**
    * Constructor.
@@ -36,7 +36,7 @@ public:
    * @param[in] gpoint_count The number of grid points on fiber.
    * Let's say you want 4 grid points then the first point will be the seed.
    */
-  fiber3D (const vertex3D &seed, size_t gpoint_count);
+  fiber3D (const vertex3D &seed, size_t gpoint_count, double width);
 
   /**
    * Copy constructor.
@@ -74,7 +74,7 @@ public:
    *
    * @return Success if the fiber is valid otherwise Error is returned.
    */
-  int generate_fiber ();
+  void generate_fiber (const vector_field &vfield);
 
   /**
    * Test equality of two fibers.
@@ -86,6 +86,7 @@ public:
 private:
   vertex3D m_seed;
   size_t m_gpoint_count;
+  double m_width;
   std::vector<vertex3D> m_fiber_vertices;
 };
 
