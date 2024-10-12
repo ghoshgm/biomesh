@@ -70,14 +70,14 @@ trilinear (const vertex3D &probe, double scalar1, double scalar2,
   BIOMESH_ASSERT (probe ('z') <= 1.0 && probe ('z') >= 0.0);
 
   /* Compute interpolation weights. */
-  double w0 = probe ('x') * probe ('y') * probe ('z');
-  double w1 = (1.0 - probe ('x')) * probe ('y') * probe ('z');
-  double w2 = (1.0 - probe ('x')) * (1.0 - probe ('y')) * probe ('z');
-  double w3 = probe ('x') * (1.0 - probe ('y')) * probe ('z');
-  double w4 = probe ('x') * probe ('y') * (1.0 - probe ('z'));
-  double w5 = (1.0 - probe ('x')) * probe ('y') * (1.0 - probe ('z'));
-  double w6 = (1.0 - probe ('x')) * (1.0 - probe ('y')) * (1.0 - probe ('z'));
-  double w7 = probe ('x') * (1.0 - probe ('y')) * (1.0 - probe ('z'));
+  double w0 = (1.0 - probe ('x')) * (1.0 - probe ('y')) * (1.0 - probe ('z'));
+  double w1 = probe ('x') * (1.0 - probe ('y')) * (1.0 - probe ('z'));
+  double w2 = probe ('x') * probe ('y') * (1.0 - probe ('z'));
+  double w3 = (1.0 - probe ('x')) * probe ('y') * (1.0 - probe ('z'));
+  double w4 = (1.0 - probe ('x')) * (1.0 - probe ('y')) * probe ('z');
+  double w5 = probe ('x') * (1.0 - probe ('y')) * probe ('z');
+  double w6 = probe ('x') * probe ('y') * probe ('z');
+  double w7 = (1.0 - probe ('x')) * probe ('y') * probe ('z');
   BIOMESH_ASSERT ((w0 + w1 + w2 + w3 + w4 + w5 + w6 + w7) == 1.0);
 
   /* Interpolate. */
