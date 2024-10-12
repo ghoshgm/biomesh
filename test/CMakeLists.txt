@@ -52,3 +52,9 @@ add_executable(test_mapping test_mapping.cpp)
 target_include_directories(test_mapping PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_mapping PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
 add_test(NAME test_mapping COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_mapping)
+
+# Test for 3D fiber grid.
+add_executable(test_fiber_grid3d test_fiber_grid3d.cpp)
+target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
+add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_10x4x4.vtk ${CMAKE_SOURCE_DIR}/test/fiber_grid_seed3d.json)
