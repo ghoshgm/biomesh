@@ -107,20 +107,19 @@ fiber2D::generate_fiber (const vector_field &vfield)
                          (sgrid->GetPoint (pid_max))[1]);
 
           /* Grab the vectors. */
-          double v1x = (da->GetTuple3 (pids->GetId (0)))[0];
-          double v1y = (da->GetTuple3 (pids->GetId (0)))[1];
-          double v2x = (da->GetTuple3 (pids->GetId (1)))[0];
-          double v2y = (da->GetTuple3 (pids->GetId (1)))[1];
-          double v3x = (da->GetTuple3 (pids->GetId (2)))[0];
-          double v3y = (da->GetTuple3 (pids->GetId (2)))[1];
-          double v4x = (da->GetTuple3 (pids->GetId (3)))[0];
-          double v4y = (da->GetTuple3 (pids->GetId (3)))[1];
+          std::array<double, 4> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                    (da->GetTuple3 (pids->GetId (1)))[0],
+                                    (da->GetTuple3 (pids->GetId (2)))[0],
+                                    (da->GetTuple3 (pids->GetId (3)))[0] };
+
+          std::array<double, 4> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                    (da->GetTuple3 (pids->GetId (1)))[1],
+                                    (da->GetTuple3 (pids->GetId (2)))[1],
+                                    (da->GetTuple3 (pids->GetId (3)))[1] };
 
           /* Compute next grid vertex using bilinear interpolation. */
-          double x
-              = interpolation::bilinear (lmin, lmax, next, v1x, v2x, v3x, v4x);
-          double y
-              = interpolation::bilinear (lmin, lmax, next, v1y, v2y, v3y, v4y);
+          double x = interpolation::bilinear (next, vx);
+          double y = interpolation::bilinear (next, vy);
 
           /**
            *  Peform scaling to adjust for grid width.
