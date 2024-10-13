@@ -15,14 +15,14 @@ isoparametric (const vertex &parametric_coords,
   double z = 0.0;
 
   /* Mapping weights. */
-  double w0 = (1 - r) * (1 - s) * (1 - t);
-  double w1 = r * (1 - s) * (1 - t);
+  double w0 = (1.0 - r) * (1.0 - s) * (1.0 - t);
+  double w1 = r * (1.0 - s) * (1.0 - t);
   double w2 = r * s * (1 - t);
-  double w3 = (1 - r) * s * (1 - t);
-  double w4 = (1 - r) * (1 - s) * t;
-  double w5 = r * t * (1 - s);
+  double w3 = (1.0 - r) * s * (1.0 - t);
+  double w4 = (1.0 - r) * (1.0 - s) * t;
+  double w5 = r * t * (1.0 - s);
   double w6 = r * s * t;
-  double w7 = (1 - r) * s * t;
+  double w7 = (1.0 - r) * s * t;
 
   /* Compute cartesian coordinates. */
   x = (vertices[0]('x') * w0) + (vertices[1]('x') * w1)
