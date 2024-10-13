@@ -8,36 +8,7 @@ namespace interpolation
 {
 
 double
-bilinear (const vertex2D &vertex_min, const vertex2D &vertex_max,
-          const vertex2D &probe, double scalar1, double scalar2,
-          double scalar3, double scalar4)
-{
-  double xmax_diff = vertex_max ('x') - probe ('x');
-  double xmin_diff = probe ('x') - vertex_min ('x');
-  Eigen::Matrix<double, 1, 2> x_vec{ { xmax_diff, xmin_diff } };
-
-  double ymax_diff = vertex_max ('y') - probe ('y');
-  double ymin_diff = probe ('y') - vertex_min ('y');
-  Eigen::Matrix<double, 2, 1> y_vec{ { ymax_diff }, { ymin_diff } };
-
-  Eigen::Matrix2d scalars;
-  scalars (0, 0) = scalar1;
-  scalars (0, 1) = scalar4;
-  scalars (1, 0) = scalar2;
-  scalars (1, 1) = scalar3;
-
-  double xdiff = vertex_max ('x') - vertex_min ('x');
-  double ydiff = vertex_max ('y') - vertex_min ('y');
-  BIOMESH_ASSERT (xdiff > 0.0);
-  BIOMESH_ASSERT (ydiff > 0.0);
-  BIOMESH_ASSERT (std::isinf (1 / (xdiff * ydiff)) == false);
-
-  return (1 / (xdiff * ydiff)) * x_vec * scalars * y_vec;
-}
-
-double
-bilinear (const vertex2D &probe, double scalar0, double scalar1,
-          double scalar2, double scalar3)
+bilinear (const vertex2D &probe, std::array<double, 4> &scalars)
 {
   double interp_res = 0.0;
 
@@ -45,15 +16,15 @@ bilinear (const vertex2D &probe, double scalar0, double scalar1,
   BIOMESH_ASSERT (probe ('y') <= 1.0 && probe ('y') >= 0.0);
 
   /* Compute interpolation weights. */
-  double w0 = probe ('x') * probe ('y');
-  double w1 = (1.0 - probe ('x')) * probe ('y');
-  double w2 = (1.0 - probe ('x')) * (1.0 - probe ('y'));
-  double w3 = probe ('x') * (1.0 - probe ('y'));
+  double w0 = (1.0 - probe ('x')) * (1.0 - probe ('y'));
+  double w1 = probe ('x') * (1.0 - probe ('y'));
+  double w2 = (1.0 - probe ('x')) * probe ('y');
+  double w3 = probe ('x') * probe ('y');
   BIOMESH_ASSERT ((w0 + w1 + w2 + w3) == 1.0);
 
   /* Interpolate. */
-  interp_res
-      = (w0 * scalar0) + (w1 * scalar1) + (w2 * scalar2) + (w3 * scalar3);
+  interp_res = (w0 * scalars[0]) + (w1 * scalars[1]) + (w2 * scalars[2])
+               + (w3 * scalars[3]);
 
   return interp_res;
 }
