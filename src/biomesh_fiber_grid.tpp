@@ -18,7 +18,7 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
   m_fiber_count = data["seed_points"].size ();
   BIOMESH_ASSERT (this->m_fiber_count > 0);
   BIOMESH_ASSERT (width > 0.0);
-  m_fiber_set.reserve(this->m_fiber_count);
+  m_fiber_set.reserve (this->m_fiber_count);
 
   /* Loop over the fibers. */
   for (size_t fcount = 0; fcount < this->m_fiber_count; ++fcount)
@@ -26,7 +26,8 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       /* Obtain the seed point. */
       double x = (data["seed_points"][(unsigned)fcount]["x"]).asDouble ();
       double y = (data["seed_points"][(unsigned)fcount]["y"]).asDouble ();
-      vertex seed (x, y);
+      double z = (data["seed_points"][(unsigned)fcount]["z"]).asDouble ();
+      vertex seed (x, y, z);
 
       /* Initialize the fiber. */
       fiber f (seed, fpoint_count, width);
