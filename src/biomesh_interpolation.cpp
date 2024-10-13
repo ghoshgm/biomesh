@@ -59,9 +59,7 @@ bilinear (const vertex2D &probe, double scalar0, double scalar1,
 }
 
 double
-trilinear (const vertex3D &probe, double scalar1, double scalar2,
-           double scalar3, double scalar4, double scalar5, double scalar6,
-           double scalar7, double scalar8)
+trilinear (const vertex3D &probe, std::array<double, 8> &scalars)
 {
   double interp_res = 0.0;
 
@@ -81,9 +79,9 @@ trilinear (const vertex3D &probe, double scalar1, double scalar2,
   BIOMESH_ASSERT ((w0 + w1 + w2 + w3 + w4 + w5 + w6 + w7) == 1.0);
 
   /* Interpolate. */
-  interp_res = (w0 * scalar1) + (w1 * scalar2) + (w2 * scalar3)
-               + (w3 * scalar4) + (w4 * scalar5) + (w5 * scalar6)
-               + (w6 * scalar7) + (w7 * scalar8);
+  interp_res = (w0 * scalars[0]) + (w1 * scalars[1]) + (w2 * scalars[2])
+               + (w3 * scalars[3]) + (w4 * scalars[4]) + (w5 * scalars[5])
+               + (w6 * scalars[6]) + (w7 * scalars[7]);
 
   return interp_res;
 }

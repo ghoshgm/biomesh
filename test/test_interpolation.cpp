@@ -2,6 +2,7 @@
 #include <biomesh_interpolation.hpp>
 #include <cassert>
 #include <cmath>
+#include <array>
 
 using vertex2D = biomesh::vertex2D;
 using vertex3D = biomesh::vertex3D;
@@ -63,17 +64,10 @@ int main()
 
   {
     vertex3D probe(0.5, 0.5, 0.5);
-    double s1 = 10;
-    double s2 = 20;
-    double s3 = 30;
-    double s4 = 40;
-    double s5 = 50;
-    double s6 = 60;
-    double s7 = 70;
-    double s8 = 80;
-
-    double actual_val = 0.125 * (s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8);
-    double res = biomesh::interpolation::trilinear(probe, s1, s2, s3, s4, s5, s6, s7, s8);
+    std::array<double,8> s {10,20,30,40,50,60,70,80};
+  
+    double actual_val = 0.125 * (s[0] + s[1] + s[2] + s[3] + s[4] + s[5] + s[6] + s[7]);
+    double res = biomesh::interpolation::trilinear(probe, s);
     std::cout << res << std::endl;
     std::cout << actual_val << std::endl;
     assert(res == actual_val);

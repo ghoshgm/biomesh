@@ -99,12 +99,9 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
           /* Trilinear interpolation in parametric coordinates. */
           vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
-          double r = interpolation::trilinear (
-              pnext, vx[0], vx[1], vx[2], vx[3], vx[4], vx[5], vx[6], vx[7]);
-          double s = interpolation::trilinear (
-              pnext, vy[0], vy[1], vy[2], vy[3], vy[4], vy[5], vy[6], vy[7]);
-          double t = interpolation::trilinear (
-              pnext, vz[0], vz[1], vz[2], vz[3], vz[4], vz[5], vz[6], vz[7]);
+          double r = interpolation::trilinear (pnext, vx);
+          double s = interpolation::trilinear (pnext, vy);
+          double t = interpolation::trilinear (pnext, vz);
 
           /* Map parametric coordinates back to cartesian coords. */
           vertex3D ipnext (r, s, t);

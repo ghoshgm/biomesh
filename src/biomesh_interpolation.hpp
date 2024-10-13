@@ -2,6 +2,7 @@
 #ifndef BIOMESH_INTERPOLATION_HPP
 #define BIOMESH_INTERPOLATION_HPP
 
+#include <array>
 #include <biomesh_base.hpp>
 #include <biomesh_vertex2d.hpp>
 #include <biomesh_vertex3d.hpp>
@@ -75,9 +76,7 @@ double bilinear (const vertex2D &probe, double scalar0, double scalar1,
  *
  * @return The interpolated scalar at the probe.
  */
-double trilinear (const vertex3D &probe, double scalar0, double scalar1,
-                  double scalar2, double scalar3, double scalar4,
-                  double scalar5, double scalar6, double scalar7);
+double trilinear (const vertex3D &probe, std::array<double, 8> &scalars);
 
 } // namespace interpolation.
 
