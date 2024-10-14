@@ -40,6 +40,9 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
   BIOMESH_LINFO (0, "Fiber begin.");
 
+  stopwatch watch;
+  watch.start ();
+
   int subid;
   double pcoords[3];
   double weights[VTK_CELL_SIZE];
@@ -145,9 +148,10 @@ fiber3D::generate_fiber (const vector_field &vfield)
           point[2] = next ('z');
         }
     }
-  std::cout << "[BIOMESH 0 INFO] "
-            << "Fiber vertex count = " << m_fiber_vertices.size ()
-            << std::endl;
+
+  watch.end ();
+  BIOMESH_LINFO (0, "Fiber vertex count = "
+                        + std::to_string (m_fiber_vertices.size ()));
   BIOMESH_LINFO (0, "Fiber end.");
 }
 
