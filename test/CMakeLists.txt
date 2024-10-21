@@ -64,3 +64,9 @@ add_executable(test_fiber_grid3d test_fiber_grid3d.cpp)
 target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
 add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_10x4x4.vtk ${CMAKE_SOURCE_DIR}/test/fiber_grid_seed3d.json)
+
+# Test VTK cell orientation for interpolation techniques.
+add_executable(test_orientation test_orientation.cpp)
+target_include_directories(test_orientation PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_orientation PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
+add_test(NAME test_orientation COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_orientation ${CMAKE_SOURCE_DIR}/test/sgrid3d_unit_x.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_unit_z.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_unit_seed.json)
