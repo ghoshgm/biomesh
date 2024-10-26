@@ -53,6 +53,10 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
   double point[3] = { m_seed ('x'), m_seed ('y'), m_seed ('z') };
 
+  std::cout << "---- Cartesian coord ----" << std::endl;
+  std::cout << point[0] << " " << point[1] << " " << point[2] << std::endl;
+  std::cout << "-------------------------" << std::endl;
+
   vertex3D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
@@ -102,12 +106,18 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
           /* Trilinear interpolation in parametric coordinates. */
           vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
+          std::cout << "---- Parametric coords ----" << std::endl;
+          pnext.print ();
+          std::cout << "---------------------------" << std::endl;
           double r = interpolation::trilinear (pnext, vx);
           double s = interpolation::trilinear (pnext, vy);
           double t = interpolation::trilinear (pnext, vz);
 
           /* Map parametric coordinates back to cartesian coords. */
           vertex3D ipnext (r, s, t);
+          std::cout << "---- Interpolated coord ----" << std::endl;
+          ipnext.print ();
+          std::cout << "----------------------------" << std::endl;
           vertex3D v0 (seed_cell->GetPoints ()->GetPoint (0)[0],
                        seed_cell->GetPoints ()->GetPoint (0)[1],
                        seed_cell->GetPoints ()->GetPoint (0)[2]);
@@ -135,6 +145,26 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
           std::array<vertex3D, 8> hv{ v0, v1, v2, v3, v4, v5, v6, v7 };
           vertex3D temp = mapping::isoparametric<vertex3D> (ipnext, hv);
+
+#if 0
+          double offset = m_width - next.distance (temp);
+          if (next ('y') == temp ('y') && next ('z') == temp ('z'))
+            {
+              temp.scale ('x', offset);
+            }
+          else if (next ('x') == temp ('x') && next ('z') == temp ('z'))
+            {
+              temp.scale ('y', offset);
+            }
+          else if (next ('x') == temp ('x') && next ('y') == temp ('y'))
+            {
+              temp.scale ('z', offset);
+            }
+          else
+            {
+              temp.scale (offset);
+            }
+#endif
 
           /* Push to fiber grid data structure. */
           m_fiber_vertices.emplace_back (temp);

@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
   /* Generate fibers. */
   fiber_grid<fiber3D,vertex3D> f(argv[2]);
-  f.generate_fiber_grid(field, 4, 0.5);
+  f.generate_fiber_grid(field, 20, 0.1);
 
   /* Write fibers to JSON format. */
   json_parser jp;
