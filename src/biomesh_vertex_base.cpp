@@ -46,7 +46,7 @@ vertex::distance (const vertex &other) const
 }
 
 void
-vertex::print ()
+vertex::print () const
 {
   std::cout << "x: " << m_position (0) << " y: " << m_position (1)
             << " z: " << m_position (2) << std::endl;
