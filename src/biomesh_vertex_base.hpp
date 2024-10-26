@@ -68,7 +68,7 @@ public:
   /**
    * Print coordinates.
    */
-  void print ();
+  void print () const;
 
 protected:
   Eigen::Vector3d m_position; /* The X,Y,Z coordinates of the vertex. */
