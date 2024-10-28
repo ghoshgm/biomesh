@@ -44,9 +44,8 @@ vertex isoparametric (const vertex &parametric_coords,
  *
  * @return The mapped cartesian coordinates.
  */
-template <class vertex>
-vertex inverse_isoparametric (const vertex &cartesian_coords,
-                              std::array<vertex, 8> &vertices);
+vertex3D inverse_isoparametric_3d (const vertex3D &cartesian_coords,
+                                   std::array<vertex3D, 8> &vertices);
 
 #include "biomesh_mapping.tpp"
 
