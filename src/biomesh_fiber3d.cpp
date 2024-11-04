@@ -53,10 +53,6 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
   double point[3] = { m_seed ('x'), m_seed ('y'), m_seed ('z') };
 
-  std::cout << "---- Cartesian coord ----" << std::endl;
-  std::cout << point[0] << " " << point[1] << " " << point[2] << std::endl;
-  std::cout << "-------------------------" << std::endl;
-
   vertex3D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
@@ -106,47 +102,12 @@ fiber3D::generate_fiber (const vector_field &vfield)
 
           /* Trilinear interpolation in parametric coordinates. */
           vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
-          std::cout << "---- Parametric coords ----" << std::endl;
-          pnext.print ();
-          std::cout << "---------------------------" << std::endl;
-          double r = interpolation::trilinear (pnext, vx);
-          double s = interpolation::trilinear (pnext, vy);
-          double t = interpolation::trilinear (pnext, vz);
+          double x = interpolation::trilinear (pnext, vx);
+          double y = interpolation::trilinear (pnext, vy);
+          double z = interpolation::trilinear (pnext, vz);
 
-          /* Map parametric coordinates back to cartesian coords. */
-          vertex3D ipnext (r, s, t);
-          std::cout << "---- Interpolated coord ----" << std::endl;
-          ipnext.print ();
-          std::cout << "----------------------------" << std::endl;
-          vertex3D v0 (seed_cell->GetPoints ()->GetPoint (0)[0],
-                       seed_cell->GetPoints ()->GetPoint (0)[1],
-                       seed_cell->GetPoints ()->GetPoint (0)[2]);
-          vertex3D v1 (seed_cell->GetPoints ()->GetPoint (1)[0],
-                       seed_cell->GetPoints ()->GetPoint (1)[1],
-                       seed_cell->GetPoints ()->GetPoint (1)[2]);
-          vertex3D v2 (seed_cell->GetPoints ()->GetPoint (2)[0],
-                       seed_cell->GetPoints ()->GetPoint (2)[1],
-                       seed_cell->GetPoints ()->GetPoint (2)[2]);
-          vertex3D v3 (seed_cell->GetPoints ()->GetPoint (3)[0],
-                       seed_cell->GetPoints ()->GetPoint (3)[1],
-                       seed_cell->GetPoints ()->GetPoint (3)[2]);
-          vertex3D v4 (seed_cell->GetPoints ()->GetPoint (4)[0],
-                       seed_cell->GetPoints ()->GetPoint (4)[1],
-                       seed_cell->GetPoints ()->GetPoint (4)[2]);
-          vertex3D v5 (seed_cell->GetPoints ()->GetPoint (5)[0],
-                       seed_cell->GetPoints ()->GetPoint (5)[1],
-                       seed_cell->GetPoints ()->GetPoint (5)[2]);
-          vertex3D v6 (seed_cell->GetPoints ()->GetPoint (6)[0],
-                       seed_cell->GetPoints ()->GetPoint (6)[1],
-                       seed_cell->GetPoints ()->GetPoint (6)[2]);
-          vertex3D v7 (seed_cell->GetPoints ()->GetPoint (7)[0],
-                       seed_cell->GetPoints ()->GetPoint (7)[1],
-                       seed_cell->GetPoints ()->GetPoint (7)[2]);
-
-          std::array<vertex3D, 8> hv{ v0, v1, v2, v3, v4, v5, v6, v7 };
-          vertex3D temp = mapping::isoparametric<vertex3D> (ipnext, hv);
-
-#if 0
+          vertex3D temp (x, y, z);
+#if 1
           double offset = m_width - next.distance (temp);
           if (next ('y') == temp ('y') && next ('z') == temp ('z'))
             {

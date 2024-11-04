@@ -79,10 +79,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
   /* The 'point' variable is only required for VTK searching. */
   double point[3] = { m_seed ('x'), m_seed ('y'), 0.0 };
 
-  std::cout << "---- Cartesian coord ----" << std::endl;
-  std::cout << point[0] << " " << point[1] << " " << point[2] << std::endl;
-  std::cout << "-------------------------" << std::endl;
-
   vertex2D next = m_seed;
   for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
     {
@@ -115,44 +111,9 @@ fiber2D::generate_fiber (const vector_field &vfield)
 
           /* Compute next grid vertex using bilinear interpolation. */
           vertex2D pnext (pcoords[0], pcoords[1]);
-          std::cout << "---- Parametric coords ----" << std::endl;
-          pnext.print ();
-          std::cout << "---------------------------" << std::endl;
-
-          std::cout << "---- Bounds of the cell ----" << std::endl;
-          std::cout << vx[0] << " " << vy[0] << std::endl;
-          std::cout << vx[1] << " " << vy[1] << std::endl;
-          std::cout << vx[2] << " " << vy[2] << std::endl;
-          std::cout << vx[3] << " " << vy[3] << std::endl;
-          std::cout << "----------------------------" << std::endl;
-
-          double r = interpolation::bilinear (pnext, vx);
-          double s = interpolation::bilinear (pnext, vy);
-
-          /* Mapping parametric to cartesian.*/
-          vertex2D ipnext (r, s);
-          std::cout << "---- Interpolated coord ----" << std::endl;
-          ipnext.print ();
-          std::cout << "----------------------------" << std::endl;
-          vertex2D v0 (seed_cell->GetPoints ()->GetPoint (0)[0],
-                       seed_cell->GetPoints ()->GetPoint (0)[1],
-                       seed_cell->GetPoints ()->GetPoint (0)[2]);
-          vertex2D v1 (seed_cell->GetPoints ()->GetPoint (1)[0],
-                       seed_cell->GetPoints ()->GetPoint (1)[1],
-                       seed_cell->GetPoints ()->GetPoint (1)[2]);
-          vertex2D v2 (seed_cell->GetPoints ()->GetPoint (2)[0],
-                       seed_cell->GetPoints ()->GetPoint (2)[1],
-                       seed_cell->GetPoints ()->GetPoint (2)[2]);
-          vertex2D v3 (seed_cell->GetPoints ()->GetPoint (3)[0],
-                       seed_cell->GetPoints ()->GetPoint (3)[1],
-                       seed_cell->GetPoints ()->GetPoint (3)[2]);
-          vertex2D v4 (0.0, 0.0, 0.0);
-          vertex2D v5 (0.0, 0.0, 0.0);
-          vertex2D v6 (0.0, 0.0, 0.0);
-          vertex2D v7 (0.0, 0.0, 0.0);
-
-          std::array<vertex2D, 8> hv{ v0, v1, v2, v3, v4, v5, v6, v7 };
-          vertex2D temp = mapping::isoparametric<vertex2D> (ipnext, hv);
+          double x = interpolation::bilinear (pnext, vx);
+          double y = interpolation::bilinear (pnext, vy);
+          vertex2D temp (x, y);
 
           /**
            *  Peform scaling to adjust for grid width.
@@ -169,7 +130,6 @@ fiber2D::generate_fiber (const vector_field &vfield)
            *   If 'x' and 'z' are equal then scale the 'y' coordinate.
            *   If 'x' and 'y' are equal then scale the 'z' coordinate.
            */
-          // vertex2D temp (x, y);
           double offset = m_width - next.distance (temp);
           if (next ('y') == temp ('y') && next ('z') == temp ('z'))
             {
