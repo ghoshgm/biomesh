@@ -130,6 +130,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
            *   If 'x' and 'z' are equal then scale the 'y' coordinate.
            *   If 'x' and 'y' are equal then scale the 'z' coordinate.
            */
+#if 0
           double offset = m_width - next.distance (temp);
           if (next ('y') == temp ('y') && next ('z') == temp ('z'))
             {
@@ -153,6 +154,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
             {
               temp.scale (offset);
             }
+#endif
 
           /* Push to fiber grid data structure. */
           m_fiber_vertices.emplace_back (temp);

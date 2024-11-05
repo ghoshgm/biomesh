@@ -107,7 +107,7 @@ fiber3D::generate_fiber (const vector_field &vfield)
           double z = interpolation::trilinear (pnext, vz);
 
           vertex3D temp (x, y, z);
-#if 1
+#if 0
           double offset = m_width - next.distance (temp);
           if (next ('y') == temp ('y') && next ('z') == temp ('z'))
             {
