@@ -2,6 +2,8 @@
 #ifndef BIOMESH_FIBER2D_HPP
 #define BIOMESH_FIBER2D_HPP
 
+#include <boost/numeric/odeint.hpp>
+
 #include <biomesh_fiber_base.hpp>
 #include <biomesh_vertex2d.hpp>
 

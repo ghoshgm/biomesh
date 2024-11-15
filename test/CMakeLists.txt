@@ -41,6 +41,12 @@ target_include_directories(test_jsoncpp PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_B
 target_link_libraries(test_jsoncpp PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
 add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp ${CMAKE_SOURCE_DIR}/test/read_sample.json)
 
+# Test Boost installation.
+add_executable(test_boost test_boost.cpp)
+target_include_directories(test_boost PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_boost PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
+add_test(NAME test_boost COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_boost)
+
 # Test for stopwatch.
 add_executable(test_stopwatch test_stopwatch.cpp)
 target_include_directories(test_stopwatch PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
