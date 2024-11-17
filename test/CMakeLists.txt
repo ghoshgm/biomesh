@@ -74,4 +74,5 @@ ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_rad
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_random.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_random_seed.json
 )
