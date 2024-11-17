@@ -73,4 +73,5 @@ add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_gri
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_melon.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon_seed.json
 )
