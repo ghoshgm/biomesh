@@ -69,4 +69,8 @@ add_test(NAME test_orientation COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_orientat
 add_executable(test_fiber_grid test_fiber_grid.cpp)
 target_include_directories(test_fiber_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include ${PETSC_INCLUDE_DIRS})
 target_link_libraries(test_fiber_grid PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES} ${PETSC_LINK_LIBRARIES})
-add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/fiber_grid_example1.json)
+add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_radial.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle_seed.json
+)
