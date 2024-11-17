@@ -111,5 +111,22 @@ int main(int argc, char **argv)
     visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "random2d");
   }
 
+  {
+    /* Load vector field from VTK file. */
+    vector_field field(argv[13]);
+    field.load_vtk_grid();
+
+    /* Generate fibers. */
+    fiber_grid<fiber2D, vertex2D> f(argv[14]);
+    f.generate_fiber_grid(field, 100, 0.2);
+
+    /* Write fibers to JSON format. */
+    json_parser jp;
+    jp.export_fiber_grid_json<fiber_grid<fiber2D, vertex2D>>(f, "circle2d.json");
+
+    /* Write fibers to VTK format. */
+    visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "circle2d");
+  }
+
   return EXIT_SUCCESS;
 }
