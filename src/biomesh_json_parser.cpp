@@ -69,7 +69,8 @@ json_parser::export_fiber_grid_json (const T &fgrid,
     }
 
   /* Set directory for the JSON file. */
-  std::string file_path = std::string (BIOMESH_BUILD_DIR) + "/" + file_name;
+  std::string file_path
+      = std::string (BIOMESH_BUILD_DIR) + "/results/" + file_name;
 
   /* Write to JSON file. */
   file_id.open (file_path);
