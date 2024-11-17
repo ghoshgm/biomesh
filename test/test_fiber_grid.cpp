@@ -77,5 +77,22 @@ int main(int argc, char **argv)
     visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "quarter_circle2d");
   }
 
+  {
+    /* Load vector field from VTK file. */
+    vector_field field(argv[9]);
+    field.load_vtk_grid();
+
+    /* Generate fibers. */
+    fiber_grid<fiber2D, vertex2D> f(argv[10]);
+    f.generate_fiber_grid(field, 50, 0.04);
+
+    /* Write fibers to JSON format. */
+    json_parser jp;
+    jp.export_fiber_grid_json<fiber_grid<fiber2D, vertex2D>>(f, "melon2d.json");
+
+    /* Write fibers to VTK format. */
+    visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "melon2d");
+  }
+
   return EXIT_SUCCESS;
 }
