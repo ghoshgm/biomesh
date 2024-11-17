@@ -94,5 +94,22 @@ int main(int argc, char **argv)
     visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "melon2d");
   }
 
+  {
+    /* Load vector field from VTK file. */
+    vector_field field(argv[11]);
+    field.load_vtk_grid();
+
+    /* Generate fibers. */
+    fiber_grid<fiber2D, vertex2D> f(argv[12]);
+    f.generate_fiber_grid(field, 50, 0.01);
+
+    /* Write fibers to JSON format. */
+    json_parser jp;
+    jp.export_fiber_grid_json<fiber_grid<fiber2D, vertex2D>>(f, "random2d.json");
+
+    /* Write fibers to VTK format. */
+    visualization::export_fiber_grid_vtk<fiber_grid<fiber2D, vertex2D>>(f, "random2d");
+  }
+
   return EXIT_SUCCESS;
 }
