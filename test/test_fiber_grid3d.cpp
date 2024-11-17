@@ -22,7 +22,7 @@ int main(int argc, char** argv)
   jp.export_fiber_grid_json< fiber_grid<fiber3D,vertex3D> >(f,"fiber_grid3d.json");
 
   /* Write fibers to VTK format. */
-  visualization::export_fiber_grid_vtk< fiber_grid<fiber3D,vertex3D> >(f);
+  visualization::export_fiber_grid_vtk< fiber_grid<fiber3D,vertex3D> >(f,"straight3d");
 
   return EXIT_SUCCESS;
 }
