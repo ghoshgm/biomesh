@@ -65,7 +65,7 @@ fiber2D::generate_fiber (const vector_field &vfield)
   double step_size = m_width;
   std::vector<double> state_vector{ m_seed ('x'), m_seed ('y') };
 
-  boost::numeric::odeint::runge_kutta4<std::vector<double>> time_stepper;
+  boost::numeric::odeint::runge_kutta4<std::vector<double> > time_stepper;
   boost::numeric::odeint::integrate_const (
       time_stepper,
       [&] (const std::vector<double> &svec, std::vector<double> &drdt,

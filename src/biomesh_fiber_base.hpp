@@ -12,6 +12,8 @@
 #include <vtkPointData.h>
 #include <vtkPoints.h>
 
+#include <boost/numeric/odeint.hpp>
+
 #include <array>
 #include <utility>
 #include <vector>
