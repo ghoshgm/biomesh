@@ -59,6 +59,9 @@ target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CM
 target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
 add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_z.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_z_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid3d_wave_laminar.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_wave_laminar_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid3d_spiral.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_spiral_seed.json
 )
 
 # Test for 2D fiber grid.
