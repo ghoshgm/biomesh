@@ -33,7 +33,9 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       fiber f (seed, fpoint_count, width);
 
       /* Generate fiber. */
+      BIOMESH_LINFO (0, "Fiber" + std::to_string (fcount) + " begin.");
       f.generate_fiber (vfield);
+      BIOMESH_LINFO (0, "Fiber" + std::to_string (fcount) + " end.");
 
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);
