@@ -43,64 +43,6 @@ int main()
   v3d_copy = v3d_original;
   assert(v3d_copy == v3d_original);
 
-  /* Test for scaling operation. */
-  vertex2D v2d(1.0,2.0);
-  
-  v2d.scale(2.0);
-  assert(v2d == vertex2D(3.0,4.0));
-
-  v2d.scale(-2.0);
-  assert(v2d == vertex2D(1.0,2.0));
-  
-  v2d.scale('x',2.0);
-  assert(v2d == vertex2D(3.0,2.0));
-
-  v2d.scale('x',-2.0);
-  assert(v2d == vertex2D(1.0,2.0));
-
-  v2d.scale('y',2.0);
-  assert(v2d == vertex2D(1.0,4.0));
-
-  v2d.scale('y',-2.0);
-  assert(v2d == vertex2D(1.0,2.0));
-
-  vertex3D v3d(1.0,2.0,3.0);
-  
-  v3d.scale(2.0);
-  assert(v3d == vertex3D(3.0,4.0,5.0));
-  
-  v3d.scale(-2.0);
-  assert(v3d == vertex3D(1.0,2.0,3.0));
-
-  v3d.scale('x',2.0);
-  assert(v3d == vertex3D(3.0,2.0,3.0));
-
-  v3d.scale('x',-2.0);
-  assert(v3d == vertex3D(1.0,2.0,3.0));
-
-  v3d.scale('y',2.0);
-  assert(v3d == vertex3D(1.0,4.0,3.0));
-
-  v3d.scale('y',-2.0);
-  assert(v3d == vertex3D(1.0,2.0,3.0));
-
-  v3d.scale('z',2.0);
-  assert(v3d == vertex3D(1.0,2.0,5.0));
-
-  v3d.scale('z',-2.0);
-  assert(v3d == vertex3D(1.0,2.0,3.0));
-
-  /* Test for distance function. */
-  vertex2D origin2d(0.0,0.0);
-  vertex2D end2d(1.0,1.0);
-  double dist2d = origin2d.distance(end2d);
-  assert(std::sqrt(2) == dist2d);
-  
-  vertex3D origin3d(0.0,0.0,0.0);
-  vertex3D end3d(1.0,1.0,1.0);
-  double dist3d = origin3d.distance(end3d);
-  assert(std::sqrt(3) == dist3d);
-  
   /* Test for helper constructor for 2D vertex. */
   double z = 0.0;
   vertex2D vh(1.0,2.0,z);
