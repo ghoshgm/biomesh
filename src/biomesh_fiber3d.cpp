@@ -36,8 +36,6 @@ fiber3D::generate_fiber (const vector_field &vfield)
   auto sgrid = vfield.get_grid ();
   BIOMESH_ASSERT (sgrid != nullptr);
 
-  BIOMESH_LINFO (0, "Fiber begin.");
-
   stopwatch watch;
   watch.start ();
 
@@ -138,7 +136,6 @@ fiber3D::generate_fiber (const vector_field &vfield)
   watch.end ();
   BIOMESH_LINFO (0, "Fiber vertex count = "
                         + std::to_string (m_fiber_vertices.size ()));
-  BIOMESH_LINFO (0, "Fiber end.");
 }
 
 size_t
