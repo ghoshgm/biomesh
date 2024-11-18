@@ -34,17 +34,6 @@ vertex::operator= (const vertex &other)
   m_position = other.m_position;
 }
 
-double
-vertex::distance (const vertex &other) const
-{
-  double x_abs = std::fabs (other.m_position (0) - m_position (0));
-  double y_abs = std::fabs (other.m_position (1) - m_position (1));
-  double z_abs = std::fabs (other.m_position (2) - m_position (2));
-
-  return std::sqrt (std::pow (x_abs, 2) + std::pow (y_abs, 2)
-                    + std::pow (z_abs, 2));
-}
-
 void
 vertex::print () const
 {
