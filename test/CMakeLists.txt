@@ -54,16 +54,18 @@ target_link_libraries(test_stopwatch PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.s
 add_test(NAME test_stopwatch COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_stopwatch)
 
 # Test for 3D fiber grid.
-#add_executable(test_fiber_grid3d test_fiber_grid3d.cpp)
-#target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include ${PETSC_INCLUDE_DIRS})
-#target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES} ${PETSC_LINK_LIBRARIES})
-#add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_unit_z.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_unit_seed.json)
+add_executable(test_fiber_grid3d test_fiber_grid3d.cpp)
+target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
+add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_seed.json
+)
 
-# Test for fiber grid.
-add_executable(test_fiber_grid test_fiber_grid2d.cpp)
-target_include_directories(test_fiber_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include ${PETSC_INCLUDE_DIRS})
-target_link_libraries(test_fiber_grid PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES} ${PETSC_LINK_LIBRARIES})
-add_test(NAME test_fiber_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x_seed.json
+# Test for 2D fiber grid.
+add_executable(test_fiber_grid2d test_fiber_grid2d.cpp)
+target_include_directories(test_fiber_grid2d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_fiber_grid2d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
+add_test(NAME test_fiber_grid2d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid2d ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle_seed.json
