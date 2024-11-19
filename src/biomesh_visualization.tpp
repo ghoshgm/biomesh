@@ -1,17 +1,19 @@
 
 template <class fiber_grid>
 void
-export_fiber_grid_vtk (const fiber_grid &fgrid)
+export_fiber_grid_vtk (const fiber_grid &fgrid, const std::string &file_prefix)
 {
+  BIOMESH_LINFO (0, "Export fibers to VTK format begin.");
+
   /* Loop over all fibers. */
   for (size_t ii = 0; ii < fgrid.size (); ++ii)
     {
       /* Set VTK file name for fiber. */
-      std::string file_name = "fiber_" + std::to_string (ii);
+      std::string file_name = file_prefix + "_" + std::to_string (ii);
 
       /* Set path for files. */
       std::string file_path
-          = std::string (BIOMESH_BUILD_DIR) + "/" + file_name + ".vtk";
+          = std::string (BIOMESH_BUILD_DIR) + "/results/" + file_name + ".vtk";
 
       vtkNew<vtkPoints> vertices;
 
@@ -43,4 +45,8 @@ export_fiber_grid_vtk (const fiber_grid &fgrid)
       writer->SetInputData (sgrid);
       writer->Write ();
     }
+
+  BIOMESH_LINFO (0, "Export fibers to VTK format end.");
+  BIOMESH_LINFO (0, "The VTK files are written to: "
+                        + std::string (BIOMESH_BUILD_DIR) + "/results");
 }
