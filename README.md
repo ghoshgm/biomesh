@@ -4,10 +4,10 @@
 The software is developed at the University of Stuttgart.
 
 ## Dependencies
-* VTK
-* Eigen
-* JsonCpp
-* Boost
+* VTK 9.3.0 or newer
+* Eigen 3.4.0 or newer
+* JsonCpp 1.9.5 or newer
+* Boost 1.74.0 or newer
 
 ## Building dependencies
 The dependencies can be built from source or package managers like Spack, apt.
