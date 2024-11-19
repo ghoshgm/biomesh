@@ -10,10 +10,11 @@ DESCRIPTION "biomesh is a highly scalable meshing library for musculoskeletal si
 include(cmake/find_dependencies.cmake)
 
 # Configure biomesh.
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/results)
 include(cmake/config.cmake)
 
 # Build source.
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 add_subdirectory(src)
 
 # Build examples.

@@ -61,14 +61,9 @@ public:
   void operator= (const vertex &other);
 
   /**
-   * Function to compute the eucledian distance between two vertices.
-   */
-  double distance (const vertex &other) const;
-
-  /**
    * Print coordinates.
    */
-  void print ();
+  void print () const;
 
 protected:
   Eigen::Vector3d m_position; /* The X,Y,Z coordinates of the vertex. */
