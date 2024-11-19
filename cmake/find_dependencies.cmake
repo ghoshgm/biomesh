@@ -15,4 +15,7 @@ if(${Eigen3_FOUND})
 endif()
 
 pkg_check_modules(JSONCPP REQUIRED jsoncpp)
-message(STATUS "Found jsoncpp: ${JSONCPP_LIBDIR}")
+message(STATUS "Found jsoncpp: ${JSONCPP_LIBDIR} (found version ${JSONCPP_VERSION})")
+
+find_package(Boost REQUIRED)
+message(STATUS ${Boost_INCLUDE_DIRS})

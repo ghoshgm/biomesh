@@ -31,6 +31,7 @@ if(${MPI_FOUND})
   check_include_file(mpi.h HAVE_MPI_H)
   set(CMAKE_REQUIRED_LIBRARIES)
 endif()
+
 check_include_file(stdint.h HAVE_STDINT_H)
 check_include_file(math.h HAVE_MATH_H)
 check_include_file_cxx("memory" HAVE_MEMORY_H)
