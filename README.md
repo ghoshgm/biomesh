@@ -57,7 +57,9 @@ The default directory for installtion is the build directory.
 
 ### Obtaining the source code
 The source code is hosted on GitHub.  
-`git clone https://github.com/opendihu/biomesh.git`
+```
+git clone https://github.com/opendihu/biomesh.git
+```
 
 ### Configuration
 `-DCMAKE_BUILD_TYPE` enables debug mode.  
@@ -67,13 +69,20 @@ Set to 'debug' to enable.
 `-DCMAKE_PREFIX_PATH` points CMake to the build directories of dependencies.
 
 An example configuration line for debug builds:  
-```cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source```
+```
+cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
+```
 
 An example configuration line for release builds:  
-```cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source```
+```
+cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
+```
 
 ### Compilation
-Run the command: `make`  
+Run the command: 
+```
+make
+```  
 
 **NOTE:** Parallel builds are not supported at the moment.
 
