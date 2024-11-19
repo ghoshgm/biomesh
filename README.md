@@ -85,7 +85,3 @@ For checking memory leaks use `ctest path/to/build/dir -T memcheck`
 
 ## License
 The BioMesh library is distributed under the MIT License.
-
-
-
-
