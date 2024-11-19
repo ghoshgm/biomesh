@@ -7,14 +7,12 @@ fiber3D::fiber3D (size_t gpoint_count, double width)
     : m_gpoint_count{ gpoint_count }, m_width{ width }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
-  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber3D::fiber3D (const vertex3D &seed, size_t gpoint_count, double width)
     : m_seed{ seed }, m_gpoint_count{ gpoint_count }, m_width{ width }
 {
   m_fiber_vertices.reserve (m_gpoint_count);
-  m_fiber_vertices.emplace_back (m_seed);
 }
 
 fiber3D::fiber3D (const fiber3D &other)
@@ -38,120 +36,106 @@ fiber3D::generate_fiber (const vector_field &vfield)
   auto sgrid = vfield.get_grid ();
   BIOMESH_ASSERT (sgrid != nullptr);
 
-  BIOMESH_LINFO (0, "Fiber begin.");
+  stopwatch watch;
+  watch.start ();
 
-  int subid;
-  double pcoords[3];
-  double weights[VTK_CELL_SIZE];
+  double t_start = 0.0;
+  double t_end = m_gpoint_count;
+  double step_size = m_width;
+  std::vector<double> state_vector{ m_seed ('x'), m_seed ('y'), m_seed ('z') };
 
-  int arridx = 1;
-  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-  BIOMESH_ASSERT (da != nullptr);
+  boost::numeric::odeint::runge_kutta4<std::vector<double> > time_stepper;
+  boost::numeric::odeint::integrate_const (
+      time_stepper,
+      [&] (const std::vector<double> &svec, std::vector<double> &drdt,
+           double t) {
+        /**
+         * The 'FindCell' function in the VTK lib returns more information
+         * than needed. We are only interested in the return value of the
+         * function and 'pcoords'. The variables 'subid','weights' are
+         * return variables which are not needed for our application
+         * but are essential to avoid segfaults.
+         */
+        int subid;
+        double pcoords[3];
+        double weights[VTK_CELL_SIZE];
 
-  double point[3] = { m_seed ('x'), m_seed ('y'), m_seed ('z') };
+        int arridx = 1;
+        vtkDataArray *da
+            = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+        BIOMESH_ASSERT (da != nullptr);
 
-  vertex3D next = m_seed;
-  for (int ii = 0; ii < m_gpoint_count - 1; ++ii)
-    {
-      /* Search for 'point' in the VTK structured grid. */
-      auto cellid
-          = sgrid->FindCell (point, nullptr, -1, 0, subid, pcoords, weights);
+        /* The initial seed vertex. */
+        double current_vertex[3] = { svec[0], svec[1], svec[2] };
+        auto cellid = sgrid->FindCell (current_vertex, nullptr, -1, 0, subid,
+                                       pcoords, weights);
 
-      /* Ignore 'point' if it lies outside the vector field. */
-      if (cellid >= 0)
-        {
-          /* Grab the cell. */
-          vtkCell *seed_cell = sgrid->GetCell (cellid);
-          BIOMESH_ASSERT (seed_cell != nullptr);
-          BIOMESH_ASSERT (seed_cell->GetCellType () == VTK_HEXAHEDRON);
+        /* Only consider the vertices within the bounds of the structured grid.
+         */
+        if (cellid >= 0)
+          {
+            /* Grab the cell. */
+            vtkCell *seed_cell = sgrid->GetCell (cellid);
+            BIOMESH_ASSERT (seed_cell != nullptr);
+            BIOMESH_ASSERT (seed_cell->GetCellType () == VTK_HEXAHEDRON);
 
-          /* Grab the point indices. */
-          vtkIdList *pids = seed_cell->GetPointIds ();
-          BIOMESH_ASSERT (pids != nullptr);
+            /* Grab the point indices. */
+            vtkIdList *pids = seed_cell->GetPointIds ();
+            BIOMESH_ASSERT (pids != nullptr);
 
-          /* Grab the vectors. */
-          std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
-                                    (da->GetTuple3 (pids->GetId (1)))[0],
-                                    (da->GetTuple3 (pids->GetId (2)))[0],
-                                    (da->GetTuple3 (pids->GetId (3)))[0],
-                                    (da->GetTuple3 (pids->GetId (4)))[0],
-                                    (da->GetTuple3 (pids->GetId (5)))[0],
-                                    (da->GetTuple3 (pids->GetId (6)))[0],
-                                    (da->GetTuple3 (pids->GetId (7)))[0] };
+            /* Grab the vectors. */
+            std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                      (da->GetTuple3 (pids->GetId (1)))[0],
+                                      (da->GetTuple3 (pids->GetId (2)))[0],
+                                      (da->GetTuple3 (pids->GetId (3)))[0],
+                                      (da->GetTuple3 (pids->GetId (4)))[0],
+                                      (da->GetTuple3 (pids->GetId (5)))[0],
+                                      (da->GetTuple3 (pids->GetId (6)))[0],
+                                      (da->GetTuple3 (pids->GetId (7)))[0] };
 
-          std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
-                                    (da->GetTuple3 (pids->GetId (1)))[1],
-                                    (da->GetTuple3 (pids->GetId (2)))[1],
-                                    (da->GetTuple3 (pids->GetId (3)))[1],
-                                    (da->GetTuple3 (pids->GetId (4)))[1],
-                                    (da->GetTuple3 (pids->GetId (5)))[1],
-                                    (da->GetTuple3 (pids->GetId (6)))[1],
-                                    (da->GetTuple3 (pids->GetId (7)))[1] };
+            std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                      (da->GetTuple3 (pids->GetId (1)))[1],
+                                      (da->GetTuple3 (pids->GetId (2)))[1],
+                                      (da->GetTuple3 (pids->GetId (3)))[1],
+                                      (da->GetTuple3 (pids->GetId (4)))[1],
+                                      (da->GetTuple3 (pids->GetId (5)))[1],
+                                      (da->GetTuple3 (pids->GetId (6)))[1],
+                                      (da->GetTuple3 (pids->GetId (7)))[1] };
 
-          std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
-                                    (da->GetTuple3 (pids->GetId (1)))[2],
-                                    (da->GetTuple3 (pids->GetId (2)))[2],
-                                    (da->GetTuple3 (pids->GetId (3)))[2],
-                                    (da->GetTuple3 (pids->GetId (4)))[2],
-                                    (da->GetTuple3 (pids->GetId (5)))[2],
-                                    (da->GetTuple3 (pids->GetId (6)))[2],
-                                    (da->GetTuple3 (pids->GetId (7)))[2] };
+            std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
+                                      (da->GetTuple3 (pids->GetId (1)))[2],
+                                      (da->GetTuple3 (pids->GetId (2)))[2],
+                                      (da->GetTuple3 (pids->GetId (3)))[2],
+                                      (da->GetTuple3 (pids->GetId (4)))[2],
+                                      (da->GetTuple3 (pids->GetId (5)))[2],
+                                      (da->GetTuple3 (pids->GetId (6)))[2],
+                                      (da->GetTuple3 (pids->GetId (7)))[2] };
 
-          /* Trilinear interpolation in parametric coordinates. */
-          vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
-          double r = interpolation::trilinear (
-              pnext, vx[0], vx[1], vx[2], vx[3], vx[4], vx[5], vx[6], vx[7]);
-          double s = interpolation::trilinear (
-              pnext, vy[0], vy[1], vy[2], vy[3], vy[4], vy[5], vy[6], vy[7]);
-          double t = interpolation::trilinear (
-              pnext, vz[0], vz[1], vz[2], vz[3], vz[4], vz[5], vz[6], vz[7]);
+            /* Trilinear interpolation in parametric coordinates. */
+            vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
+            drdt[0] = interpolation::trilinear (pnext, vx);
+            drdt[1] = interpolation::trilinear (pnext, vy);
+            drdt[2] = interpolation::trilinear (pnext, vz);
+          }
+      },
+      state_vector, t_start, t_end, step_size,
+      [&, this] (const std::vector<double> &sv, double t) {
+        int subid;
+        double pcoords[3];
+        double weights[VTK_CELL_SIZE];
+        double next[3] = { sv[0], sv[1], sv[2] };
+        auto cellid
+            = sgrid->FindCell (next, nullptr, -1, 0, subid, pcoords, weights);
+        if (cellid >= 0)
+          {
+            vertex3D next (sv[0], sv[1], sv[2]);
+            m_fiber_vertices.emplace_back (next);
+          }
+      });
 
-          /* Map parametric coordinates back to cartesian coords. */
-          vertex3D ipnext (r, s, t);
-          vertex3D v0 (seed_cell->GetPoints ()->GetPoint (0)[0],
-                       seed_cell->GetPoints ()->GetPoint (0)[1],
-                       seed_cell->GetPoints ()->GetPoint (0)[2]);
-          vertex3D v1 (seed_cell->GetPoints ()->GetPoint (1)[0],
-                       seed_cell->GetPoints ()->GetPoint (1)[1],
-                       seed_cell->GetPoints ()->GetPoint (1)[2]);
-          vertex3D v2 (seed_cell->GetPoints ()->GetPoint (2)[0],
-                       seed_cell->GetPoints ()->GetPoint (2)[1],
-                       seed_cell->GetPoints ()->GetPoint (2)[2]);
-          vertex3D v3 (seed_cell->GetPoints ()->GetPoint (3)[0],
-                       seed_cell->GetPoints ()->GetPoint (3)[1],
-                       seed_cell->GetPoints ()->GetPoint (3)[2]);
-          vertex3D v4 (seed_cell->GetPoints ()->GetPoint (4)[0],
-                       seed_cell->GetPoints ()->GetPoint (4)[1],
-                       seed_cell->GetPoints ()->GetPoint (4)[2]);
-          vertex3D v5 (seed_cell->GetPoints ()->GetPoint (5)[0],
-                       seed_cell->GetPoints ()->GetPoint (5)[1],
-                       seed_cell->GetPoints ()->GetPoint (5)[2]);
-          vertex3D v6 (seed_cell->GetPoints ()->GetPoint (6)[0],
-                       seed_cell->GetPoints ()->GetPoint (6)[1],
-                       seed_cell->GetPoints ()->GetPoint (6)[2]);
-          vertex3D v7 (seed_cell->GetPoints ()->GetPoint (7)[0],
-                       seed_cell->GetPoints ()->GetPoint (7)[1],
-                       seed_cell->GetPoints ()->GetPoint (7)[2]);
-
-          std::array<vertex3D, 8> hv{ v0, v1, v2, v3, v4, v5, v6, v7 };
-          vertex3D temp = mapping::isoparametric<vertex3D> (ipnext, hv);
-
-          /* Push to fiber grid data structure. */
-          m_fiber_vertices.emplace_back (temp);
-
-          /* Update grid point for next computation. */
-          next = temp;
-
-          /* Update 'point' for possible searching. */
-          point[0] = next ('x');
-          point[1] = next ('y');
-          point[2] = next ('z');
-        }
-    }
-  std::cout << "[BIOMESH 0 INFO] "
-            << "Fiber vertex count = " << m_fiber_vertices.size ()
-            << std::endl;
-  BIOMESH_LINFO (0, "Fiber end.");
+  watch.end ();
+  BIOMESH_LINFO (0, "Fiber vertex count = "
+                        + std::to_string (m_fiber_vertices.size ()));
 }
 
 size_t
