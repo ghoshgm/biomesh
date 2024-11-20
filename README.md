@@ -4,10 +4,10 @@
 The software is developed at the University of Stuttgart.
 
 ## Dependencies
-* VTK
-* Eigen
-* JsonCpp
-* Boost
+* VTK 9.3.0 or newer
+* Eigen 3.4.0 or newer
+* JsonCpp 1.9.5 or newer
+* Boost 1.74.0 or newer
 
 ## Building dependencies
 The dependencies can be built from source or package managers like Spack, apt.
@@ -57,7 +57,9 @@ The default directory for installtion is the build directory.
 
 ### Obtaining the source code
 The source code is hosted on GitHub.  
-`git clone https://github.com/opendihu/biomesh.git`
+```
+git clone https://github.com/opendihu/biomesh.git
+```
 
 ### Configuration
 `-DCMAKE_BUILD_TYPE` enables debug mode.  
@@ -67,21 +69,34 @@ Set to 'debug' to enable.
 `-DCMAKE_PREFIX_PATH` points CMake to the build directories of dependencies.
 
 An example configuration line for debug builds:  
-```cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source```
+```
+cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
+```
 
 An example configuration line for release builds:  
-```cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source```
+```
+cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
+```
 
 ### Compilation
-Run the command: `make`  
+Run the command: 
+```
+make
+```  
 
 **NOTE:** Parallel builds are not supported at the moment.
 
 ### Testing
 
-Tests can executed via `ctest path/to/build/dir`  
+Tests can executed via 
+```
+ctest path/to/build/dir
+```  
 
-For checking memory leaks use `ctest path/to/build/dir -T memcheck` 
+For checking memory leaks use 
+```
+ctest path/to/build/dir -T memcheck
+``` 
 
 ## License
 The BioMesh library is distributed under the MIT License.
