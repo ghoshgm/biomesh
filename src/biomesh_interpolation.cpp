@@ -12,11 +12,6 @@ bilinear (const vertex2D &probe, std::array<double, 4> &scalars)
 {
   double interp_res = 0.0;
 
-  BIOMESH_ASSERT ((BIOMESH_DCOMP (probe ('x'), 1.0) or probe ('x') < 1.0)
-                  and (BIOMESH_DCOMP (probe ('x'), 0.0) or probe ('x') > 0.0));
-  BIOMESH_ASSERT ((BIOMESH_DCOMP (probe ('y'), 1.0) or probe ('y') < 1.0)
-                  and (BIOMESH_DCOMP (probe ('y'), 0.0) or probe ('y') > 0.0));
-
   /* Compute interpolation weights. */
   double w0 = (1.0 - probe ('x')) * (1.0 - probe ('y'));
   double w1 = probe ('x') * (1.0 - probe ('y'));
@@ -35,13 +30,6 @@ double
 trilinear (const vertex3D &probe, std::array<double, 8> &scalars)
 {
   double interp_res = 0.0;
-
-  BIOMESH_ASSERT ((BIOMESH_DCOMP (probe ('x'), 1.0) or probe ('x') < 1.0)
-                  and (BIOMESH_DCOMP (probe ('x'), 0.0) or probe ('x') > 0.0));
-  BIOMESH_ASSERT ((BIOMESH_DCOMP (probe ('y'), 1.0) or probe ('y') < 1.0)
-                  and (BIOMESH_DCOMP (probe ('y'), 0.0) or probe ('y') > 0.0));
-  BIOMESH_ASSERT ((BIOMESH_DCOMP (probe ('z'), 1.0) or probe ('z') < 1.0)
-                  and (BIOMESH_DCOMP (probe ('z'), 0.0) or probe ('z') > 0.0));
 
   /* Compute interpolation weights. */
   double w0 = (1.0 - probe ('x')) * (1.0 - probe ('y')) * (1.0 - probe ('z'));

@@ -72,7 +72,7 @@ public:
    *
    * @return The vertex at index 'idx'.
    */
-  vertex2D operator[] (int idx) const;
+  vertex2D operator[] (size_t idx) const;
 
   /**
    * Test equality of two fibers.
