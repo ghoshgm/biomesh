@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
     /* Generate fibers. */
     fiber_grid<fiber2D, vertex2D> f(argv[6]);
-    f.generate_fiber_grid(field, 100, 0.2);
+    f.generate_fiber_grid(field, 1000, 0.2);
 
     /* Write fibers to JSON format. */
     json_parser jp;
@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 
     /* Generate fibers. */
     fiber_grid<fiber2D, vertex2D> f(argv[12]);
-    f.generate_fiber_grid(field, 50, 0.01);
+    f.generate_fiber_grid(field, 1000, 0.01);
 
     /* Write fibers to JSON format. */
     json_parser jp;
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 
     /* Generate fibers. */
     fiber_grid<fiber2D, vertex2D> f(argv[14]);
-    f.generate_fiber_grid(field, 100, 0.2);
+    f.generate_fiber_grid(field, 1000, 0.2);
 
     /* Write fibers to JSON format. */
     json_parser jp;
