@@ -59,6 +59,8 @@ set(BIOMESH_BUILD_DIR \"${PROJECT_BINARY_DIR}\")
 
 if(CMAKE_BUILD_TYPE MATCHES "debug")
   set(BIOMESH_ENABLE_DEBUG 1)
+elseif(CMAKE_BUILD_TYPE MATCHES "release")
+  set(BIOMESH_ENABLE_DEBUG 0)
 endif()
 
 # Generate configure file.
