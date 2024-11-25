@@ -16,42 +16,25 @@
 #define BIOMESH_ERROR 0
 
 /* Tolerance for comparing two doubles. */
-#define BIOMESH_DCOMP(a, b) std::fabs (a - b) < 1e-8
+#define BIOMESH_DCOMP(a, b) (std::fabs (a - b) < 1e-8)
 
 #ifdef BIOMESH_ENABLE_DEBUG
 #define BIOMESH_ASSERT(c) assert (c == true)
-#define BIOMESH_LDEBUG(mpirank, format, ...)                                  \
+#define BIOMESH_LDEBUG(format)                                                \
   do                                                                          \
     {                                                                         \
-      std::string message                                                     \
-          = "[BIOMESH %d DEBUG] " + std::string (format) + "\n";              \
-      printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
+      std::cout << "[BIOMESH DEBUG] " << std::string (format) << std::endl;   \
     }                                                                         \
   while (0)
 #else
 #define BIOMESH_ASSERT(c) ((void)(0))
-#define BIOMESH_LDEBUG(mpirank, format, ...) ((void)(0))
+#define BIOMESH_LDEBUG(format) ((void)(0))
 #endif
 
-#define BIOMESH_LINFO(mpirank, format, ...)                                   \
+#define BIOMESH_LINFO(format)                                                 \
   do                                                                          \
     {                                                                         \
-      std::string message                                                     \
-          = "[BIOMESH %d INFO] " + std::string (format) + "\n";               \
-      printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
+      std::cout << "[BIOMESH INFO] " << std::string (format) << std::endl;    \
     }                                                                         \
   while (0)
-
-#define BIOMESH_TRACE(mpirank, format, ...)                                   \
-  do                                                                          \
-    {                                                                         \
-      std::string message                                                     \
-          = "[BIOMESH %d TRACE] " + std::string ("FILE:" __FILE__) + " "      \
-            + std::string ("LINE:") + std::to_string (__LINE__) + " "         \
-            + std::string ("FUNCTION:") + std::string (__PRETTY_FUNCTION__)   \
-            + " " + std::string (format) + "\n";                              \
-      printf (message.c_str (), mpirank, ##__VA_ARGS__);                      \
-    }                                                                         \
-  while (0)
-
 #endif

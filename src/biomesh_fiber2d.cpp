@@ -151,8 +151,8 @@ fiber2D::generate_fiber (const vector_field &vfield)
     }
 
   watch.end ();
-  BIOMESH_LINFO (0, "Fiber vertex count = "
-                        + std::to_string (m_fiber_vertices.size ()));
+  BIOMESH_LINFO ("Fiber vertex count = "
+                 + std::to_string (m_fiber_vertices.size ()));
 }
 
 } // namespace biomesh
