@@ -13,12 +13,12 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
                                                 double width)
 {
   int ret = m_jparser.read ();
-  BIOMESH_ASSERT (ret == true);
+  BIOMESH_ASSERT ((ret == true));
   auto data = m_jparser.get_json_string ();
   m_fiber_count = data["seed_points"].size ();
-  BIOMESH_ASSERT (this->m_fiber_count > 0);
-  BIOMESH_ASSERT (width > 0.0);
-  m_fiber_set.reserve (this->m_fiber_count);
+  BIOMESH_ASSERT ((this->m_fiber_count > 0));
+  BIOMESH_ASSERT ((width > 0.0));
+  m_fiber_set.reserve ((this->m_fiber_count));
 
   /* Loop over the fibers. */
   for (size_t fcount = 0; fcount < this->m_fiber_count; ++fcount)
