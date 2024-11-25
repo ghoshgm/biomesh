@@ -23,11 +23,11 @@ json_parser::read ()
   BIOMESH_ASSERT ((m_file.is_open ()));
 
   /* Read the JSON file. */
-  BIOMESH_LINFO (0, "Input JSON file path: " + m_file_path);
-  BIOMESH_LINFO (0, "JSON file read begin.");
+  BIOMESH_LINFO ("Input JSON file path: " + m_file_path);
+  BIOMESH_LINFO ("JSON file read begin.");
   bool success = reader.parse (m_file, m_jstring);
   BIOMESH_ASSERT ((success == true));
-  BIOMESH_LINFO (0, "JSON file read end.");
+  BIOMESH_LINFO ("JSON file read end.");
 
   /* Close the JSON file. */
   m_file.close ();
@@ -53,7 +53,7 @@ json_parser::export_fiber_grid_json (const T &fgrid,
   Json::Value fiber_root;
   Json::StyledWriter writer;
 
-  BIOMESH_LINFO (0, "Export fibers to JSON format begin.");
+  BIOMESH_LINFO ("Export fibers to JSON format begin.");
   std::vector<Json::Value> jfiber (fgrid.size ());
   for (unsigned ii = 0; ii < fgrid.size (); ++ii)
     {
@@ -78,9 +78,9 @@ json_parser::export_fiber_grid_json (const T &fgrid,
   file_id << writer.write (fiber_root);
   file_id.close ();
   BIOMESH_ASSERT (!file_id.is_open ());
-  BIOMESH_LINFO (0, "The JSON file is written to: " + file_path);
+  BIOMESH_LINFO ("The JSON file is written to: " + file_path);
 
-  BIOMESH_LINFO (0, "Export fibers to JSON format end.");
+  BIOMESH_LINFO ("Export fibers to JSON format end.");
 }
 
 template void json_parser::export_fiber_grid_json (

@@ -13,6 +13,11 @@ include(cmake/find_dependencies.cmake)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/results)
 include(cmake/config.cmake)
+message(STATUS "-------- SUMMARY --------")
+message(STATUS "CXX: ${BIOMESH_CPP}")
+message(STATUS "CXXFLAGS: ${BIOMESH_CPPFLAGS}")
+message(STATUS "Build: ${CMAKE_BUILD_TYPE}")
+message(STATUS "-------------------------")
 
 # Build source.
 add_subdirectory(src)

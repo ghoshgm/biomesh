@@ -29,7 +29,7 @@ int
 vector_field::load_vtk_grid ()
 {
   BIOMESH_ASSERT ((!m_file_path.empty ()));
-  BIOMESH_LINFO (0, "File: " + m_file_path);
+  BIOMESH_LINFO ("File: " + m_file_path);
 
   /* Initialize serial reader. */
   vtkSmartPointer<vtkStructuredGridReader> reader
@@ -37,11 +37,11 @@ vector_field::load_vtk_grid ()
   BIOMESH_ASSERT ((reader != nullptr));
 
   /* Read the file. */
-  BIOMESH_LINFO (0, "Read vtk file start.");
+  BIOMESH_LINFO ("Read vtk file start.");
   reader->SetFileName (this->m_file_path.c_str ());
   reader->Update ();
-  BIOMESH_ASSERT ((reader->IsFileValid ("structured")));
-  BIOMESH_LINFO (0, "Read vtk file finish.");
+  BIOMESH_ASSERT (reader->IsFileValid ("structured"));
+  BIOMESH_LINFO ("Read vtk file finish.");
 
   /* Obtain the structured grid data. */
   m_sgrid = reader->GetOutput ();
