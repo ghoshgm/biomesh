@@ -67,7 +67,7 @@ public:
    *
    * @return The vertex at index 'idx'.
    */
-  vertex3D operator[] (int idx) const;
+  vertex3D operator[] (size_t idx) const;
 
   /**
    * Function to generate fiber coordinates.

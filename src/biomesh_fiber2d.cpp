@@ -110,6 +110,7 @@ static bool
 is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
 {
   double *bb = sgrid->GetBounds ();
+  BIOMESH_ASSERT ((bb != nullptr));
   return ((v[0] >= bb[0] and v[0] <= bb[1])
           and (v[1] >= bb[2] and v[1] <= bb[3]));
 }

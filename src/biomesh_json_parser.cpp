@@ -20,20 +20,20 @@ json_parser::read ()
 {
   /* Open the JSON file. */
   std::ifstream m_file (m_file_path);
-  BIOMESH_ASSERT (m_file.is_open ());
+  BIOMESH_ASSERT ((m_file.is_open ()));
 
   /* Read the JSON file. */
   BIOMESH_LINFO (0, "Input JSON file path: " + m_file_path);
   BIOMESH_LINFO (0, "JSON file read begin.");
   bool success = reader.parse (m_file, m_jstring);
-  BIOMESH_ASSERT (success == true);
+  BIOMESH_ASSERT ((success == true));
   BIOMESH_LINFO (0, "JSON file read end.");
 
   /* Close the JSON file. */
   m_file.close ();
-  BIOMESH_ASSERT (!m_file.is_open ());
+  BIOMESH_ASSERT ((!m_file.is_open ()));
 
-  return (success == true) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
+  return ((success == true)) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
 
 Json::Value

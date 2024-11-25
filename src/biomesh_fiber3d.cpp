@@ -106,6 +106,7 @@ static bool
 is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
 {
   double *bb = sgrid->GetBounds ();
+  BIOMESH_ASSERT ((bb != nullptr));
   return ((v[0] >= bb[0] and v[0] <= bb[1])
           and (v[1] >= bb[2] and v[1] <= bb[3])
           and (v[2] >= bb[4] and v[2] <= bb[5]));
@@ -157,9 +158,9 @@ fiber3D::size () const
 }
 
 vertex3D
-fiber3D::operator[] (int idx) const
+fiber3D::operator[] (size_t idx) const
 {
-  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
+  BIOMESH_ASSERT ((idx >= 0 && idx < m_fiber_vertices.size ()));
   return m_fiber_vertices[idx];
 }
 
