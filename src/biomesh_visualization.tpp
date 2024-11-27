@@ -3,7 +3,7 @@ template <class fiber_grid>
 void
 export_fiber_grid_vtk (const fiber_grid &fgrid, const std::string &file_prefix)
 {
-  BIOMESH_LINFO (0, "Export fibers to VTK format begin.");
+  BIOMESH_LINFO ("Export fibers to VTK format begin.");
 
   /* Loop over all fibers. */
   for (size_t ii = 0; ii < fgrid.size (); ++ii)
@@ -46,7 +46,7 @@ export_fiber_grid_vtk (const fiber_grid &fgrid, const std::string &file_prefix)
       writer->Write ();
     }
 
-  BIOMESH_LINFO (0, "Export fibers to VTK format end.");
-  BIOMESH_LINFO (0, "The VTK files are written to: "
-                        + std::string (BIOMESH_BUILD_DIR) + "/results");
+  BIOMESH_LINFO ("Export fibers to VTK format end.");
+  BIOMESH_LINFO ("The VTK files are written to: "
+                 + std::string (BIOMESH_BUILD_DIR) + "/results");
 }

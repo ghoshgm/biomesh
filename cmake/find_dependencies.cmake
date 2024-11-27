@@ -1,9 +1,5 @@
 include(FindPkgConfig)
 
-if(ENABLE_MPI)
- find_package(MPI REQUIRED)
-endif()
-
 find_package(VTK REQUIRED)
 if(${VTK_FOUND})
   message(STATUS "Found VTK: ${VTK_DIR} (found version ${VTK_VERSION})")
@@ -18,4 +14,3 @@ pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 message(STATUS "Found jsoncpp: ${JSONCPP_LIBDIR} (found version ${JSONCPP_VERSION})")
 
 find_package(Boost REQUIRED)
-message(STATUS ${Boost_INCLUDE_DIRS})
