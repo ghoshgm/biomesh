@@ -163,10 +163,8 @@ fiber2D::generate_fiber (const vector_field &vfield)
 #ifdef BIOMESH_ENABLE_DEBUG
       double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
       double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
-      double z_diff = std::fabs (vertex[2] - m_fiber_vertices.back () ('z'));
       double distance
-          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0)
-                       + std::pow (z_diff, 2.0));
+          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0));
       BIOMESH_ASSERT (BIOMESH_DCOMP (distance, m_width));
 #endif
 
