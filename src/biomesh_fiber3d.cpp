@@ -142,6 +142,31 @@ fiber3D::generate_fiber (const vector_field &vfield)
                double t) { compute_vector (sgrid, svec, drdt, t); },
           vertex, t_start, dt);
 
+      /* Set distance between two adjacent vertices. */
+      Eigen::Vector3d vv1 (m_fiber_vertices.back () ('x'),
+                           m_fiber_vertices.back () ('y'),
+                           m_fiber_vertices.back () ('z'));
+      Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
+      Eigen::Vector3d cv = vv2 - vv1;
+      if (BIOMESH_DCOMP (cv.norm (), 0.0))
+        {
+          break;
+        }
+      Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
+      vertex[0] = v_new (0);
+      vertex[1] = v_new (1);
+      vertex[2] = v_new (2);
+
+#ifdef BIOMESH_ENABLE_DEBUG
+      double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
+      double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
+      double z_diff = std::fabs (vertex[2] - m_fiber_vertices.back () ('z'));
+      double distance
+          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0)
+                       + std::pow (z_diff, 2.0));
+      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, m_width));
+#endif
+
       /* Increment step. */
       t_start += dt;
     }
