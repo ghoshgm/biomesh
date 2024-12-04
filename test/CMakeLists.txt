@@ -66,4 +66,5 @@ ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgr
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_random.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_random_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_circle_seed.json
+${CMAKE_SOURCE_DIR}/test/sgrid2d_zero.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero_seed.json
 )
