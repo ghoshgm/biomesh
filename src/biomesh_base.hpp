@@ -15,6 +15,12 @@
 #define BIOMESH_SUCCESS 1
 #define BIOMESH_ERROR 0
 
+#ifdef BIOMESH_ENABLE_2D
+#define BIOMESH_DIM 2
+#else
+#define BIOMESH_DIM 3
+#endif
+
 /* Tolerance for comparing two doubles. */
 #define BIOMESH_DCOMP(a, b) (std::fabs (a - b) < 1e-8)
 
