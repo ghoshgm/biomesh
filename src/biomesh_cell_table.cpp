@@ -3,7 +3,6 @@
 biomesh::cell_table::cell_table (const vector_field &vfield)
     : sgrid{ vfield.get_grid ().GetPointer () }
 {
-  // std::cout << m_cell_type.size() << "----------" << std::endl;
   m_cell_type.reserve (sgrid->GetNumberOfCells ());
 }
 
@@ -11,24 +10,21 @@ static std::array<int, 2 * BIOMESH_DIM>
 compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
 {
   int dims[3];
-  structuredGrid->GetDimensions (dims); // (nx, ny, 1)
-  int nx = dims[0] - 1;                 // Number of cells in X direction
-  int ny = dims[1] - 1;                 // Number of cells in Y direction
-#ifndef BIOMESH_ENABLE_2D
+  structuredGrid->GetDimensions (dims);
+  int nx = dims[0] - 1;
+  int ny = dims[1] - 1;
   int nz = dims[2] - 1;
-#endif
 
   std::array<int, 2 * BIOMESH_DIM> neighbors;
   neighbors.fill (-1);
 
-  // Convert cellId to (i, j)
   int ijk[3];
   vtkStructuredData::ComputeCellStructuredCoords (cellId, dims, ijk);
   int i = ijk[0];
   int j = ijk[1];
-#ifndef BIOMESH_ENABLE_2D
   int k = ijk[2];
 
+#ifndef BIOMESH_ENABLE_2D
   int offsets[6][3] = { { -1, 0, 0 }, { 1, 0, 0 },  { 0, -1, 0 },
                         { 0, 1, 0 },  { 0, 0, -1 }, { 0, 0, 1 } };
 #else
@@ -74,24 +70,17 @@ compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
 void
 biomesh::cell_table::classify_cells ()
 {
-  int cell_count = sgrid->GetNumberOfCells ();
+  size_t cell_count = sgrid->GetNumberOfCells ();
 
-  for (int ii = 0; ii < cell_count; ++ii)
+  for (size_t ii = 0; ii < cell_count; ++ii)
     {
       /* Compute face neighbor indices. */
       std::array<int, 2 *BIOMESH_DIM> face_neighbors
           = compute_face_neighbor_id (sgrid, ii);
 
-#if 1
-      std::cout << "----" << ii << "----" << std::endl;
-      for (const int &i : face_neighbors)
-        std::cout << i << std::endl;
-#endif
-
       /* Determine cell type. */
       int valid_neighbor_count = 0;
-
-      for (unsigned jj = 0; jj < face_neighbors.size (); ++jj)
+      for (size_t jj = 0; jj < face_neighbors.size (); ++jj)
         {
           if (face_neighbors[jj] > 0)
             {
@@ -188,15 +177,11 @@ biomesh::cell_table::classify_cells ()
           m_cell_type.push_back (2);
         }
     }
-
-#if 0
-    for(int ii = 0; ii < m_cell_type.size(); ++ii)
-      std::cout << "---" << ii << "---" << m_cell_type[ii] << std::endl;
-#endif
 }
 
 int
-biomesh::cell_table::operator[] (size_t cell_index)
+biomesh::cell_table::operator[] (size_t cell_index) const
 {
-  return 0;
+  BIOMESH_ASSERT ((cell_index >= 0) and (cell_index < m_cell_type.size ()));
+  return m_cell_type[cell_index];
 }

@@ -72,7 +72,7 @@ public:
    * The function flags vectors which are not part of the
    * actual muscle geometry.
    */
-  int preprocess ();
+  void preprocess ();
 
   /**
    * Getter to the underlying VTK structured grid.

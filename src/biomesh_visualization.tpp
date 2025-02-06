@@ -50,3 +50,47 @@ export_fiber_grid_vtk (const fiber_grid &fgrid, const std::string &file_prefix)
   BIOMESH_LINFO ("The VTK files are written to: "
                  + std::string (BIOMESH_BUILD_DIR) + "/results");
 }
+
+void
+write_cell_type_vtk (const cell_table &ctable, const vector_field &vfield,
+                     const std::string &file_prefix)
+{
+  BIOMESH_LINFO ("Write cell type data to VTK format begin.");
+
+  /* Set file name. */
+  std::string file_name = file_prefix + "_" + "cell_type";
+  std::string file_path
+      = std::string (BIOMESH_BUILD_DIR) + "/results/" + file_name + ".vtk";
+
+  /* Make a copy of the user-provided VTK structured grid. */
+  vtkSmartPointer<vtkStructuredGrid> sgrid
+      = vtkSmartPointer<vtkStructuredGrid>::New ();
+  sgrid->DeepCopy (vfield.get_grid ());
+  BIOMESH_ASSERT ((sgrid != nullptr));
+
+  /* Allocate memory for cell type data. */
+  vtkSmartPointer<vtkIntArray> cell_type
+      = vtkSmartPointer<vtkIntArray>::New ();
+  cell_type->SetName ("cell_type");
+  cell_type->SetNumberOfComponents (1);
+  cell_type->SetNumberOfTuples (sgrid->GetNumberOfCells ());
+
+  /* Copy cell type data. */
+  for (size_t ii = 0; ii < (size_t)sgrid->GetNumberOfCells (); ++ii)
+    {
+      int temp = ctable[ii];
+      cell_type->SetTuple1 (ii, temp);
+    }
+  sgrid->GetCellData ()->SetScalars (cell_type);
+
+  /* Export to VTK format for visualization. */
+  vtkSmartPointer<vtkStructuredGridWriter> writer
+      = vtkSmartPointer<vtkStructuredGridWriter>::New ();
+  writer->SetFileName (file_path.c_str ());
+  writer->SetInputData (sgrid);
+  writer->Write ();
+
+  BIOMESH_LINFO ("Write cell type data to VTK format end.");
+  BIOMESH_LINFO ("The VTK files are written to: "
+                 + std::string (BIOMESH_BUILD_DIR) + "/results");
+}
