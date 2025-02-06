@@ -78,8 +78,7 @@ write_cell_type_vtk (const cell_table &ctable, const vector_field &vfield,
   /* Copy cell type data. */
   for (size_t ii = 0; ii < (size_t)sgrid->GetNumberOfCells (); ++ii)
     {
-      int temp = ctable[ii];
-      cell_type->SetTuple1 (ii, temp);
+      cell_type->SetTuple1 (ii, ctable[ii]);
     }
   sgrid->GetCellData ()->SetScalars (cell_type);
 
