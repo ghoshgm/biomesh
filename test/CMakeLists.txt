@@ -68,3 +68,9 @@ ${CMAKE_SOURCE_DIR}/test/sgrid2d_random.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_ran
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_circle_seed.json
 ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero_seed.json
 )
+
+# Test for cell classification.
+add_executable(test_cell_classification test_cell_classification.cpp)
+target_include_directories(test_cell_classification PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_cell_classification PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
+add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk)

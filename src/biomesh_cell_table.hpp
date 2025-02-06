@@ -20,7 +20,7 @@ public:
 
   void classify_cells ();
 
-  int operator[] (size_t cell_index);
+  int operator[] (size_t cell_index) const;
 
 private:
   vtkStructuredGrid *sgrid;
