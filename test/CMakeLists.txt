@@ -73,4 +73,4 @@ ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero_
 add_executable(test_cell_classification test_cell_classification.cpp)
 target_include_directories(test_cell_classification PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_cell_classification PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
-add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk)
+add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk ${CMAKE_SOURCE_DIR}/examples/sgrid3d_ellipsoid_new.vtk)
