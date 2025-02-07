@@ -8,6 +8,17 @@ using namespace biomesh;
 
 int main(int argc, char **argv)
 {
+#ifndef BIOMESH_ENABLE_2D
+  /* Load vector field from VTK file. */
+  vector_field field(argv[2]);
+  field.load_vtk_grid();
+
+  /* Classify cell in the vector field. */
+  cell_table ct(field);
+  ct.classify_cells();
+
+  visualization::write_cell_type_vtk(ct, field, "test3d");
+#else
   /* Load vector field from VTK file. */
   vector_field field(argv[1]);
   field.load_vtk_grid();
@@ -16,7 +27,8 @@ int main(int argc, char **argv)
   cell_table ct(field);
   ct.classify_cells();
 
-  visualization::write_cell_type_vtk(ct, field, "foo");
+  visualization::write_cell_type_vtk(ct, field, "test2d");
+#endif
 
   return EXIT_SUCCESS;
 }
