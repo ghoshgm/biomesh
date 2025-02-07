@@ -36,5 +36,11 @@ elseif(CMAKE_BUILD_TYPE MATCHES "release")
   set(BIOMESH_ENABLE_DEBUG 0)
 endif()
 
+if(CMAKE_ENABLE_2D MATCHES "yes")
+  set(BIOMESH_ENABLE_2D 1)
+else()
+  set(BIOMESH_ENABLE_2D 0)
+endif()
+
 # Generate configure file.
 configure_file(${CMAKE_CURRENT_LIST_DIR}/biomesh_config.hpp.in ${PROJECT_BINARY_DIR}/include/biomesh_config.hpp)
