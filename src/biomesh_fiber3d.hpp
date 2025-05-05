@@ -83,6 +83,12 @@ public:
    */
   bool operator== (const fiber3D &other) const;
 
+  void reverse();
+
+  void translate(double val);
+
+  void print_vertices() const;
+
 private:
   vertex3D m_seed;
   size_t m_gpoint_count;

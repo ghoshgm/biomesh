@@ -1,6 +1,8 @@
 
 #include <biomesh_fiber3d.hpp>
 
+#include <algorithm>
+
 namespace biomesh
 {
 fiber3D::fiber3D (size_t gpoint_count, double width)
@@ -31,7 +33,7 @@ fiber3D::~fiber3D () {}
 
 static void
 compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
-                std::vector<double> &drdt, double t)
+                std::vector<double> &drdt, double t, int &cid)
 {
   /**
    * The 'FindCell' function in the VTK lib returns more information
@@ -46,6 +48,7 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
 
   int arridx = 1;
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  //vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
   /* The initial seed vertex. */
@@ -57,6 +60,8 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
    */
   if (cellid >= 0)
     {
+      cid = cellid;
+
       /* Grab the cell. */
       vtkCell *seed_cell = sgrid->GetCell (cellid);
       BIOMESH_ASSERT ((seed_cell != nullptr));
@@ -136,9 +141,10 @@ fiber3D::generate_fiber (const vector_field &vfield)
           vertex3D (vertex[0], vertex[1], vertex[2]));
 
       /* Do one step of numeric integration. */
+      int cell_id = 0;
       rk4_stepper.do_step (
           [&] (const std::vector<double> &svec, std::vector<double> &drdt,
-               double t) { compute_vector (sgrid, svec, drdt, t); },
+               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
           vertex, t_start, dt);
 
       /* Set distance between two adjacent vertices. */
@@ -147,10 +153,18 @@ fiber3D::generate_fiber (const vector_field &vfield)
                            m_fiber_vertices.back () ('z'));
       Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
       Eigen::Vector3d cv = vv2 - vv1;
+#if 0
+      if(vfield[cell_id] == 0)
+      {
+        break;
+      }
+#endif
+#if 1
       if (BIOMESH_DCOMP (cv.norm (), 0.0))
         {
           break;
         }
+#endif
       Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
       vertex[0] = v_new (0);
       vertex[1] = v_new (1);
@@ -192,6 +206,48 @@ bool
 fiber3D::operator== (const fiber3D &other) const
 {
   return this->m_seed == other.m_seed;
+}
+
+void fiber3D::reverse()
+{
+  std::reverse(m_fiber_vertices.begin(),m_fiber_vertices.end());
+}
+
+void fiber3D::print_vertices() const
+{
+  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
+  { 
+    m_fiber_vertices[ii].print();
+  }
+}
+
+void fiber3D::translate(double val)
+{
+  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
+  {
+    double x = m_fiber_vertices[ii]('x');
+    double y = m_fiber_vertices[ii]('y');
+    double z = m_fiber_vertices[ii]('z') + val;
+    
+    m_fiber_vertices[ii].print();
+    m_fiber_vertices[ii](x,y,z);
+    m_fiber_vertices[ii].print();
+  }
+  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
+  {
+    m_fiber_vertices[ii].print();
+  }
+#if 0
+  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
+  {
+    auto v = m_fiber_vertices[ii];
+    double x = v('x') + val;
+    double y = v('y') + val;
+    double z = v('z') + val;
+
+    v(x,y,z);
+  }
+#endif
 }
 
 } // namespace biomesh

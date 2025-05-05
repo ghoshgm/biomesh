@@ -1,3 +1,4 @@
+#include "biomesh_fiber_grid.hpp"
 
 template <class fiber, class vertex>
 inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
@@ -59,4 +60,35 @@ inline size_t
 fiber_grid<fiber, vertex>::size () const
 {
   return m_fiber_set.size ();
+}
+
+template <class fiber, class vertex>
+void biomesh::fiber_grid<fiber, vertex>::reverse()
+{
+  for(auto& f : m_fiber_set)
+  {
+    f.reverse();
+  }
+}
+
+template <class fiber, class vertex>
+void biomesh::fiber_grid<fiber, vertex>::translate(double val)
+{
+  for(size_t ii = 0; ii < m_fiber_set.size(); ++ii)
+  {
+    //auto f = m_fiber_set[ii];
+    //f.translate(val);
+    m_fiber_set[ii].translate(val);
+  }
+}
+
+template <class fiber, class vertex>
+void biomesh::fiber_grid<fiber, vertex>::print_vertices() const
+{
+  for(size_t ii = 0; ii < m_fiber_set.size(); ++ii)
+  {
+    std::cout << "---------------" << std::endl;
+    auto f = m_fiber_set[ii];
+    f.print_vertices();
+  }
 }

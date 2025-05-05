@@ -22,6 +22,13 @@ vertex::operator() (char dir) const
   return std::numeric_limits<double>::max ();
 }
 
+void vertex::operator() (double x, double y, double z)
+{
+  m_position(0) = x;
+  m_position(1) = y;
+  m_position(2) = z;
+}
+
 bool
 vertex::operator== (const vertex &other) const
 {

@@ -14,8 +14,8 @@ int main(int argc, char **argv)
   field.load_vtk_grid();
 
   /* Classify cell in the vector field. */
-  cell_table ct(field);
-  ct.classify_cells();
+  cell_table ct;
+  ct.classify_cells(field.get_grid());
 
   visualization::write_cell_type_vtk(ct, field, "test3d");
 #else
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
   field.load_vtk_grid();
 
   /* Classify cell in the vector field. */
-  cell_table ct(field);
+  cell_table ct(field.get_grid());
   ct.classify_cells();
 
   visualization::write_cell_type_vtk(ct, field, "test2d");

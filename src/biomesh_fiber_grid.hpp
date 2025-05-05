@@ -57,6 +57,12 @@ public:
    */
   size_t size () const;
 
+  void reverse();
+
+  void translate(double val);
+
+  void print_vertices() const;
+
 private:
   size_t m_fiber_count;
   json_parser m_jparser;
