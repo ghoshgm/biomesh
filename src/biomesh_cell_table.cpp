@@ -1,10 +1,10 @@
 #include "biomesh_cell_table.hpp"
 
-#include <map>
-#include <vtkHexahedron.h>
 #include <biomesh_interpolation.hpp>
 #include <biomesh_vertex3d.hpp>
 #include <boost/numeric/odeint.hpp>
+#include <map>
+#include <vtkHexahedron.h>
 
 biomesh::cell_table::cell_table () {}
 
@@ -94,7 +94,8 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
       /* Check if the cell has non-zero vectors. */
       int arridx = 1;
       vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-      //vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
+      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt",
+      // arridx);
       BIOMESH_ASSERT ((da != nullptr));
 
       vtkIdList *pids = neighbor->GetPointIds ();
@@ -220,7 +221,7 @@ void
 biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
   size_t cell_count = sgrid->GetNumberOfCells ();
-  std::vector<int> temp (cell_count,1);
+  std::vector<int> temp (cell_count, 1);
 
   int arridx = 1;
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
@@ -295,10 +296,10 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 
       std::array<int, 2 *BIOMESH_DIM> fid
           = compute_face_neighbor_id (sgrid, bidx, bestFaceIndex);
-      if(m_cell_type[fid[bestFaceIndex]] == 2)
-      {
-        temp[bidx] = 3;
-      }
+      if (m_cell_type[fid[bestFaceIndex]] == 2)
+        {
+          temp[bidx] = 3;
+        }
     }
 
 #if 0

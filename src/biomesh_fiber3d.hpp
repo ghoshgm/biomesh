@@ -83,11 +83,15 @@ public:
    */
   bool operator== (const fiber3D &other) const;
 
-  void reverse();
+  void reverse ();
 
-  void translate(double val);
+  void translate (double val);
 
-  void print_vertices() const;
+  void reflection (int dir);
+
+  void pop ();
+
+  void print_vertices () const;
 
 private:
   vertex3D m_seed;

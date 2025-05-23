@@ -57,11 +57,13 @@ public:
    */
   size_t size () const;
 
-  void reverse();
+  void reverse ();
 
-  void translate(double val);
+  void translate (double val);
 
-  void print_vertices() const;
+  void reflection (int dir);
+
+  void print_vertices () const;
 
 private:
   size_t m_fiber_count;

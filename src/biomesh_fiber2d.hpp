@@ -89,6 +89,8 @@ public:
    */
   void generate_fiber (const vector_field &vfield);
 
+  void pop ();
+
 private:
   vertex2D m_seed;
   size_t m_gpoint_count;

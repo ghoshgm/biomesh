@@ -15,6 +15,7 @@ int main(int argc, char **argv)
   field.load_vtk_grid();
   //field.preprocess();
 
+#if 1
   /* Classify cell in the vector field. */
   cell_table ct;
   ct.classify_cells(field.get_grid());
@@ -24,7 +25,7 @@ int main(int argc, char **argv)
 
   /* Generate fibers. */
   fiber_grid3d f(argv[2]);
-  f.generate_fiber_grid(field, 100, 0.14);
+  f.generate_fiber_grid(field, 200, 0.14);
   f.print_vertices();
 
   /* Write fibers to JSON format. */
@@ -33,9 +34,11 @@ int main(int argc, char **argv)
 
   /* Write fibers to VTK format. */
   visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d");
+#endif
 
-#if 1
-  f.translate(16.85);
+#if 0
+  f.translate(0);
+  f.reflection(2);
   std::cout << "##############################################" << std::endl;
   f.print_vertices();
 
