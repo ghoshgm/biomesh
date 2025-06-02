@@ -1,10 +1,10 @@
 #include "biomesh_cell_table.hpp"
 
-#include <map>
-#include <vtkHexahedron.h>
 #include <biomesh_interpolation.hpp>
 #include <biomesh_vertex3d.hpp>
 #include <boost/numeric/odeint.hpp>
+#include <map>
+#include <vtkHexahedron.h>
 
 biomesh::cell_table::cell_table () {}
 
@@ -15,6 +15,109 @@ biomesh::cell_table::cell_table(vtkSmartPointer<vtkStructuredGrid> sgrid)
   m_cell_type.reserve (sgrid->GetNumberOfCells ());
 }
 #endif
+
+static std::array<int, 8>
+compute_corner_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
+{
+  int dims[3];
+  structuredGrid->GetDimensions (dims);
+  int nx = dims[0] - 1;
+  int ny = dims[1] - 1;
+  int nz = dims[2] - 1;
+
+  std::vector<int> cneighbors;
+
+  int ijk[3];
+  vtkStructuredData::ComputeCellStructuredCoords (cellId, dims, ijk);
+  int i = ijk[0];
+  int j = ijk[1];
+  int k = ijk[2];
+  std::cout << i << " " << j << " " << k << std::endl;
+
+  for (int dz = -1; dz <= 0; ++dz)
+    {
+      for (int dy = -1; dy <= 0; ++dy)
+        {
+          for (int dx = -1; dx <= 0; ++dx)
+            {
+              int ni = i + dx;
+              int nj = j + dy;
+              int nk = k + dz;
+
+              // Check bounds
+              if (ni >= 0 && ni < nx && nj >= 0 && nj < ny && nk >= 0
+                  && nk < nz)
+                {
+                  int temp[3];
+                  temp[0] = ni;
+                  temp[1] = nj;
+                  temp[2] = nk;
+                  std::cout << "temp: " << temp[0] << " " << temp[1] << " "
+                            << temp[2] << std::endl;
+                  int neighborId
+                      = vtkStructuredData::ComputeCellId (dims, temp);
+                  cneighbors.push_back (neighborId);
+                }
+            }
+        }
+    }
+
+  std::array<int, 8> corner_neighbors;
+
+  std::copy (cneighbors.begin (), cneighbors.end (),
+             corner_neighbors.begin ());
+
+  return corner_neighbors;
+}
+
+static std::array<int, 12>
+compute_edge_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId,
+                          int eid)
+{
+  int dims[3];
+  structuredGrid->GetDimensions (dims);
+  int nx = dims[0] - 1;
+  int ny = dims[1] - 1;
+  int nz = dims[2] - 1;
+
+  std::array<int, 12> edge_neighbors;
+  edge_neighbors.fill (-1);
+
+  int ijk[3];
+  vtkStructuredData::ComputeCellStructuredCoords (cellId, dims, ijk);
+  int i = ijk[0];
+  int j = ijk[1];
+  int k = ijk[2];
+
+  // List of 12 edge offset directions
+  const int edgeOffsets[12][3]
+      = { { +1, +1, 0 }, { +1, -1, 0 }, { -1, +1, 0 }, { -1, -1, 0 },
+          { +1, 0, +1 }, { +1, 0, -1 }, { -1, 0, +1 }, { -1, 0, -1 },
+          { 0, +1, +1 }, { 0, +1, -1 }, { 0, -1, +1 }, { 0, -1, -1 } };
+
+  for (int n = 0; n < 12; ++n)
+    {
+      if (n == eid)
+        {
+          int ni = i + edgeOffsets[n][0];
+          int nj = j + edgeOffsets[n][1];
+          int nk = k + edgeOffsets[n][2];
+
+          // Check bounds
+          if (ni >= 0 && ni < nx && nj >= 0 && nj < ny && nk >= 0 && nk < nz)
+            {
+              int temp[3];
+              temp[0] = ni;
+              temp[1] = nj;
+              temp[2] = nk;
+              int neighborId = vtkStructuredData::ComputeCellId (dims, temp);
+              edge_neighbors[n] = neighborId;
+            }
+        }
+    }
+
+  return edge_neighbors;
+}
 
 static std::array<int, 2 * BIOMESH_DIM>
 compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId,
@@ -94,7 +197,8 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
       /* Check if the cell has non-zero vectors. */
       int arridx = 1;
       vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-      //vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
+      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt",
+      // arridx);
       BIOMESH_ASSERT ((da != nullptr));
 
       vtkIdList *pids = neighbor->GetPointIds ();
@@ -220,7 +324,7 @@ void
 biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
   size_t cell_count = sgrid->GetNumberOfCells ();
-  std::vector<int> temp (cell_count,1);
+  std::vector<int> temp (cell_count, 1);
 
   int arridx = 1;
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
@@ -271,8 +375,20 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
       double x = biomesh::interpolation::trilinear (pnext, vx);
       double y = biomesh::interpolation::trilinear (pnext, vy);
       double z = biomesh::interpolation::trilinear (pnext, vz);
-
       double iv[3]{ x, y, z };
+
+      /* Now check if the interpolated vector points to 
+         a face, corner or edge of the cell.
+      */
+      
+      /* Loop over all corners. */
+      std::array<int, 8> cid
+          = compute_corner_neighbor_id (sgrid, bidx);
+      
+          
+#ifndef BIOMESH_ENABLE_2D
+      /* Loop over all edges. */
+#endif
 
       /* Compute which face the interpolated vector points to. */
       int numFaces = cell->GetNumberOfFaces ();
@@ -295,43 +411,11 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 
       std::array<int, 2 *BIOMESH_DIM> fid
           = compute_face_neighbor_id (sgrid, bidx, bestFaceIndex);
-      if(m_cell_type[fid[bestFaceIndex]] == 2)
-      {
-        temp[bidx] = 3;
-      }
+      if (m_cell_type[fid[bestFaceIndex]] == 2)
+        {
+          temp[bidx] = 3;
+        }
     }
-
-#if 0
-  /* Sort the indices by the cartesian distance from the lowest grid coords. */
-  double bounds[6];
-  sgrid->GetBounds(bounds);
-  std::cout << "xmin " << bounds[0] << "ymin " << bounds[2] << "zmin " << bounds[4] << std::endl;
-
-  std::map<int,double> cdist;
-  for(const int& idx : m_boundary_cell_index)
-  {
-    vtkHexahedron* hex = (vtkHexahedron*)sgrid->GetCell(idx);
-    double center[3];
-    hex->GetCentroid(center);
-    
-    double xdiff = std::fabs(center[0]-bounds[0]);
-    double ydiff = std::fabs(center[0]-bounds[2]);
-    double zdiff = std::fabs(center[0]-bounds[4]);
-    double dist = std::sqrt(std::pow(xdiff,2.0) + std::pow(ydiff,2.0) + std::pow(zdiff,2.0));
-
-    cdist.insert({idx,dist});
-  }
-
-  double min_dist = cdist.begin()->second;
-  for(const auto& pair : cdist)
-  {
-    int idx = pair->first; 
-    if(BIOMESH_DCOMP(cdist[idx],min_dist))
-    {
-      temp[idx] = 3;
-    }
-  }
-#endif
 
   m_seed_cell_index = temp;
 }

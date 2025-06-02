@@ -18,8 +18,8 @@ int main(int argc, char **argv)
   /* Classify cell in the vector field. */
   cell_table ct;
   ct.classify_cells(field.get_grid());
-  //ct.find_seed_cells(field.get_grid());
-  visualization::write_cell_type_vtk(ct, field, "ellipsoid");
+  ct.find_seed_cells(field.get_grid());
+  //visualization::write_cell_type_vtk(ct, field, "ellipsoid");
   //visualization::write_seed_type_vtk(ct, field, "ellipsoid");
 
   /* Generate fibers. */
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
   /* Write fibers to VTK format. */
   visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d");
 
-#if 1
+#if 0
   f.translate(16.85);
   std::cout << "##############################################" << std::endl;
   f.print_vertices();

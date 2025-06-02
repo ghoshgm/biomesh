@@ -48,7 +48,7 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
 
   int arridx = 1;
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-  //vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
+  // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
   /* The initial seed vertex. */
@@ -208,35 +208,38 @@ fiber3D::operator== (const fiber3D &other) const
   return this->m_seed == other.m_seed;
 }
 
-void fiber3D::reverse()
+void
+fiber3D::reverse ()
 {
-  std::reverse(m_fiber_vertices.begin(),m_fiber_vertices.end());
+  std::reverse (m_fiber_vertices.begin (), m_fiber_vertices.end ());
 }
 
-void fiber3D::print_vertices() const
+void
+fiber3D::print_vertices () const
 {
-  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
-  { 
-    m_fiber_vertices[ii].print();
-  }
+  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
+    {
+      m_fiber_vertices[ii].print ();
+    }
 }
 
-void fiber3D::translate(double val)
+void
+fiber3D::translate (double val)
 {
-  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
-  {
-    double x = m_fiber_vertices[ii]('x');
-    double y = m_fiber_vertices[ii]('y');
-    double z = m_fiber_vertices[ii]('z') + val;
-    
-    m_fiber_vertices[ii].print();
-    m_fiber_vertices[ii](x,y,z);
-    m_fiber_vertices[ii].print();
-  }
-  for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
-  {
-    m_fiber_vertices[ii].print();
-  }
+  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
+    {
+      double x = m_fiber_vertices[ii]('x');
+      double y = m_fiber_vertices[ii]('y');
+      double z = m_fiber_vertices[ii]('z') + val;
+
+      m_fiber_vertices[ii].print ();
+      m_fiber_vertices[ii](x, y, z);
+      m_fiber_vertices[ii].print ();
+    }
+  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
+    {
+      m_fiber_vertices[ii].print ();
+    }
 #if 0
   for(size_t ii = 0; ii < m_fiber_vertices.size(); ++ii)
   {
