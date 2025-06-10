@@ -42,7 +42,7 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       m_fiber_set.emplace_back (f);
     }
 
-#if 1
+#if 0
   std::vector<double> z_coords;
   for (size_t fcount = 0; fcount < this->m_fiber_count; ++fcount)
     {
@@ -135,3 +135,18 @@ biomesh::fiber_grid<fiber, vertex>::print_vertices () const
       f.print_vertices ();
     }
 }
+
+template <class fiber, class vertex>
+template <typename... Args>
+void biomesh::fiber_grid<fiber, vertex>::transformation(std::function<void(const fiber_grid<fiber, vertex> &, Args...)> affine_transform, Args... args)
+{
+  //affine_transform(*this, args...);
+}
+
+#if 0
+template <class fiber, class vertex>
+void biomesh::fiber_grid<fiber, vertex>::transformation(std::function<void(const fiber_grid<fiber, vertex> &)>& affine_transform, Args... args)
+{
+  affine_transform(*this, args...);
+}
+#endif

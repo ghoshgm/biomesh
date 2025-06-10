@@ -36,6 +36,10 @@ int main(int argc, char **argv)
   visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d");
 #endif
 
+#if 1
+  f.transformation(affine_transform::translation<fiber_grid3d>);
+#endif
+
 #if 0
   f.translate(0);
   f.reflection(2);

@@ -65,6 +65,9 @@ public:
 
   void print_vertices () const;
 
+  template<typename... Args>
+  void transformation( std::function<void(const fiber_grid<fiber,vertex>&, Args...)> affine_transform, Args... args );
+
 private:
   size_t m_fiber_count;
   json_parser m_jparser;
@@ -72,6 +75,19 @@ private:
 };
 
 #include "biomesh_fiber_grid.tpp"
+
+#if 1
+namespace affine_transform
+{
+
+template<class T, class U>
+void translation(const fiber_grid<T,U>& f, double x)
+{
+  std::cout << "@@@@@@@@@@@@@@@@@@@@ affine transform" << std::endl;
+}
+
+}
+#endif
 
 } // namespace biomesh
 #endif
