@@ -57,16 +57,16 @@ public:
    */
   size_t size () const;
 
-  void reverse ();
-
-  void translate (double val);
-
-  void reflection (int dir);
-
-  void print_vertices () const;
-
-  template<typename... Args>
-  void transformation( std::function<void(const fiber_grid<fiber,vertex>&, Args...)> affine_transform, Args... args );
+  /**
+   * Apply geometric transformations to the fiber vertices.
+   *
+   * @param[in] transform_function The function call-back to apply appropriate
+   * transformation function.
+   */
+  template <typename... Args>
+  void transformation (
+      std::function<void (std::vector<fiber> &, Args...)> transform_function,
+      Args... args);
 
 private:
   size_t m_fiber_count;
@@ -76,18 +76,35 @@ private:
 
 #include "biomesh_fiber_grid.tpp"
 
-#if 1
+/**
+ * Affine transformation functions.
+ */
 namespace affine_transform
 {
 
-template<class T, class U>
-void translation(const fiber_grid<T,U>& f, double x)
-{
-  std::cout << "@@@@@@@@@@@@@@@@@@@@ affine transform" << std::endl;
-}
+/**
+ * Translate the fiber grid by a specified displacement.
+ *
+ * @param[in] x Displacement in the x-direction.
+ * @param[in] y Displacement in the y-direction.
+ * @param[in] z Displacement in the z-direction.
+ */
+template <class fiber>
+void translation (std::vector<fiber> &fiber_set, double x, double y, double z);
+
+/**
+ * Reflect the fiber grid about an axis.
+ *
+ * 0 -> x-axis.
+ * 1 -> y-axis.
+ * 2 -> z-axis.
+ *
+ * @param[in] dir Specify the required axis.
+ */
+template <class fiber>
+void reflection (std::vector<fiber> &fiber_set, int dir);
 
 }
-#endif
 
 } // namespace biomesh
 #endif
