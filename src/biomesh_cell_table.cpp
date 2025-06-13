@@ -209,6 +209,7 @@ compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId,
 void
 biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
+  BIOMESH_LINFO ("Cell classification begin.");
   BIOMESH_ASSERT (sgrid != nullptr);
   size_t cell_count = sgrid->GetNumberOfCells ();
 
@@ -302,6 +303,7 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
                 });
 #endif
     }
+  BIOMESH_LINFO ("Cell classification end.");
 }
 
 void
@@ -372,6 +374,8 @@ is_boundary_cell (std::array<double, 8> &vx, std::array<double, 8> &vy,
 void
 biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
+  BIOMESH_LINFO ("Seed cell search begin.");
+
   size_t cell_count = sgrid->GetNumberOfCells ();
   std::vector<int> temp (cell_count, 1);
 
@@ -539,6 +543,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 
   m_seed_cell_index = temp;
 
+#ifdef BIOMESH_ENABLE_DEBUG
   for (size_t ii = 0; ii < m_seed_cell_index.size (); ++ii)
     {
       if (m_seed_cell_index[ii] == 3)
@@ -579,6 +584,9 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
           BIOMESH_ASSERT (is_boundary_cell (vx, vy, vz));
         }
     }
+#endif
+
+  BIOMESH_LINFO ("Seed cell search end.");
 }
 
 #if 0
