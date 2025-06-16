@@ -25,8 +25,7 @@ int main(int argc, char **argv)
 
   /* Generate fibers. */
   fiber_grid3d f(argv[2]);
-  f.generate_fiber_grid(field, 200, 0.14);
-  f.print_vertices();
+  f.generate_fiber_grid(field, 100, 0.14);
 
   /* Write fibers to JSON format. */
   json_parser jp1;
@@ -37,18 +36,12 @@ int main(int argc, char **argv)
 #endif
 
 #if 1
-  f.transformation(affine_transform::translation<fiber_grid3d>);
-#endif
-
-#if 0
-  f.translate(0);
-  f.reflection(2);
-  std::cout << "##############################################" << std::endl;
-  f.print_vertices();
+  f.transformation(affine_transform::translation<fiber3D>, 0.0, 0.0, 16);
+  f.transformation(affine_transform::reflection<fiber3D>, 2);
 
   /* Write fibers to JSON format. */
   json_parser jp2;
-  jp2.export_fiber_grid_json<fiber_grid3d>(f, "ellipsoid3d_r.json");
+  jp2.export_fiber_grid_json<fiber_grid3d>(f, "ellipsoid3dr.json");
 
   /* Write fibers to VTK format. */
   visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d_r");

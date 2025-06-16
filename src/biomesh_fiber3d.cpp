@@ -202,72 +202,17 @@ fiber3D::operator[] (int idx) const
   return m_fiber_vertices[idx];
 }
 
+void
+fiber3D::update_vertex (int idx, double x_new, double y_new, double z_new)
+{
+  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
+  m_fiber_vertices[idx](x_new, y_new, z_new);
+}
+
 bool
 fiber3D::operator== (const fiber3D &other) const
 {
   return this->m_seed == other.m_seed;
-}
-
-void
-fiber3D::reverse ()
-{
-  std::reverse (m_fiber_vertices.begin (), m_fiber_vertices.end ());
-}
-
-void
-fiber3D::print_vertices () const
-{
-  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
-    {
-      m_fiber_vertices[ii].print ();
-    }
-}
-
-void
-fiber3D::translate (double val)
-{
-  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
-    {
-      double x = m_fiber_vertices[ii]('x');
-      double y = m_fiber_vertices[ii]('y');
-      double z = m_fiber_vertices[ii]('z') + val;
-
-      m_fiber_vertices[ii].print ();
-      m_fiber_vertices[ii](x, y, z);
-      m_fiber_vertices[ii].print ();
-    }
-}
-
-void
-fiber3D::reflection (int dir)
-{
-  for (size_t ii = 0; ii < m_fiber_vertices.size (); ++ii)
-    {
-      double x = m_fiber_vertices[ii]('x');
-      double y = m_fiber_vertices[ii]('y');
-      double z = m_fiber_vertices[ii]('z');
-
-      if (dir == 0)
-        {
-          x *= -1.0;
-        }
-      else if (dir == 1)
-        {
-          y *= -1.0;
-        }
-      else if (dir == 2)
-        {
-          z *= -1.0;
-        }
-
-      m_fiber_vertices[ii](x, y, z);
-    }
-}
-
-void
-fiber3D::pop ()
-{
-  m_fiber_vertices.pop_back ();
 }
 
 } // namespace biomesh

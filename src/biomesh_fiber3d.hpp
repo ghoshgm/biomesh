@@ -70,6 +70,16 @@ public:
   vertex3D operator[] (int idx) const;
 
   /**
+   * Function to modify the vertex coordiantes.
+   *
+   * @param[in] idx The index at which fiber vertex needs to be updated.
+   * @param[in] x_new  The updated x coordinate.
+   * @param[in] y_new  The updated y coordinate.
+   * @param[in] z_new  The updated z coordinate.
+   */
+  void update_vertex (int idx, double x_new, double y_new, double z_new);
+
+  /**
    * Function to generate fiber coordinates.
    *
    * @return Success if the fiber is valid otherwise Error is returned.
@@ -82,16 +92,6 @@ public:
    * @return True if equal otherwise false.
    */
   bool operator== (const fiber3D &other) const;
-
-  void reverse ();
-
-  void translate (double val);
-
-  void reflection (int dir);
-
-  void pop ();
-
-  void print_vertices () const;
 
 private:
   vertex3D m_seed;

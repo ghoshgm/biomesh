@@ -76,9 +76,15 @@ template <class fiber>
 void
 translation (std::vector<fiber> &fiber_set, double x, double y, double z)
 {
-  for (size_t ii = 0; ii < fiber_set.size (); ++ii)
+  for (fiber &f : fiber_set)
     {
-      fiber_set[ii].translate (x, y, z);
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x') + x;
+          double yy = f[ii]('y') + y;
+          double zz = f[ii]('z') + z;
+          f.update_vertex (ii, xx, yy, zz);
+        }
     }
 }
 
@@ -86,9 +92,29 @@ template <class fiber>
 void
 reflection (std::vector<fiber> &fiber_set, int dir)
 {
-  for (size_t ii = 0; ii < fiber_set.size (); ++ii)
+  for (fiber &f : fiber_set)
     {
-      fiber_set[ii].reflection (dir);
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x');
+          double yy = f[ii]('y');
+          double zz = f[ii]('z');
+
+          if (dir == 0)
+            {
+              xx *= -1.0;
+            }
+          else if (dir == 1)
+            {
+              yy *= -1.0;
+            }
+          else if (dir == 2)
+            {
+              zz *= -1.0;
+            }
+
+          f.update_vertex (ii, xx, yy, zz);
+        }
     }
 }
 
