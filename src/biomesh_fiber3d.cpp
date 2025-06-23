@@ -1,6 +1,8 @@
 
 #include <biomesh_fiber3d.hpp>
 
+#include <algorithm>
+
 namespace biomesh
 {
 fiber3D::fiber3D (size_t gpoint_count, double width)
@@ -31,7 +33,7 @@ fiber3D::~fiber3D () {}
 
 static void
 compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
-                std::vector<double> &drdt, double t)
+                std::vector<double> &drdt, double t, int &cid)
 {
   /**
    * The 'FindCell' function in the VTK lib returns more information
@@ -46,6 +48,7 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
 
   int arridx = 1;
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
   /* The initial seed vertex. */
@@ -57,6 +60,8 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
    */
   if (cellid >= 0)
     {
+      cid = cellid;
+
       /* Grab the cell. */
       vtkCell *seed_cell = sgrid->GetCell (cellid);
       BIOMESH_ASSERT ((seed_cell != nullptr));
@@ -137,9 +142,10 @@ fiber3D::generate_fiber (const vector_field &vfield)
           vertex3D (vertex[0], vertex[1], vertex[2]));
 
       /* Do one step of numeric integration. */
+      int cell_id = 0;
       rk4_stepper.do_step (
           [&] (const std::vector<double> &svec, std::vector<double> &drdt,
-               double t) { compute_vector (sgrid, svec, drdt, t); },
+               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
           vertex, t_start, dt);
 
       /* Set distance between two adjacent vertices. */
@@ -148,10 +154,18 @@ fiber3D::generate_fiber (const vector_field &vfield)
                            m_fiber_vertices.back () ('z'));
       Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
       Eigen::Vector3d cv = vv2 - vv1;
+#if 0
+      if(vfield[cell_id] == 0)
+      {
+        break;
+      }
+#endif
+#if 1
       if (BIOMESH_DCOMP (cv.norm (), 0.0))
         {
           break;
         }
+#endif
       Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
       vertex[0] = v_new (0);
       vertex[1] = v_new (1);
@@ -187,6 +201,13 @@ fiber3D::operator[] (size_t idx) const
 {
   BIOMESH_ASSERT ((idx >= 0 && idx < m_fiber_vertices.size ()));
   return m_fiber_vertices[idx];
+}
+
+void
+fiber3D::update_vertex (int idx, double x_new, double y_new, double z_new)
+{
+  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
+  m_fiber_vertices[idx](x_new, y_new, z_new);
 }
 
 bool

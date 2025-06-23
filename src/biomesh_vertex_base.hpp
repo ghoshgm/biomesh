@@ -46,6 +46,8 @@ public:
    */
   double operator() (char dir) const;
 
+  void operator() (double x, double y, double z);
+
   /**
    * Function to test the equality of two vertices.
    *

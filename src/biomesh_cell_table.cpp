@@ -1,13 +1,24 @@
 #include "biomesh_cell_table.hpp"
 
-biomesh::cell_table::cell_table (const vector_field &vfield)
-    : sgrid{ vfield.get_grid ().GetPointer () }
+#include <biomesh_interpolation.hpp>
+#include <biomesh_vertex3d.hpp>
+#include <boost/numeric/odeint.hpp>
+#include <map>
+#include <vtkHexahedron.h>
+
+biomesh::cell_table::cell_table () {}
+
+#if 0
+biomesh::cell_table::cell_table(vtkSmartPointer<vtkStructuredGrid> sgrid)
+    : sgrid{sgrid.GetPointer()}
 {
   m_cell_type.reserve (sgrid->GetNumberOfCells ());
 }
+#endif
 
 static std::array<int, 2 * BIOMESH_DIM>
-compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
+compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId,
+                          int fid)
 {
   int dims[3];
   structuredGrid->GetDimensions (dims);
@@ -39,28 +50,31 @@ compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
   // Compute valid neighbors
   for (int n = 0; n < 2 * BIOMESH_DIM; n++)
     {
-      int ni = i + offsets[n][0];
-      int nj = j + offsets[n][1];
-#ifndef BIOMESH_ENABLE_2D
-      int nk = k + offsets[n][2];
-#endif
-      // Bounds check
-      if (ni >= 0 and ni < nx and nj >= 0 and nj < ny
-#ifndef BIOMESH_ENABLE_2D
-          and nk >= 0 and nk < nz
-#endif
-      )
+      if (n == fid)
         {
-          int temp[3];
-          temp[0] = ni;
-          temp[1] = nj;
+          int ni = i + offsets[n][0];
+          int nj = j + offsets[n][1];
 #ifndef BIOMESH_ENABLE_2D
-          temp[2] = nk;
-#else
-          temp[2] = 0;
+          int nk = k + offsets[n][2];
 #endif
-          int neighborId = vtkStructuredData::ComputeCellId (dims, temp);
-          neighbors[n] = neighborId;
+          // Bounds check
+          if (ni >= 0 and ni < nx and nj >= 0 and nj < ny
+#ifndef BIOMESH_ENABLE_2D
+              and nk >= 0 and nk < nz
+#endif
+          )
+            {
+              int temp[3];
+              temp[0] = ni;
+              temp[1] = nj;
+#ifndef BIOMESH_ENABLE_2D
+              temp[2] = nk;
+#else
+              temp[2] = 0;
+#endif
+              int neighborId = vtkStructuredData::ComputeCellId (dims, temp);
+              neighbors[n] = neighborId;
+            }
         }
     }
 
@@ -68,115 +82,408 @@ compute_face_neighbor_id (vtkStructuredGrid *structuredGrid, int cellId)
 }
 
 void
-biomesh::cell_table::classify_cells ()
+biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
+  BIOMESH_ASSERT (sgrid != nullptr);
   size_t cell_count = sgrid->GetNumberOfCells ();
 
   for (size_t ii = 0; ii < cell_count; ++ii)
     {
-      /* Compute face neighbor indices. */
-      std::array<int, 2 *BIOMESH_DIM> face_neighbors
-          = compute_face_neighbor_id (sgrid, ii);
+      vtkCell *neighbor = sgrid->GetCell (ii);
 
-      /* Determine cell type. */
-      int valid_neighbor_count = 0;
-      for (size_t jj = 0; jj < face_neighbors.size (); ++jj)
-        {
-          if (face_neighbors[jj] > 0)
-            {
-              /* Construct face neighbor. */
-              vtkCell *neighbor = sgrid->GetCell (face_neighbors[jj]);
-              BIOMESH_ASSERT ((neighbor != nullptr));
+      /* Check if the cell has non-zero vectors. */
+      int arridx = 1;
+      vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt",
+      // arridx);
+      BIOMESH_ASSERT ((da != nullptr));
 
-              /* Check if the cell has non-zero vectors. */
-              int arridx = 1;
-              vtkDataArray *da
-                  = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-              BIOMESH_ASSERT ((da != nullptr));
+      vtkIdList *pids = neighbor->GetPointIds ();
+      BIOMESH_ASSERT ((pids != nullptr));
 
-              vtkIdList *pids = neighbor->GetPointIds ();
-              BIOMESH_ASSERT ((pids != nullptr));
-
-              bool is_zero = false;
+      bool is_zero = false;
 #ifndef BIOMESH_ENABLE_2D
-              std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
-                                        (da->GetTuple3 (pids->GetId (1)))[0],
-                                        (da->GetTuple3 (pids->GetId (2)))[0],
-                                        (da->GetTuple3 (pids->GetId (3)))[0],
-                                        (da->GetTuple3 (pids->GetId (4)))[0],
-                                        (da->GetTuple3 (pids->GetId (5)))[0],
-                                        (da->GetTuple3 (pids->GetId (6)))[0],
-                                        (da->GetTuple3 (pids->GetId (7)))[0] };
+      std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                (da->GetTuple3 (pids->GetId (1)))[0],
+                                (da->GetTuple3 (pids->GetId (2)))[0],
+                                (da->GetTuple3 (pids->GetId (3)))[0],
+                                (da->GetTuple3 (pids->GetId (4)))[0],
+                                (da->GetTuple3 (pids->GetId (5)))[0],
+                                (da->GetTuple3 (pids->GetId (6)))[0],
+                                (da->GetTuple3 (pids->GetId (7)))[0] };
 
-              std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
-                                        (da->GetTuple3 (pids->GetId (1)))[1],
-                                        (da->GetTuple3 (pids->GetId (2)))[1],
-                                        (da->GetTuple3 (pids->GetId (3)))[1],
-                                        (da->GetTuple3 (pids->GetId (4)))[1],
-                                        (da->GetTuple3 (pids->GetId (5)))[1],
-                                        (da->GetTuple3 (pids->GetId (6)))[1],
-                                        (da->GetTuple3 (pids->GetId (7)))[1] };
+      std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                (da->GetTuple3 (pids->GetId (1)))[1],
+                                (da->GetTuple3 (pids->GetId (2)))[1],
+                                (da->GetTuple3 (pids->GetId (3)))[1],
+                                (da->GetTuple3 (pids->GetId (4)))[1],
+                                (da->GetTuple3 (pids->GetId (5)))[1],
+                                (da->GetTuple3 (pids->GetId (6)))[1],
+                                (da->GetTuple3 (pids->GetId (7)))[1] };
 
-              std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
-                                        (da->GetTuple3 (pids->GetId (1)))[2],
-                                        (da->GetTuple3 (pids->GetId (2)))[2],
-                                        (da->GetTuple3 (pids->GetId (3)))[2],
-                                        (da->GetTuple3 (pids->GetId (4)))[2],
-                                        (da->GetTuple3 (pids->GetId (5)))[2],
-                                        (da->GetTuple3 (pids->GetId (6)))[2],
-                                        (da->GetTuple3 (pids->GetId (7)))[2] };
+      std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
+                                (da->GetTuple3 (pids->GetId (1)))[2],
+                                (da->GetTuple3 (pids->GetId (2)))[2],
+                                (da->GetTuple3 (pids->GetId (3)))[2],
+                                (da->GetTuple3 (pids->GetId (4)))[2],
+                                (da->GetTuple3 (pids->GetId (5)))[2],
+                                (da->GetTuple3 (pids->GetId (6)))[2],
+                                (da->GetTuple3 (pids->GetId (7)))[2] };
 
-              is_zero
-                  = std::all_of (
-                        vx.begin (), vx.end (),
-                        [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
-                    and std::all_of (
-                        vy.begin (), vy.end (),
-                        [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
-                    and std::all_of (vz.begin (), vz.end (), [] (double val) {
-                          return BIOMESH_DCOMP (val, 0.0);
-                        });
-#else
-              std::array<double, 4> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
-                                        (da->GetTuple3 (pids->GetId (1)))[0],
-                                        (da->GetTuple3 (pids->GetId (2)))[0],
-                                        (da->GetTuple3 (pids->GetId (3)))[0] };
-
-              std::array<double, 4> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
-                                        (da->GetTuple3 (pids->GetId (1)))[1],
-                                        (da->GetTuple3 (pids->GetId (2)))[1],
-                                        (da->GetTuple3 (pids->GetId (3)))[1] };
-
-              is_zero
-                  = std::all_of (
-                        vx.begin (), vx.end (),
-                        [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
-                    and std::all_of (vy.begin (), vy.end (), [] (double val) {
-                          return BIOMESH_DCOMP (val, 0.0);
-                        });
-#endif
-              if (!is_zero)
-                {
-                  ++valid_neighbor_count;
-                }
-            }
-        }
-
-      if (valid_neighbor_count == 0)
+      if (std::all_of (vx.begin (), vx.end (),
+                       [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
+          and std::all_of (
+              vy.begin (), vy.end (),
+              [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
+          and std::all_of (vz.begin (), vz.end (), [] (double val) {
+                return BIOMESH_DCOMP (val, 0.0);
+              }))
         {
           m_cell_type.push_back (0);
         }
-      else if (valid_neighbor_count > 0
-               and valid_neighbor_count < 2 * BIOMESH_DIM)
+      else if (std::all_of (
+                   vx.begin (), vx.end (),
+                   [] (double val) { return !BIOMESH_DCOMP (val, 0.0); })
+               and std::all_of (
+                   vy.begin (), vy.end (),
+                   [] (double val) { return !BIOMESH_DCOMP (val, 0.0); })
+               and std::all_of (vz.begin (), vz.end (), [] (double val) {
+                     return !BIOMESH_DCOMP (val, 0.0);
+                   }))
+        {
+          m_cell_type.push_back (2);
+        }
+      else
         {
           m_cell_type.push_back (1);
           m_boundary_cell_index.push_back (ii);
         }
-      else if (valid_neighbor_count == 2 * BIOMESH_DIM)
+#else
+      std::array<double, 4> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                (da->GetTuple3 (pids->GetId (1)))[0],
+                                (da->GetTuple3 (pids->GetId (2)))[0],
+                                (da->GetTuple3 (pids->GetId (3)))[0] };
+
+      std::array<double, 4> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                (da->GetTuple3 (pids->GetId (1)))[1],
+                                (da->GetTuple3 (pids->GetId (2)))[1],
+                                (da->GetTuple3 (pids->GetId (3)))[1] };
+
+      is_zero
+          = std::all_of (vx.begin (), vx.end (),
+                         [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
+            and std::all_of (vy.begin (), vy.end (), [] (double val) {
+                  return BIOMESH_DCOMP (val, 0.0);
+                });
+#endif
+    }
+}
+
+void
+ComputeNormal (vtkCell *face, double normal[3])
+{
+  // We need at least 3 points to define a plane.
+  if (face->GetNumberOfPoints () < 3)
+    {
+      normal[0] = normal[1] = normal[2] = 0.0;
+      return;
+    }
+
+  double p0[3], p1[3], p2[3];
+  face->GetPoints ()->GetPoint (0, p0);
+  face->GetPoints ()->GetPoint (1, p1);
+  face->GetPoints ()->GetPoint (2, p2);
+
+  double v1[3], v2[3];
+  for (int i = 0; i < 3; i++)
+    {
+      v1[i] = p1[i] - p0[i];
+      v2[i] = p2[i] - p0[i];
+    }
+
+  // Cross product v1 x v2 to get the face normal.
+  normal[0] = v1[1] * v2[2] - v1[2] * v2[1];
+  normal[1] = v1[2] * v2[0] - v1[0] * v2[2];
+  normal[2] = v1[0] * v2[1] - v1[1] * v2[0];
+
+  // Normalize the normal vector.
+  double mag = std::sqrt (normal[0] * normal[0] + normal[1] * normal[1]
+                          + normal[2] * normal[2]);
+  if (mag != 0)
+    {
+      normal[0] /= mag;
+      normal[1] /= mag;
+      normal[2] /= mag;
+    }
+}
+
+void
+biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
+{
+  size_t cell_count = sgrid->GetNumberOfCells ();
+  std::vector<int> temp (cell_count, 1);
+
+  int arridx = 1;
+  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  BIOMESH_ASSERT ((da != nullptr));
+
+  for (const int &bidx : m_boundary_cell_index)
+    {
+      /* Grab the cell. */
+      vtkCell *cell = sgrid->GetCell (bidx);
+
+      /* Find the center of the cell. */
+      double pcenter[3];
+      cell->GetParametricCenter (pcenter);
+
+      vtkIdList *pids = cell->GetPointIds ();
+      BIOMESH_ASSERT ((pids != nullptr));
+
+      /* Grab the vectors. */
+      std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                (da->GetTuple3 (pids->GetId (1)))[0],
+                                (da->GetTuple3 (pids->GetId (2)))[0],
+                                (da->GetTuple3 (pids->GetId (3)))[0],
+                                (da->GetTuple3 (pids->GetId (4)))[0],
+                                (da->GetTuple3 (pids->GetId (5)))[0],
+                                (da->GetTuple3 (pids->GetId (6)))[0],
+                                (da->GetTuple3 (pids->GetId (7)))[0] };
+
+      std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                (da->GetTuple3 (pids->GetId (1)))[1],
+                                (da->GetTuple3 (pids->GetId (2)))[1],
+                                (da->GetTuple3 (pids->GetId (3)))[1],
+                                (da->GetTuple3 (pids->GetId (4)))[1],
+                                (da->GetTuple3 (pids->GetId (5)))[1],
+                                (da->GetTuple3 (pids->GetId (6)))[1],
+                                (da->GetTuple3 (pids->GetId (7)))[1] };
+
+      std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
+                                (da->GetTuple3 (pids->GetId (1)))[2],
+                                (da->GetTuple3 (pids->GetId (2)))[2],
+                                (da->GetTuple3 (pids->GetId (3)))[2],
+                                (da->GetTuple3 (pids->GetId (4)))[2],
+                                (da->GetTuple3 (pids->GetId (5)))[2],
+                                (da->GetTuple3 (pids->GetId (6)))[2],
+                                (da->GetTuple3 (pids->GetId (7)))[2] };
+
+      /* Trilinear interpolation in parametric coordinates. */
+      biomesh::vertex3D pnext (pcenter[0], pcenter[1], pcenter[2]);
+      double x = biomesh::interpolation::trilinear (pnext, vx);
+      double y = biomesh::interpolation::trilinear (pnext, vy);
+      double z = biomesh::interpolation::trilinear (pnext, vz);
+
+      double iv[3]{ x, y, z };
+
+      /* Compute which face the interpolated vector points to. */
+      int numFaces = cell->GetNumberOfFaces ();
+      double bestDot = -1.0;
+      int bestFaceIndex = -1;
+      for (int f = 0; f < numFaces; f++)
         {
-          m_cell_type.push_back (2);
+          vtkCell *face = cell->GetFace (f);
+          double normal[3];
+          ComputeNormal (face, normal);
+
+          double dot
+              = iv[0] * normal[0] + iv[1] * normal[1] + iv[2] * normal[2];
+          if (dot > bestDot)
+            {
+              bestDot = dot;
+              bestFaceIndex = f;
+            }
+        }
+
+      std::array<int, 2 *BIOMESH_DIM> fid
+          = compute_face_neighbor_id (sgrid, bidx, bestFaceIndex);
+      if (m_cell_type[fid[bestFaceIndex]] == 2)
+        {
+          temp[bidx] = 3;
         }
     }
+
+#if 0
+  /* Sort the indices by the cartesian distance from the lowest grid coords. */
+  double bounds[6];
+  sgrid->GetBounds(bounds);
+  std::cout << "xmin " << bounds[0] << "ymin " << bounds[2] << "zmin " << bounds[4] << std::endl;
+
+  std::map<int,double> cdist;
+  for(const int& idx : m_boundary_cell_index)
+  {
+    vtkHexahedron* hex = (vtkHexahedron*)sgrid->GetCell(idx);
+    double center[3];
+    hex->GetCentroid(center);
+    
+    double xdiff = std::fabs(center[0]-bounds[0]);
+    double ydiff = std::fabs(center[0]-bounds[2]);
+    double zdiff = std::fabs(center[0]-bounds[4]);
+    double dist = std::sqrt(std::pow(xdiff,2.0) + std::pow(ydiff,2.0) + std::pow(zdiff,2.0));
+
+    cdist.insert({idx,dist});
+  }
+
+  double min_dist = cdist.begin()->second;
+  for(const auto& pair : cdist)
+  {
+    int idx = pair->first; 
+    if(BIOMESH_DCOMP(cdist[idx],min_dist))
+    {
+      temp[idx] = 3;
+    }
+  }
+#endif
+
+  m_seed_cell_index = temp;
+}
+
+#if 0
+static void
+compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
+                std::vector<double> &drdt, double t, int &cid)
+{
+  /**
+   * The 'FindCell' function in the VTK lib returns more information
+   * than needed. We are only interested in the return value of the
+   * function and 'pcoords'. The variables 'subid','weights' are
+   * return variables which are not needed for our application
+   * but are essential to avoid segfaults.
+   */
+  int subid;
+  double pcoords[3];
+  double weights[VTK_CELL_SIZE];
+
+  int arridx = 1;
+  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  BIOMESH_ASSERT ((da != nullptr));
+
+  /* The initial seed vertex. */
+  double current_vertex[3] = { svec[0], svec[1], svec[2] };
+  auto cellid = sgrid->FindCell (current_vertex, nullptr, -1, 0, subid,
+                                 pcoords, weights);
+
+  /* Only consider the vertices within the bounds of the structured grid.
+   */
+  if (cellid >= 0)
+    {
+      cid = cellid;
+
+      /* Grab the cell. */
+      vtkCell *seed_cell = sgrid->GetCell (cellid);
+      BIOMESH_ASSERT ((seed_cell != nullptr));
+      BIOMESH_ASSERT ((seed_cell->GetCellType () == VTK_HEXAHEDRON));
+
+      /* Grab the point indices. */
+      vtkIdList *pids = seed_cell->GetPointIds ();
+      BIOMESH_ASSERT ((pids != nullptr));
+
+      /* Grab the vectors. */
+      std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
+                                (da->GetTuple3 (pids->GetId (1)))[0],
+                                (da->GetTuple3 (pids->GetId (2)))[0],
+                                (da->GetTuple3 (pids->GetId (3)))[0],
+                                (da->GetTuple3 (pids->GetId (4)))[0],
+                                (da->GetTuple3 (pids->GetId (5)))[0],
+                                (da->GetTuple3 (pids->GetId (6)))[0],
+                                (da->GetTuple3 (pids->GetId (7)))[0] };
+
+      std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
+                                (da->GetTuple3 (pids->GetId (1)))[1],
+                                (da->GetTuple3 (pids->GetId (2)))[1],
+                                (da->GetTuple3 (pids->GetId (3)))[1],
+                                (da->GetTuple3 (pids->GetId (4)))[1],
+                                (da->GetTuple3 (pids->GetId (5)))[1],
+                                (da->GetTuple3 (pids->GetId (6)))[1],
+                                (da->GetTuple3 (pids->GetId (7)))[1] };
+
+      std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
+                                (da->GetTuple3 (pids->GetId (1)))[2],
+                                (da->GetTuple3 (pids->GetId (2)))[2],
+                                (da->GetTuple3 (pids->GetId (3)))[2],
+                                (da->GetTuple3 (pids->GetId (4)))[2],
+                                (da->GetTuple3 (pids->GetId (5)))[2],
+                                (da->GetTuple3 (pids->GetId (6)))[2],
+                                (da->GetTuple3 (pids->GetId (7)))[2] };
+
+      /* Trilinear interpolation in parametric coordinates. */
+      biomesh::vertex3D pnext (pcoords[0], pcoords[1], pcoords[2]);
+      drdt[0] = biomesh::interpolation::trilinear (pnext, vx);
+      drdt[1] = biomesh::interpolation::trilinear (pnext, vy);
+      drdt[2] = biomesh::interpolation::trilinear (pnext, vz);
+    }
+}
+
+static bool
+is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
+{
+  double *bb = sgrid->GetBounds ();
+  return ((v[0] >= bb[0] and v[0] <= bb[1])
+          and (v[1] >= bb[2] and v[1] <= bb[3])
+          and (v[2] >= bb[4] and v[2] <= bb[5]));
+}
+#endif
+
+#if 0
+void
+biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
+{
+  size_t cell_count = sgrid->GetNumberOfCells ();
+  std::vector<int> temp(cell_count);
+
+  for (const int &bidx : m_boundary_cell_index)
+    {
+      /* Grab the cell. */
+      vtkCell *cell = sgrid->GetCell (bidx);
+
+      /* Compute the center. */
+      double pcenter[3]; // to hold the parametric center
+      double xcenter[3]; // to hold the physical center
+      double weights[8]; // size depends on the maximum number of cell points
+      int subId;
+      cell->GetParametricCenter (pcenter);
+      cell->EvaluateLocation (subId, pcenter, xcenter, weights);
+
+      /* Trace streamlines in forward and reverse. */
+      double t_start = 0.0;
+      double t_end = 100.0;
+      double dt = 0.1;
+      std::vector<double> start{ xcenter[0], xcenter[1], xcenter[2] };
+
+      boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+
+      while (t_start < t_end and is_inside_grid (sgrid.GetPointer (), start))
+        {
+          int cell_id = 0;
+          rk4_stepper.do_step (
+              [&] (const std::vector<double> &svec, std::vector<double> &drdt,
+                   double t) {
+                compute_vector (sgrid.GetPointer (), svec, drdt, t, cell_id);
+              },
+              start, t_start, dt);
+
+          if (cell_id != bidx)
+            {
+              if (m_cell_type[cell_id] == 0)
+                {
+                  //m_seed_cell_index.push_back (cell_id);
+                  temp[cell_id] = 1;
+                  break;
+                }
+            }
+
+          /* Increment step. */
+          t_start += dt;
+        }
+    }
+
+    m_seed_cell_index = temp;
+}
+#endif
+
+std::vector<int>
+biomesh::cell_table::get_seed_cells () const
+{
+  return m_seed_cell_index;
 }
 
 int

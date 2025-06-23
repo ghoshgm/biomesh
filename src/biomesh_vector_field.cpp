@@ -1,12 +1,18 @@
 
 #include <biomesh_vector_field.hpp>
 
+#include <biomesh_visualization.hpp>
+
 namespace biomesh
 {
 vector_field::vector_field (const std::string &file_path)
     : m_file_path{ file_path }, m_sgrid{
         vtkSmartPointer<vtkStructuredGrid>::New ()
       }
+#if 0
+      ,
+      m_ct{m_sgrid}
+#endif
 {
 }
 
@@ -54,6 +60,19 @@ vector_field::load_vtk_grid ()
    * available. */
 
   return ((m_sgrid != nullptr)) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
+}
+
+void
+vector_field::preprocess ()
+{
+  // m_ct.classify_cells (m_sgrid);
+  // m_ct.find_seed_cells (m_sgrid);
+}
+
+int
+vector_field::operator[] (size_t cell_index) const
+{
+  return m_ct[cell_index];
 }
 
 vtkSmartPointer<vtkStructuredGrid>
