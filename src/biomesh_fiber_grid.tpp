@@ -1,3 +1,4 @@
+#include "biomesh_fiber_grid.hpp"
 
 template <class fiber, class vertex>
 inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
@@ -41,9 +42,6 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       m_fiber_set.emplace_back (f);
     }
 
-  /** TODO: Add check for testing validity of the fiber grid.
-   * Return BIOMESH_SUCCESS iff the fiber grid is valid.
-   */
   return BIOMESH_SUCCESS;
 }
 
@@ -59,4 +57,65 @@ inline size_t
 fiber_grid<fiber, vertex>::size () const
 {
   return m_fiber_set.size ();
+}
+
+template <class fiber, class vertex>
+template <typename... Args>
+void
+biomesh::fiber_grid<fiber, vertex>::transformation (
+    std::function<void (std::vector<fiber> &, Args...)> transform_function,
+    Args... args)
+{
+  transform_function (this->m_fiber_set, args...);
+}
+
+namespace affine_transform
+{
+
+template <class fiber>
+void
+translation (std::vector<fiber> &fiber_set, double x, double y, double z)
+{
+  for (fiber &f : fiber_set)
+    {
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x') + x;
+          double yy = f[ii]('y') + y;
+          double zz = f[ii]('z') + z;
+          f.update_vertex (ii, xx, yy, zz);
+        }
+    }
+}
+
+template <class fiber>
+void
+reflection (std::vector<fiber> &fiber_set, int dir)
+{
+  for (fiber &f : fiber_set)
+    {
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x');
+          double yy = f[ii]('y');
+          double zz = f[ii]('z');
+
+          if (dir == 0)
+            {
+              xx *= -1.0;
+            }
+          else if (dir == 1)
+            {
+              yy *= -1.0;
+            }
+          else if (dir == 2)
+            {
+              zz *= -1.0;
+            }
+
+          f.update_vertex (ii, xx, yy, zz);
+        }
+    }
+}
+
 }

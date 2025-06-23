@@ -7,6 +7,7 @@
 #include <vtkStructuredGridReader.h>
 
 #include <biomesh_base.hpp>
+#include <biomesh_cell_table.hpp>
 
 namespace biomesh
 {
@@ -74,6 +75,8 @@ public:
    */
   void preprocess ();
 
+  int operator[] (size_t cell_index) const;
+
   /**
    * Getter to the underlying VTK structured grid.
    */
@@ -82,6 +85,7 @@ public:
 private:
   std::string m_file_path;
   vtkSmartPointer<vtkStructuredGrid> m_sgrid;
+  cell_table m_ct;
 };
 } // namespace biomesh
 

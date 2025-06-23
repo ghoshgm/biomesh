@@ -3,7 +3,6 @@
 #define BIOMESH_VISUALIZATION_HPP
 
 #include <biomesh_base.hpp>
-#include <biomesh_cell_table.hpp>
 #include <biomesh_fiber_grid.hpp>
 #include <biomesh_vector_field.hpp>
 

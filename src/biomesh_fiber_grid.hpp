@@ -57,6 +57,17 @@ public:
    */
   size_t size () const;
 
+  /**
+   * Apply geometric transformations to the fiber vertices.
+   *
+   * @param[in] transform_function The function call-back to apply appropriate
+   * transformation function.
+   */
+  template <typename... Args>
+  void transformation (
+      std::function<void (std::vector<fiber> &, Args...)> transform_function,
+      Args... args);
+
 private:
   size_t m_fiber_count;
   json_parser m_jparser;
@@ -64,6 +75,36 @@ private:
 };
 
 #include "biomesh_fiber_grid.tpp"
+
+/**
+ * Affine transformation functions.
+ */
+namespace affine_transform
+{
+
+/**
+ * Translate the fiber grid by a specified displacement.
+ *
+ * @param[in] x Displacement in the x-direction.
+ * @param[in] y Displacement in the y-direction.
+ * @param[in] z Displacement in the z-direction.
+ */
+template <class fiber>
+void translation (std::vector<fiber> &fiber_set, double x, double y, double z);
+
+/**
+ * Reflect the fiber grid about an axis.
+ *
+ * 0 -> x-axis.
+ * 1 -> y-axis.
+ * 2 -> z-axis.
+ *
+ * @param[in] dir Specify the required axis.
+ */
+template <class fiber>
+void reflection (std::vector<fiber> &fiber_set, int dir);
+
+}
 
 } // namespace biomesh
 #endif

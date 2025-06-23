@@ -42,6 +42,11 @@ fiber2D::operator[] (size_t idx) const
   return m_fiber_vertices[idx];
 }
 
+void
+fiber2D::pop ()
+{
+}
+
 bool
 fiber2D::operator== (const fiber2D &other) const
 {
