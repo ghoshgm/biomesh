@@ -19,9 +19,9 @@ int main(int argc, char **argv)
   /* Classify cell in the vector field. */
   cell_table ct;
   ct.classify_cells(field.get_grid());
-  //ct.find_seed_cells(field.get_grid());
+  ct.find_seed_cells(field.get_grid());
   visualization::write_cell_type_vtk(ct, field, "ellipsoid");
-  //visualization::write_seed_type_vtk(ct, field, "ellipsoid");
+  visualization::write_seed_type_vtk(ct, field, "ellipsoid");
 
   /* Generate fibers. */
   fiber_grid3d f(argv[2]);
