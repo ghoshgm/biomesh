@@ -7,12 +7,46 @@ inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
   m_fiber_count = 0;
 }
 
+template <class vertex>
+static std::vector<vertex>
+compute_seeds (const vector_field &vfield)
+{
+  /* Obtain the seed cell index. */
+  auto sgrid = vfield.get_grid ();
+  std::vector<int> v = vfield.get_seed_indices ();
+  std::vector<vertex> sp;
+
+  BIOMESH_LINFO ("Compute seed points begin.");
+  for (int ii = 0; ii < v.size (); ++ii)
+    {
+      if (v[ii] == 3)
+        {
+          vtkCell *cell = sgrid->GetCell (ii);
+
+          double pcenter[3]; // to hold the parametric center
+          double xcenter[3]; // to hold the physical center
+          double
+              weights[8]; // size depends on the maximum number of cell points
+          int subId;
+          cell->GetParametricCenter (pcenter);
+          cell->EvaluateLocation (subId, pcenter, xcenter, weights);
+          vertex seed_point (xcenter[0], xcenter[1], xcenter[2]);
+
+          sp.push_back (seed_point);
+        }
+    }
+  BIOMESH_LINFO ("Compute seed points end.");
+
+  return sp;
+}
+
 template <class fiber, class vertex>
 inline int
 fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
                                                 size_t fpoint_count,
                                                 double width)
 {
+#if 0
   int ret = m_jparser.read ();
   BIOMESH_ASSERT ((ret == true));
   auto data = m_jparser.get_json_string ();
@@ -41,6 +75,25 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);
     }
+#else
+  std::vector<vertex> v = compute_seeds<vertex> (vfield);
+
+  int counter = 0;
+  for (const vertex &seed : v)
+    {
+      fiber f (seed, fpoint_count, width);
+
+      /* Generate fiber. */
+      BIOMESH_LINFO ("Fiber" + std::to_string (counter) + " begin.");
+      f.generate_fiber (vfield);
+      BIOMESH_LINFO ("Fiber" + std::to_string (counter) + " end.");
+
+      /* Push fiber to fiber grid. */
+      m_fiber_set.emplace_back (f);
+      ++counter;
+    }
+
+#endif
 
   return BIOMESH_SUCCESS;
 }

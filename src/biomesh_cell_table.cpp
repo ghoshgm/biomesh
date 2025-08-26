@@ -383,6 +383,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
   vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
+  int seed_counter = 0;
   for (const int &bidx : m_boundary_cell_index)
     {
       /* Grab the cell. */
@@ -502,6 +503,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
           if (m_cell_type[corner_neighbor_idx] == 2)
             {
               temp[bidx] = 3;
+              ++seed_counter;
             }
         }
       else if (on_edge)
@@ -509,6 +511,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
           if (m_cell_type[edge_neighbor_idx] == 2)
             {
               temp[bidx] = 3;
+              ++seed_counter;
             }
         }
       else
@@ -537,6 +540,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
           if (m_cell_type[fid[bestFaceIndex]] == 2)
             {
               temp[bidx] = 3;
+              ++seed_counter;
             }
         }
     }
@@ -585,7 +589,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
         }
     }
 #endif
-
+  std::cout << "Found " << seed_counter << " seed cells." << std::endl;
   BIOMESH_LINFO ("Seed cell search end.");
 }
 

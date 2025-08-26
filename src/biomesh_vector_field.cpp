@@ -65,14 +65,20 @@ vector_field::load_vtk_grid ()
 void
 vector_field::preprocess ()
 {
-  // m_ct.classify_cells (m_sgrid);
-  // m_ct.find_seed_cells (m_sgrid);
+  m_ct.classify_cells (m_sgrid);
+  m_ct.find_seed_cells (m_sgrid);
 }
 
 int
 vector_field::operator[] (size_t cell_index) const
 {
   return m_ct[cell_index];
+}
+
+std::vector<int>
+vector_field::get_seed_indices () const
+{
+  return m_ct.get_seed_cells ();
 }
 
 vtkSmartPointer<vtkStructuredGrid>

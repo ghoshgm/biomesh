@@ -77,6 +77,8 @@ public:
 
   int operator[] (size_t cell_index) const;
 
+  std::vector<int> get_seed_indices () const;
+
   /**
    * Getter to the underlying VTK structured grid.
    */
