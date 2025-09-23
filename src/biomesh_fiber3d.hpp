@@ -86,6 +86,8 @@ public:
    */
   void generate_fiber (const vector_field &vfield);
 
+  void generate_fiber_reverse (const vector_field &vfield);
+
   /**
    * Test equality of two fibers.
    *

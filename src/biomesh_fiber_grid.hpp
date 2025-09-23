@@ -11,7 +11,18 @@
 #include <biomesh_vertex3d.hpp>
 
 #include <vtkCell.h>
+#include <vtkCellData.h>
+#include <vtkCutter.h>
 #include <vtkDataArray.h>
+#include <vtkExtractGeometry.h>
+#include <vtkPlane.h>
+#include <vtkPoints.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataWriter.h>
+#include <vtkSmartPointer.h>
+#include <vtkStructuredGrid.h>
+#include <vtkStructuredGridWriter.h>
+#include <vtkUnstructuredGrid.h>
 
 #include <string>
 #include <vector>

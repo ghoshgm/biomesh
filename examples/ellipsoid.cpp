@@ -29,10 +29,12 @@ int main(int argc, char **argv)
 
   /* Write fibers to JSON format. */
   json_parser jp1;
-  jp1.export_fiber_grid_json<fiber_grid3d>(f, "ellipsoid3d.json");
+  //jp1.export_fiber_grid_json<fiber_grid3d>(f, "ellipsoid3d.json");
+  jp1.export_fiber_grid_json<fiber_grid3d>(f, "ellipsoid3dr.json");
 
   /* Write fibers to VTK format. */
-  visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d");
+  //visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3d");
+  visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "ellipsoid3dr");
 #endif
 
 #if 0

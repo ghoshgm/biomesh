@@ -181,4 +181,66 @@ fiber2D::generate_fiber (const vector_field &vfield)
                  + std::to_string (m_fiber_vertices.size ()));
 }
 
+void
+fiber2D::generate_fiber_reverse (const vector_field &vfield)
+{
+  /* Obtain the structured grid. */
+  auto sgrid = vfield.get_grid ().GetPointer ();
+  BIOMESH_ASSERT ((sgrid != nullptr));
+
+  stopwatch watch;
+  watch.start ();
+
+  /* Set initial conditions. */
+  double t_start = 0.0;
+  double t_end = m_gpoint_count * m_width;
+  double dt = m_width;
+  std::vector<double> vertex{ m_seed ('x'), m_seed ('y') };
+  m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
+
+  /* Set integration scheme. */
+  boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+
+  /* Compute fibers. */
+  while (t_start < t_end and is_inside_grid (sgrid, vertex))
+    {
+      /* Push to fiber. */
+      m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
+
+      /* Do one step of numeric integration. */
+      rk4_stepper.do_step (
+          [&] (const std::vector<double> &svec, std::vector<double> &drdt,
+               double t) { compute_vector (sgrid, svec, drdt, t); },
+          vertex, t_start, dt);
+
+      /* Set distance between two adjacent vertices. */
+      Eigen::Vector2d vv1 (m_fiber_vertices.back () ('x'),
+                           m_fiber_vertices.back () ('y'));
+      Eigen::Vector2d vv2 (vertex[0], vertex[1]);
+      Eigen::Vector2d cv = vv2 - vv1;
+      if (BIOMESH_DCOMP (cv.norm (), 0.0))
+        {
+          break;
+        }
+      Eigen::Vector2d v_new = vv1 + ((cv / cv.norm ()) * dt);
+      vertex[0] = v_new (0);
+      vertex[1] = v_new (1);
+
+#ifdef BIOMESH_ENABLE_DEBUG
+      double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
+      double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
+      double distance
+          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0));
+      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, m_width));
+#endif
+
+      /* Increment step. */
+      t_start += dt;
+    }
+
+  watch.end ();
+  BIOMESH_LINFO ("Fiber vertex count = "
+                 + std::to_string (m_fiber_vertices.size ()));
+}
+
 } // namespace biomesh
