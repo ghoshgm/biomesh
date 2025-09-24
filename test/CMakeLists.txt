@@ -38,6 +38,12 @@ target_include_directories(test_boost PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BIN
 target_link_libraries(test_boost PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
 add_test(NAME test_boost COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_boost)
 
+# Test yaml installation.
+add_executable(test_yaml test_yaml.cpp)
+target_include_directories(test_yaml PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_yaml PUBLIC yaml-cpp ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
+add_test(NAME test_yaml COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_yaml)
+
 # Test for stopwatch.
 add_executable(test_stopwatch test_stopwatch.cpp)
 target_include_directories(test_stopwatch PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
