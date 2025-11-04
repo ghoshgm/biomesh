@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fibers>
+    <vertex_count>1000</vertex_count>
+    <fiber_count>2</fiber_count>
+    <integration_scheme>runge-kutta4</integration_scheme>
+    <adaptive_steps_max>10</adaptive_steps_max>
+    <strategy>static</strategy>
+</fibers>
+
+<seeds>
+    <plane>
+        <point>0.0 0.0 0.0</point>
+        <normal>0.0 0.0 0.0</normal>
+    </plane>
+</seeds>

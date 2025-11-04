@@ -17,7 +17,7 @@ message(STATUS "Found jsoncpp: ${JSONCPP_LIBDIR} (found version ${JSONCPP_VERSIO
 
 find_package(Boost REQUIRED)
 
-find_package(yaml-cpp REQUIRED)
-if(${yaml-cpp_FOUND})
-  message(STATUS "Found yamlcpp: ${yaml-cpp_DIR} (found version ${yaml-cpp_VERSION})")
+find_package(LibXml2 REQUIRED)
+if(${LibXml2_FOUND})
+  message(STATUS "Found xml2: ${LIBXML2_INCLUDE_DIRS} (found version ${LIBXML2_VERSION_STRING})")
 endif()
