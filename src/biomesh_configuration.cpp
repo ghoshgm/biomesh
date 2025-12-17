@@ -16,171 +16,94 @@ configuration::~configuration () {}
 void
 configuration::read_config_file ()
 {
-  /* Read the YAML file. */
-  BIOMESH_LINFO ("Input XML file path: " + m_file_path);
-  BIOMESH_LINFO ("XML file read begin.");
+  xmlDocPtr doc = xmlReadFile (m_file_path.c_str (), nullptr, 0);
+  if (!doc)
+    throw std::runtime_error ("Failed to parse XML file");
 
-  xmlInitParser ();
-
-  xmlDocPtr m_file = xmlReadFile (m_file_path.c_str (), nullptr, 0);
-
-  xmlNode *m_root = xmlDocGetRootElement (m_file);
-
-  for (xmlNode *node = m_root->children; node; node = node->next)
+  xmlNodePtr root = xmlDocGetRootElement (doc);
+  if (!root || xmlStrcmp (root->name, BAD_CAST "fiber_set") != 0)
     {
-      if (node->type == XML_ELEMENT_NODE)
-        {
+      xmlFreeDoc (doc);
+      throw std::runtime_error ("Missing <fiber_set> root element");
+    }
 
-          if (xmlStrcmp (node->name, BAD_CAST "fibers") == 0)
+  // Iterate over children of <fiber_set>
+  for (xmlNodePtr node = root->children; node; node = node->next)
+    {
+      if (node->type != XML_ELEMENT_NODE)
+        continue;
+
+      std::string key (reinterpret_cast<const char *> (node->name));
+
+      // Handle vector nodes
+      if (key == "point" || key == "normal")
+        {
+          double x = 0.0, y = 0.0, z = 0.0;
+
+          for (xmlNodePtr sub = node->children; sub; sub = sub->next)
             {
-              for (xmlNode *sub_node = node->children; sub_node;
-                   sub_node = sub_node->next)
-                {
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "vertex_count") == 0)
-                    {
-                      int vertex_count = std::stoi (
-                          (const char *)xmlNodeGetContent (sub_node));
-                      m_settings.insert ({ "vertex_count", vertex_count });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "fiber_count") == 0)
-                    {
-                      int fiber_count = std::stoi (
-                          (const char *)xmlNodeGetContent (sub_node));
-                      m_settings.insert ({ "fiber_count", fiber_count });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "integration_scheme")
-                      == 0)
-                    {
-                      std::string integration_scheme
-                          = (const char *)xmlNodeGetContent (sub_node);
-                      m_settings.insert (
-                          { "integration_scheme", integration_scheme });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "adaptive_steps_max")
-                      == 0)
-                    {
-                      int adaptive_steps_max = std::stoi (
-                          (const char *)xmlNodeGetContent (sub_node));
-                      m_settings.insert (
-                          { "adaptive_steps_max", adaptive_steps_max });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "strategy") == 0)
-                    {
-                      std::string strategy
-                          = (const char *)xmlNodeGetContent (sub_node);
-                      m_settings.insert ({ "strategy", strategy });
-                    }
-                }
+              if (sub->type != XML_ELEMENT_NODE)
+                continue;
+
+              std::string axis (reinterpret_cast<const char *> (sub->name));
+              xmlChar *content = xmlNodeGetContent (sub);
+              if (!content)
+                throw std::runtime_error ("Missing value in " + key);
+
+              double value
+                  = std::stod (reinterpret_cast<const char *> (content));
+              xmlFree (content);
+
+              if (axis == "x")
+                x = value;
+              else if (axis == "y")
+                y = value;
+              else if (axis == "z")
+                z = value;
             }
 
-          if (xmlStrcmp (node->name, BAD_CAST "seed_points") == 0)
+          m_settings[key] = std::tuple<double, double, double>{ x, y, z };
+        }
+      else if (key == "seed_file")
+        {
+          xmlChar *val = xmlNodeGetContent (node);
+          std::string path;
+          if (val != nullptr)
             {
-              for (xmlNode *sub_node = node->children; sub_node;
-                   sub_node = sub_node->next)
-                {
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "seed_count") == 0)
-                    {
-                      int seed_count = std::stoi (
-                          (const char *)xmlNodeGetContent (sub_node));
-                      m_settings.insert ({ "seed_count", seed_count });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "point") == 0)
-                    {
-                      double x = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "x"));
-                      double y = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "y"));
-                      double z = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "z"));
+              path = (const char *)val;
+              std::cout << path << std::endl;
+            }
+          else
+            {
+              path = "";
+              std::cout << path << std::endl;
+            }
+          m_settings[key] = path;
+        }
+      else
+        {
+          // Scalar nodes
+          xmlChar *content = xmlNodeGetContent (node);
+          if (!content)
+            throw std::runtime_error ("Missing value for " + key);
 
-                      m_settings.insert (
-                          { "point",
-                            std::tuple<double, double, double>{ x, y, z } });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "normal") == 0)
-                    {
-                      double x = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "x"));
-                      double y = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "y"));
-                      double z = std::stod (
-                          (const char *)xmlGetProp (sub_node, BAD_CAST "z"));
+          std::string text (reinterpret_cast<const char *> (content));
+          xmlFree (content);
 
-                      m_settings.insert (
-                          { "normal",
-                            std::tuple<double, double, double>{ x, y, z } });
-                    }
-                  if (xmlStrcmp (sub_node->name, BAD_CAST "seed_file") == 0)
-                    {
-                      xmlChar *val = xmlNodeGetContent (sub_node);
-                      std::string path;
-                      if (val != nullptr)
-                        {
-                          path = (const char *)val;
-                          std::cout << path << std::endl;
-                        }
-                      else
-                        {
-                          path = "";
-                          std::cout << path << std::endl;
-                        }
-                    }
-                }
+          if (key == "vertex_count" || key == "fiber_count"
+              || key == "adaptive_steps_max" || key == "seed_count")
+            {
+              m_settings[key] = std::stoi (text);
+            }
+          else
+            {
+              m_settings[key] = text;
             }
         }
     }
 
-  xmlFreeDoc (m_file);
+  xmlFreeDoc (doc);
   xmlCleanupParser ();
-
-  BIOMESH_LINFO ("XML file read end.");
-}
-
-auto
-configuration::operator[] (std::string &parameter)
-{
-  if (parameter == "vertex_count")
-    {
-      return std::any_cast<int> (m_settings["vertex_count"]);
-    }
-  else if (parameter == "fiber_count")
-    {
-      return std::any_cast<int> (m_settings["fiber_count"]);
-    }
-  else if (parameter == "integration_scheme")
-    {
-      return std::any_cast<std::string> (m_settings["integration_scheme"]);
-    }
-  else if (parameter == "adaptive_steps_max")
-    {
-      return std::any_cast<int> (m_settings["adaptive_steps_max"]);
-    }
-  else if (parameter == "strategy")
-    {
-      return std::any_cast<std::string> (m_settings["strategy"]);
-    }
-  else if (parameter == "seed_count")
-    {
-      return std::any_cast<int> (m_settings["seed_count"]);
-    }
-  else if (parameter == "point")
-    {
-      return std::any_cast<std::tuple<double, double, double> > (
-          m_settings["point"]);
-    }
-  else if (parameter == "normal")
-    {
-      return std::any_cast<std::tuple<double, double, double> > (
-          m_settings["normal"]);
-    }
-  else if (parameter == "seed_file")
-    {
-      return std::any_cast<std::string> (m_settings["seed_file"]);
-    }
-  else
-    {
-      return std::string ("Invalid Parameter.");
-    }
 }
 
 void
