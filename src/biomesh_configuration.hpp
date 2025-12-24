@@ -10,19 +10,40 @@
 
 namespace biomesh
 {
-
+/**
+ * @brief Class for parsing the configuration file for generating fibers.
+ *
+ * Currently, the XML format is used.
+ *
+ */
 class configuration
 {
 public:
+  /**
+   * Constructor.
+   *
+   * @param[in] file_path The path to the XML file.
+   */
   explicit configuration (const std::string &file_path);
 
+  /**
+   * Destructor.
+   */
   ~configuration ();
 
+  /**
+   * Function to read the XML file.
+   */
   void read_config_file ();
 
+  /**
+   * Function to return the value for a parameter in the XML file.
+   *
+   * This function should only be called after 'read_config_file'.
+   *
+   * @param[in] parameter The parameter name.
+   */
   template <typename T> T get_value (const std::string &parameter) const;
-
-  void print () const;
 
 private:
   std::string m_file_path;
@@ -39,7 +60,7 @@ configuration::get_value (const std::string &parameter) const
 {
   auto it = m_settings.find (parameter);
   if (it == m_settings.end ())
-    throw std::runtime_error ("Key not found: " + parameter);
+    throw std::runtime_error ("Parameter not found: " + parameter);
 
   try
     {
@@ -47,7 +68,7 @@ configuration::get_value (const std::string &parameter) const
     }
   catch (const std::bad_any_cast &)
     {
-      throw std::runtime_error ("Type mismatch for key: " + parameter);
+      throw std::runtime_error ("Type mismatch for parameter: " + parameter);
     }
 }
 

@@ -86,4 +86,4 @@ add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_
 add_executable(test_configuration test_configuration.cpp)
 target_include_directories(test_configuration PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_configuration PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so LibXml2::LibXml2)
-add_test(NAME test_configuration COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_configuration)
+add_test(NAME test_configuration COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_configuration ${CMAKE_SOURCE_DIR}/test/config.xml)

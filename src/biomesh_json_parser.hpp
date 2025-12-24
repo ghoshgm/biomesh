@@ -10,7 +10,9 @@
 
 namespace biomesh
 {
-
+/**
+ * @brief Class for parsing JSON files.
+ */
 class json_parser
 {
 public:

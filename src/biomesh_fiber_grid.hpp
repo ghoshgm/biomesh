@@ -29,6 +29,11 @@
 
 namespace biomesh
 {
+/**
+ * @brief Class for modelling the set of fibers.
+ *
+ * The set of all fibers constitutes a fiber grid.
+ */
 template <class fiber, class vertex> class fiber_grid
 {
 public:

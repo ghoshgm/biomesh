@@ -66,7 +66,7 @@ void
 vector_field::preprocess ()
 {
   m_ct.classify_cells (m_sgrid);
-  m_ct.find_seed_cells (m_sgrid);
+  // m_ct.find_seed_cells (m_sgrid);
 }
 
 int

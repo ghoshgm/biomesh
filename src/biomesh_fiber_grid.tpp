@@ -117,6 +117,8 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
   writer->SetInputData (cut);
   writer->Write ();
 
+  int counter = 0;
+
   for (int ii = 0; ii < cut->GetNumberOfCells (); ++ii)
     {
       vtkCell *cell = cut->GetCell (ii);
@@ -141,13 +143,15 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
           fiber f (seed, fpoint_count, width);
 
           /* Generate fiber. */
-          BIOMESH_LINFO ("Fiber" + std::to_string (ii) + " begin.");
+          BIOMESH_LINFO ("Fiber" + std::to_string (counter) + " begin.");
           f.generate_fiber (vfield);
           // f.generate_fiber_reverse (vfield);
-          BIOMESH_LINFO ("Fiber" + std::to_string (ii) + " end.");
+          BIOMESH_LINFO ("Fiber" + std::to_string (counter) + " end.");
 
           /* Push fiber to fiber grid. */
           m_fiber_set.emplace_back (f);
+
+          ++counter;
         }
     }
 #endif

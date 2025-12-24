@@ -106,10 +106,4 @@ configuration::read_config_file ()
   xmlCleanupParser ();
 }
 
-void
-configuration::print () const
-{
-  // std::cout << m_data << std::endl;
-}
-
 }

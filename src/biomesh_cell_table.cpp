@@ -371,6 +371,7 @@ is_boundary_cell (std::array<double, 8> &vx, std::array<double, 8> &vy,
   return result;
 }
 
+#if 0
 void
 biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 {
@@ -592,6 +593,7 @@ biomesh::cell_table::find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
   std::cout << "Found " << seed_counter << " seed cells." << std::endl;
   BIOMESH_LINFO ("Seed cell search end.");
 }
+#endif
 
 #if 0
 static void

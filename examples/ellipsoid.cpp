@@ -1,9 +1,6 @@
 
 #include <iostream>
-#include <biomesh_vector_field.hpp>
-#include <biomesh_json_parser.hpp>
-#include <biomesh_fiber_grid.hpp>
-#include <biomesh_visualization.hpp>
+#include <biomesh.hpp>
 
 using namespace biomesh;
 using fiber_grid3d = fiber_grid<fiber3D, vertex3D>;
@@ -25,7 +22,8 @@ int main(int argc, char **argv)
 
   /* Generate fibers. */
   fiber_grid3d f(argv[2]);
-  f.generate_fiber_grid(field, 100, 0.14);
+  f.generate_fiber_grid(field, 200, 0.14);
+  std::cout << f.size() << std::endl;
 
   /* Write fibers to JSON format. */
   json_parser jp1;
