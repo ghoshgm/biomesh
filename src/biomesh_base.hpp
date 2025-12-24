@@ -24,7 +24,6 @@
 /* Tolerance for comparing two doubles. */
 #define BIOMESH_DCOMP(a, b) (std::fabs (a - b) < 1e-8)
 
-/* Logging macros. */
 #ifdef BIOMESH_ENABLE_DEBUG
 #define BIOMESH_ASSERT(c) assert (c == true)
 #define BIOMESH_LDEBUG(format)                                                \

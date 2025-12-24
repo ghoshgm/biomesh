@@ -12,7 +12,7 @@ namespace biomesh
 {
 
 /**
- * @brief Base class for vertices/points in the Euclidean space.
+ * Base class for vertices/points in the Euclidean space.
  * This class defines all basic functions and members.
  */
 class vertex

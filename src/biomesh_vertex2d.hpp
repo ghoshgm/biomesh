@@ -8,7 +8,7 @@ namespace biomesh
 {
 
 /**
- * @brief Derived class for 2D vertices/points in the Eucledian space.
+ * Derived class for 2D vertices/points in the Eucledian space.
  */
 class vertex2D : public vertex
 {

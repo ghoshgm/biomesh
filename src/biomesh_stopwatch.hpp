@@ -8,9 +8,6 @@
 
 namespace biomesh
 {
-/**
- * @brief Class for measuring wall time.
- */
 
 using time_point = std::chrono::high_resolution_clock::time_point;
 
