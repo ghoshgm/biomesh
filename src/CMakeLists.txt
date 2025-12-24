@@ -11,6 +11,7 @@ target_include_directories(biomesh PUBLIC ${PROJECT_SOURCE_DIR}/src
                                           ${PROJECT_BINARY_DIR}/include
                                           $<$<BOOL:${MPI_CXX_FOUND}>:${MPI_CXX_INCLUDE_DIRS}>
                                           ${PETSC_INCLUDE_DIRS}
+                                          ${LIBXML2_INCLUDE_DIRS}
                           )
 target_link_libraries(biomesh PUBLIC
 $<$<BOOL:${MPI_CXX_FOUND}>:${MPI_CXX_LIBRARIES}>
@@ -18,4 +19,5 @@ $<$<BOOL:${MPI_CXX_FOUND}>:${MPI_CXX_LIBRARIES}>
                            Eigen3::Eigen
                            ${JSONCPP_LIBRARIES}
                            ${PETSC_LINK_LIBRARIES}
+                           ${LIBXML2_LIBRARIES}
                      )

@@ -17,7 +17,10 @@
 
 namespace biomesh
 {
-
+/**
+ * @brief Class for exporting data for visualization
+ * using paraview.
+ */
 namespace visualization
 {
 

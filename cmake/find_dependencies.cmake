@@ -1,4 +1,6 @@
 include(FindPkgConfig)
+include(FetchContent)
+
 
 find_package(VTK REQUIRED)
 if(${VTK_FOUND})
@@ -14,3 +16,8 @@ pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 message(STATUS "Found jsoncpp: ${JSONCPP_LIBDIR} (found version ${JSONCPP_VERSION})")
 
 find_package(Boost REQUIRED)
+
+find_package(LibXml2 REQUIRED)
+if(${LibXml2_FOUND})
+  message(STATUS "Found xml2: ${LIBXML2_INCLUDE_DIRS} (found version ${LIBXML2_VERSION_STRING})")
+endif()

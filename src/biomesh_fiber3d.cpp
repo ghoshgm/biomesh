@@ -120,6 +120,7 @@ is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
 void
 fiber3D::generate_fiber (const vector_field &vfield)
 {
+#if 1
   /* Obtain the structured grid. */
   auto sgrid = vfield.get_grid ().GetPointer ();
   BIOMESH_ASSERT ((sgrid != nullptr));
@@ -133,6 +134,10 @@ fiber3D::generate_fiber (const vector_field &vfield)
   std::vector<double> vertex{ m_seed ('x'), m_seed ('y'), m_seed ('z') };
 
   boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+
+  bool adaptive = true;
+  int adaptive_count = 0;
+  int adaptive_tol = 4;
 
   /* Compute fibers. */
   while (t_start < t_end and is_inside_grid (sgrid, vertex))
@@ -153,19 +158,33 @@ fiber3D::generate_fiber (const vector_field &vfield)
                            m_fiber_vertices.back () ('y'),
                            m_fiber_vertices.back () ('z'));
       Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
-      Eigen::Vector3d cv = vv2 - vv1;
-#if 0
-      if(vfield[cell_id] == 0)
-      {
-        break;
-      }
-#endif
-#if 1
-      if (BIOMESH_DCOMP (cv.norm (), 0.0))
+      Eigen::Vector3d cv;
+
+      if (vv2 != vv1)
         {
-          break;
+          cv = vv2 - vv1;
+          // cv = -cv;
         }
-#endif
+
+      if (vfield[cell_id] == 0)
+        {
+          if (adaptive and adaptive_count <= adaptive_tol)
+            {
+              if (adaptive_count == adaptive_tol)
+                {
+                  break;
+                }
+
+              dt = dt / 2.0;
+
+              ++adaptive_count;
+            }
+          else if (!adaptive)
+            {
+              break;
+            }
+        }
+
       Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
       vertex[0] = v_new (0);
       vertex[1] = v_new (1);
@@ -178,7 +197,186 @@ fiber3D::generate_fiber (const vector_field &vfield)
       double distance
           = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0)
                        + std::pow (z_diff, 2.0));
-      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, m_width));
+      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, dt));
+#endif
+
+      /* Increment step. */
+      t_start += dt;
+    }
+
+  watch.end ();
+  BIOMESH_LINFO ("Fiber vertex count = "
+                 + std::to_string (m_fiber_vertices.size ()));
+#else
+  /* Obtain the structured grid. */
+  auto sgrid = vfield.get_grid ().GetPointer ();
+  BIOMESH_ASSERT ((sgrid != nullptr));
+
+  stopwatch watch;
+  watch.start ();
+
+  double t_start = 0.0;
+  double t_end = m_gpoint_count * m_width;
+  double dt = m_width;
+  std::vector<double> vertex{ m_seed ('x'), m_seed ('y'), m_seed ('z') };
+
+  boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+
+  bool adaptive = true;
+  int adaptive_count = 0;
+  int adaptive_tol = 4;
+
+  /* Compute fibers. */
+  while (t_start < t_end and is_inside_grid (sgrid, vertex))
+    {
+      /* Push to fiber. */
+      m_fiber_vertices.emplace_back (
+          vertex3D (vertex[0], vertex[1], vertex[2]));
+
+      /* Do one step of numeric integration. */
+      int cell_id = 0;
+      rk4_stepper.do_step (
+          [&] (const std::vector<double> &svec, std::vector<double> &drdt,
+               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
+          vertex, t_start, dt);
+
+      /* Set distance between two adjacent vertices. */
+      Eigen::Vector3d vv1 (m_fiber_vertices.back () ('x'),
+                           m_fiber_vertices.back () ('y'),
+                           m_fiber_vertices.back () ('z'));
+      Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
+      Eigen::Vector3d cv;
+
+      if (vv2 != vv1)
+        {
+          cv = vv2 - vv1;
+          cv = -cv;
+        }
+
+      if (vfield[cell_id] == 0)
+        {
+          if (adaptive and adaptive_count <= adaptive_tol)
+            {
+              if (adaptive_count == adaptive_tol)
+                {
+                  break;
+                }
+
+              dt = dt / 2.0;
+
+              ++adaptive_count;
+            }
+          else if (!adaptive)
+            {
+              break;
+            }
+        }
+
+      Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
+      vertex[0] = v_new (0);
+      vertex[1] = v_new (1);
+      vertex[2] = v_new (2);
+
+#ifdef BIOMESH_ENABLE_DEBUG
+      double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
+      double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
+      double z_diff = std::fabs (vertex[2] - m_fiber_vertices.back () ('z'));
+      double distance
+          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0)
+                       + std::pow (z_diff, 2.0));
+      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, dt));
+#endif
+
+      /* Increment step. */
+      t_start += dt;
+    }
+
+  watch.end ();
+  BIOMESH_LINFO ("Fiber vertex count = "
+                 + std::to_string (m_fiber_vertices.size ()));
+#endif
+}
+
+void
+fiber3D::generate_fiber_reverse (const vector_field &vfield)
+{
+  /* Obtain the structured grid. */
+  auto sgrid = vfield.get_grid ().GetPointer ();
+  BIOMESH_ASSERT ((sgrid != nullptr));
+
+  stopwatch watch;
+  watch.start ();
+
+  double t_start = 0.0;
+  double t_end = m_gpoint_count * m_width;
+  double dt = m_width;
+  std::vector<double> vertex{ m_seed ('x'), m_seed ('y'), m_seed ('z') };
+
+  boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+
+  bool adaptive = true;
+  int adaptive_count = 0;
+  int adaptive_tol = 4;
+
+  /* Compute fibers. */
+  while (t_start < t_end and is_inside_grid (sgrid, vertex))
+    {
+      /* Push to fiber. */
+      m_fiber_vertices.emplace_back (
+          vertex3D (vertex[0], vertex[1], vertex[2]));
+
+      /* Do one step of numeric integration. */
+      int cell_id = 0;
+      rk4_stepper.do_step (
+          [&] (const std::vector<double> &svec, std::vector<double> &drdt,
+               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
+          vertex, t_start, dt);
+
+      /* Set distance between two adjacent vertices. */
+      Eigen::Vector3d vv1 (m_fiber_vertices.back () ('x'),
+                           m_fiber_vertices.back () ('y'),
+                           m_fiber_vertices.back () ('z'));
+      Eigen::Vector3d vv2 (vertex[0], vertex[1], vertex[2]);
+      Eigen::Vector3d cv;
+
+      if (vv2 != vv1)
+        {
+          cv = vv2 - vv1;
+          cv = -cv;
+        }
+
+      if (vfield[cell_id] == 0)
+        {
+          if (adaptive and adaptive_count <= adaptive_tol)
+            {
+              if (adaptive_count == adaptive_tol)
+                {
+                  break;
+                }
+
+              dt = dt / 2.0;
+
+              ++adaptive_count;
+            }
+          else if (!adaptive)
+            {
+              break;
+            }
+        }
+
+      Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
+      vertex[0] = v_new (0);
+      vertex[1] = v_new (1);
+      vertex[2] = v_new (2);
+
+#ifdef BIOMESH_ENABLE_DEBUG
+      double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
+      double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
+      double z_diff = std::fabs (vertex[2] - m_fiber_vertices.back () ('z'));
+      double distance
+          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0)
+                       + std::pow (z_diff, 2.0));
+      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, dt));
 #endif
 
       /* Increment step. */

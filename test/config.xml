@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fiber_set>
+    <vertex_count>1000</vertex_count>
+    <fiber_count>256</fiber_count>
+
+    <integration_scheme>runge-kutta4</integration_scheme>
+    <adaptive_steps_max>1000</adaptive_steps_max>
+    <strategy>static</strategy>
+
+    <seed_count>64</seed_count>
+
+    <point>
+        <x>0.0</x>
+        <y>1.0</y>
+        <z>2.0</z>
+    </point>
+
+    <normal>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </normal>
+
+    <seed_file></seed_file>
+</fiber_set>

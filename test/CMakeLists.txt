@@ -38,6 +38,12 @@ target_include_directories(test_boost PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BIN
 target_link_libraries(test_boost PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
 add_test(NAME test_boost COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_boost)
 
+# Test XML installation.
+add_executable(test_xml test_xml.cpp)
+target_include_directories(test_xml PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include ${LIBXML2_INCLUDE_DIRS})
+target_link_libraries(test_xml PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so LibXml2::LibXml2)
+add_test(NAME test_xml COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_xml)
+
 # Test for stopwatch.
 add_executable(test_stopwatch test_stopwatch.cpp)
 target_include_directories(test_stopwatch PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
@@ -75,3 +81,9 @@ target_include_directories(test_cell_classification PUBLIC ${CMAKE_SOURCE_DIR}/s
 target_link_libraries(test_cell_classification PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
 #add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk ${CMAKE_SOURCE_DIR}/examples/sgrid3d_ellipsoid_new.vtk)
 add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk ${CMAKE_SOURCE_DIR}/test/Static_90_S09_2_deep.vtk)
+
+# Test for configuration class.
+add_executable(test_configuration test_configuration.cpp)
+target_include_directories(test_configuration PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_configuration PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so LibXml2::LibXml2)
+add_test(NAME test_configuration COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_configuration ${CMAKE_SOURCE_DIR}/test/config.xml)
