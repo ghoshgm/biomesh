@@ -16,6 +16,7 @@ configuration::~configuration () {}
 void
 configuration::read_config_file ()
 {
+  BIOMESH_LINFO ("Parsing configuration file begin.");
   xmlDocPtr doc = xmlReadFile (m_file_path.c_str (), nullptr, 0);
   if (!doc)
     throw std::runtime_error ("Failed to parse XML file");
@@ -91,7 +92,7 @@ configuration::read_config_file ()
           xmlFree (content);
 
           if (key == "vertex_count" || key == "fiber_count"
-              || key == "adaptive_steps_max" || key == "seed_count")
+              || key == "adaptive_steps_max")
             {
               m_settings[key] = std::stoi (text);
             }
@@ -101,7 +102,7 @@ configuration::read_config_file ()
             }
         }
     }
-
+  BIOMESH_LINFO ("Parsing configuration file end.");
   xmlFreeDoc (doc);
   xmlCleanupParser ();
 }

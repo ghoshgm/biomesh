@@ -2,7 +2,7 @@
 
 template <class fiber, class vertex>
 inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
-    : m_jparser{ file_name }
+    : m_config{ file_name }
 {
   m_fiber_count = 0;
 }
@@ -96,10 +96,13 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
     }
 #endif
   auto sgrid = vfield.get_grid ();
+  m_config.read_config_file ();
 
   vtkSmartPointer<vtkPlane> plane = vtkSmartPointer<vtkPlane>::New ();
-  plane->SetOrigin (sgrid->GetCenter ());
-  plane->SetNormal (0.0, 0.0, 1.0);
+  auto p = m_config.get_value<std::tuple<double, double, double> > ("point");
+  auto n = m_config.get_value<std::tuple<double, double, double> > ("normal");
+  plane->SetOrigin (std::get<0> (p), std::get<1> (p), std::get<2> (p));
+  plane->SetNormal (std::get<0> (n), std::get<1> (n), std::get<2> (n));
 
   vtkSmartPointer<vtkCutter> cutter = vtkSmartPointer<vtkCutter>::New ();
   cutter->SetInputData (sgrid);

@@ -2,6 +2,7 @@
 #ifndef BIOMESH_FIBER_GRID_HPP
 #define BIOMESH_FIBER_GRID_HPP
 
+#include <biomesh_configuration.hpp>
 #include <biomesh_fiber2d.hpp>
 #include <biomesh_fiber3d.hpp>
 #include <biomesh_interpolation.hpp>
@@ -88,6 +89,7 @@ private:
   size_t m_fiber_count;
   json_parser m_jparser;
   std::vector<fiber> m_fiber_set;
+  configuration m_config;
 };
 
 #include "biomesh_fiber_grid.tpp"
