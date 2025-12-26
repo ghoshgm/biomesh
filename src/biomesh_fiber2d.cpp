@@ -55,7 +55,7 @@ fiber2D::operator== (const fiber2D &other) const
 
 static void
 compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
-                std::vector<double> &drdt, double t)
+                std::vector<double> &drdt, double t, int &cid)
 {
   /**
    * The 'FindCell' function in the VTK lib returns more information
@@ -83,6 +83,8 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
    */
   if (cellid >= 0)
     {
+      cid = cellid;
+
       /* Grab the cell. */
       vtkCell *seed_cell = sgrid->GetCell (cellid);
       BIOMESH_ASSERT ((seed_cell != nullptr));
@@ -120,7 +122,8 @@ is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
 }
 
 void
-fiber2D::generate_fiber (const vector_field &vfield)
+fiber2D::generate_fiber (const vector_field &vfield, int dir,
+                         configuration config)
 {
   /* Obtain the structured grid. */
   auto sgrid = vfield.get_grid ().GetPointer ();
@@ -139,67 +142,18 @@ fiber2D::generate_fiber (const vector_field &vfield)
   /* Set integration scheme. */
   boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
 
-  /* Compute fibers. */
-  while (t_start < t_end and is_inside_grid (sgrid, vertex))
+  bool adaptive;
+  if (config.get_value<std::string> ("strategy") == "static")
     {
-      /* Push to fiber. */
-      m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
-
-      /* Do one step of numeric integration. */
-      rk4_stepper.do_step (
-          [&] (const std::vector<double> &svec, std::vector<double> &drdt,
-               double t) { compute_vector (sgrid, svec, drdt, t); },
-          vertex, t_start, dt);
-
-      /* Set distance between two adjacent vertices. */
-      Eigen::Vector2d vv1 (m_fiber_vertices.back () ('x'),
-                           m_fiber_vertices.back () ('y'));
-      Eigen::Vector2d vv2 (vertex[0], vertex[1]);
-      Eigen::Vector2d cv = vv2 - vv1;
-      if (BIOMESH_DCOMP (cv.norm (), 0.0))
-        {
-          break;
-        }
-      Eigen::Vector2d v_new = vv1 + ((cv / cv.norm ()) * dt);
-      vertex[0] = v_new (0);
-      vertex[1] = v_new (1);
-
-#ifdef BIOMESH_ENABLE_DEBUG
-      double x_diff = std::fabs (vertex[0] - m_fiber_vertices.back () ('x'));
-      double y_diff = std::fabs (vertex[1] - m_fiber_vertices.back () ('y'));
-      double distance
-          = std::sqrt (std::pow (x_diff, 2.0) + std::pow (y_diff, 2.0));
-      BIOMESH_ASSERT (BIOMESH_DCOMP (distance, m_width));
-#endif
-
-      /* Increment step. */
-      t_start += dt;
+      adaptive = false;
+    }
+  else if (config.get_value<std::string> ("strategy") == "adaptive")
+    {
+      adaptive = true;
     }
 
-  watch.end ();
-  BIOMESH_LINFO ("Fiber vertex count = "
-                 + std::to_string (m_fiber_vertices.size ()));
-}
-
-void
-fiber2D::generate_fiber_reverse (const vector_field &vfield)
-{
-  /* Obtain the structured grid. */
-  auto sgrid = vfield.get_grid ().GetPointer ();
-  BIOMESH_ASSERT ((sgrid != nullptr));
-
-  stopwatch watch;
-  watch.start ();
-
-  /* Set initial conditions. */
-  double t_start = 0.0;
-  double t_end = m_gpoint_count * m_width;
-  double dt = m_width;
-  std::vector<double> vertex{ m_seed ('x'), m_seed ('y') };
-  m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
-
-  /* Set integration scheme. */
-  boost::numeric::odeint::runge_kutta4<std::vector<double> > rk4_stepper;
+  int adaptive_count = 0;
+  int adaptive_tol = config.get_value<int> ("adaptive_steps_max");
 
   /* Compute fibers. */
   while (t_start < t_end and is_inside_grid (sgrid, vertex))
@@ -208,20 +162,46 @@ fiber2D::generate_fiber_reverse (const vector_field &vfield)
       m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
 
       /* Do one step of numeric integration. */
+      int cell_id = 0;
       rk4_stepper.do_step (
           [&] (const std::vector<double> &svec, std::vector<double> &drdt,
-               double t) { compute_vector (sgrid, svec, drdt, t); },
+               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
           vertex, t_start, dt);
 
       /* Set distance between two adjacent vertices. */
       Eigen::Vector2d vv1 (m_fiber_vertices.back () ('x'),
                            m_fiber_vertices.back () ('y'));
       Eigen::Vector2d vv2 (vertex[0], vertex[1]);
-      Eigen::Vector2d cv = vv2 - vv1;
-      if (BIOMESH_DCOMP (cv.norm (), 0.0))
+      Eigen::Vector2d cv;
+
+      if (vv2 != vv1)
         {
-          break;
+          cv = vv2 - vv1;
+          if (dir == 1)
+            {
+              cv = -cv;
+            }
         }
+
+      if (vfield[cell_id] == 0)
+        {
+          if (adaptive and adaptive_count <= adaptive_tol)
+            {
+              if (adaptive_count == adaptive_tol)
+                {
+                  break;
+                }
+
+              dt = dt / 2.0;
+
+              ++adaptive_count;
+            }
+          else if (!adaptive)
+            {
+              break;
+            }
+        }
+
       Eigen::Vector2d v_new = vv1 + ((cv / cv.norm ()) * dt);
       vertex[0] = v_new (0);
       vertex[1] = v_new (1);

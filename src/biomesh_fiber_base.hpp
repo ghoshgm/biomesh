@@ -3,6 +3,7 @@
 #define BIOMESH_FIBER_HPP
 
 #include <biomesh_base.hpp>
+#include <biomesh_configuration.hpp>
 #include <biomesh_interpolation.hpp>
 #include <biomesh_vector_field.hpp>
 #include <biomesh_vertex2d.hpp>
@@ -35,7 +36,9 @@ public:
   /**
    * Function to generate the fiber coordinates.
    */
-  virtual void generate_fiber (const vector_field &vfield) = 0;
+  virtual void generate_fiber (const vector_field &vfield, int dir,
+                               configuration config)
+      = 0;
 };
 
 } // namespace biomesh

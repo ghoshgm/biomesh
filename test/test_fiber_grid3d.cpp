@@ -9,6 +9,7 @@ using namespace biomesh;
 
 int main(int argc, char **argv)
 {
+#if 0
   {
     /* Load vector field from VTK file. */
     vector_field field(argv[1]);
@@ -93,6 +94,7 @@ int main(int argc, char **argv)
     /* Write fibers to VTK format. */
     visualization::export_fiber_grid_vtk<fiber_grid<fiber3D, vertex3D>>(f, "spiral3d");
   }
+#endif
 
   return EXIT_SUCCESS;
 }

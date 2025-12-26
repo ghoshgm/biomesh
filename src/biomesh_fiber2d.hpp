@@ -87,9 +87,8 @@ public:
    * @param[in] vfield The vector field which will be used to interpolate grid
    * point in a fiber.
    */
-  void generate_fiber (const vector_field &vfield);
-
-  void generate_fiber_reverse (const vector_field &vfield);
+  void generate_fiber (const vector_field &vfield, int dir,
+                       configuration config);
 
   void pop ();
 

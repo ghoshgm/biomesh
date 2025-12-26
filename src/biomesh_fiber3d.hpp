@@ -82,11 +82,12 @@ public:
   /**
    * Function to generate fiber coordinates.
    *
-   * @return Success if the fiber is valid otherwise Error is returned.
+   * @param[in] vfield The vector field.
+   * @param[in] dir    The direction of fiber in the vector field.
+   * @param[in] config The object which holds the configuration data.
    */
-  void generate_fiber (const vector_field &vfield);
-
-  void generate_fiber_reverse (const vector_field &vfield);
+  void generate_fiber (const vector_field &vfield, int dir,
+                       configuration config);
 
   /**
    * Test equality of two fibers.
