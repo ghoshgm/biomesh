@@ -150,9 +150,12 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
   /* Compute fibers. */
   while (t_start < t_end and is_inside_grid (sgrid, vertex))
     {
-      /* Push to fiber. */
-      m_fiber_vertices.emplace_back (
-          vertex3D (vertex[0], vertex[1], vertex[2]));
+      if (!adaptive or (adaptive and adaptive_count == adaptive_tol))
+        {
+          /* Push to fiber. */
+          m_fiber_vertices.emplace_back (
+              vertex3D (vertex[0], vertex[1], vertex[2]));
+        }
 
       /* Do one step of numeric integration. */
       int cell_id = 0;
