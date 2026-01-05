@@ -37,7 +37,7 @@ configuration::read_config_file ()
       std::string key (reinterpret_cast<const char *> (node->name));
 
       // Handle vector nodes
-      if (key == "point" || key == "normal")
+      if (key == "plane_point" || key == "plane_normal")
         {
           double x = 0.0, y = 0.0, z = 0.0;
 

@@ -23,12 +23,12 @@ int main(int argc, char** argv)
   std::string strategy = c.get_value<std::string>("strategy");
   assert(strategy == "static");
 
-  std::tuple<double,double,double> point = c.get_value<std::tuple<double,double,double>>("point");
+  std::tuple<double,double,double> point = c.get_value<std::tuple<double,double,double>>("plane_point");
   assert(std::get<0>(point) == 0.0);
   assert(std::get<1>(point) == 1.0);
   assert(std::get<2>(point) == 2.0);
 
-  std::tuple<double,double,double> normal = c.get_value<std::tuple<double,double,double>>("normal");
+  std::tuple<double,double,double> normal = c.get_value<std::tuple<double,double,double>>("plane_normal");
   assert(std::get<0>(normal) == 0.0);
   assert(std::get<1>(normal) == 0.0);
   assert(std::get<2>(normal) == 1.0);

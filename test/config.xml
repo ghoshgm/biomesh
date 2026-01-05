@@ -7,17 +7,17 @@
     <adaptive_steps_max>1000</adaptive_steps_max>
     <strategy>static</strategy>
 
-    <point>
+    <plane_point>
         <x>0.0</x>
         <y>1.0</y>
         <z>2.0</z>
-    </point>
+    </plane_point>
 
-    <normal>
+    <plane_normal>
         <x>0.0</x>
         <y>0.0</y>
         <z>1.0</z>
-    </normal>
+    </plane_normal>
 
     <seed_file></seed_file>
 </fiber_set>

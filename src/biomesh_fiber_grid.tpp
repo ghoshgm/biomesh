@@ -48,8 +48,10 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   m_config.read_config_file ();
 
   vtkSmartPointer<vtkPlane> plane = vtkSmartPointer<vtkPlane>::New ();
-  auto p = m_config.get_value<std::tuple<double, double, double> > ("point");
-  auto n = m_config.get_value<std::tuple<double, double, double> > ("normal");
+  auto p = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_point");
+  auto n = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_normal");
   plane->SetOrigin (std::get<0> (p), std::get<1> (p), std::get<2> (p));
   plane->SetNormal (std::get<0> (n), std::get<1> (n), std::get<2> (n));
 
