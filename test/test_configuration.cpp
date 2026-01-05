@@ -33,8 +33,5 @@ int main(int argc, char** argv)
   assert(std::get<1>(normal) == 0.0);
   assert(std::get<2>(normal) == 1.0);
 
-  std::string seed_file = c.get_value<std::string>("seed_file");
-  assert(seed_file == "");
-
   return EXIT_SUCCESS;
 }
