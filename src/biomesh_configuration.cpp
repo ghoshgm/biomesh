@@ -96,6 +96,10 @@ configuration::read_config_file ()
             {
               m_settings[key] = std::stoi (text);
             }
+          else if (key == "vertex_width")
+            {
+              m_settings[key] = std::stod (text);
+            }
           else
             {
               m_settings[key] = text;

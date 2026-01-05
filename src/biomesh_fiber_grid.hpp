@@ -55,8 +55,7 @@ public:
    *
    * @return Success if the fiber grid is valid otherwise Error is returned.
    */
-  int generate_fiber_grid (const vector_field &vfield, size_t fpoint_count,
-                           double width);
+  int generate_fiber_grid (const vector_field &vfield);
 
   /**
    * Return the fiber at the specified index.

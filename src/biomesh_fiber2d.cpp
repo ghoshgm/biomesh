@@ -161,8 +161,7 @@ fiber2D::generate_fiber (const vector_field &vfield, int dir,
       if (!adaptive or (adaptive and adaptive_count == adaptive_tol))
         {
           /* Push to fiber. */
-          m_fiber_vertices.emplace_back (
-              vertex3D (vertex[0], vertex[1], vertex[2]));
+          m_fiber_vertices.emplace_back (vertex2D (vertex[0], vertex[1]));
         }
 
       /* Do one step of numeric integration. */

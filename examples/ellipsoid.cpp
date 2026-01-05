@@ -15,8 +15,7 @@ main (int argc, char **argv)
 
   /* Generate fibers. */
   fiber_grid3d f (argv[2]);
-  f.generate_fiber_grid (field, 200, 0.14);
-  std::cout << f.size () << std::endl;
+  f.generate_fiber_grid (field);
 
   /* Write fibers to JSON format. */
   json_parser jp1;

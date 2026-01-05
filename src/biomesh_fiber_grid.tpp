@@ -42,9 +42,7 @@ compute_seeds (const vector_field &vfield)
 
 template <class fiber, class vertex>
 inline int
-fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
-                                                size_t fpoint_count,
-                                                double width)
+fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
 {
   auto sgrid = vfield.get_grid ();
   m_config.read_config_file ();
@@ -72,6 +70,9 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield,
   writer->Write ();
 
   int counter = 0;
+
+  size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
+  double width = m_config.get_value<double> ("vertex_width");
 
   /**
    * Generate fibers in the forward direction.

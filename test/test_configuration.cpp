@@ -9,10 +9,10 @@ int main(int argc, char** argv)
   c.read_config_file();
 
   int vertex_count = c.get_value<int>("vertex_count");
-  assert(vertex_count == 1000);
+  assert(vertex_count == 200);
 
-  int fiber_count = c.get_value<int>("fiber_count");
-  assert(fiber_count == 256);
+  double vertex_width = c.get_value<double>("vertex_width");
+  assert(vertex_width == 0.14);
 
   std::string integration_scheme = c.get_value<std::string>("integration_scheme");
   assert(integration_scheme == "runge-kutta4");
@@ -22,9 +22,6 @@ int main(int argc, char** argv)
 
   std::string strategy = c.get_value<std::string>("strategy");
   assert(strategy == "static");
-
-  int seed_count = c.get_value<int>("seed_count");
-  assert(seed_count == 64);
 
   std::tuple<double,double,double> point = c.get_value<std::tuple<double,double,double>>("point");
   assert(std::get<0>(point) == 0.0);
