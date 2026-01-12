@@ -249,4 +249,30 @@ fiber3D::operator== (const fiber3D &other) const
   return this->m_seed == other.m_seed;
 }
 
+void
+fiber3D::sort_by_distance ()
+{
+  vertex3D ref = m_fiber_vertices.back ();
+
+  std::sort (m_fiber_vertices.begin (), m_fiber_vertices.end (),
+             [ref] (const vertex3D &v1, const vertex3D &v2) {
+               double xdiff1 = v1 ('x') - ref ('x');
+               double ydiff1 = v1 ('y') - ref ('y');
+               double zdiff1 = v1 ('z') - ref ('z');
+
+               double xdiff2 = v2 ('x') - ref ('x');
+               double ydiff2 = v2 ('y') - ref ('y');
+               double zdiff2 = v2 ('z') - ref ('z');
+
+               double dist1
+                   = std::sqrt (std::pow (xdiff1, 2.0) + std::pow (ydiff1, 2.0)
+                                + std::pow (zdiff1, 2.0));
+               double dist2
+                   = std::sqrt (std::pow (xdiff2, 2.0) + std::pow (ydiff2, 2.0)
+                                + std::pow (zdiff2, 2.0));
+
+               return dist1 > dist2;
+             });
+}
+
 } // namespace biomesh

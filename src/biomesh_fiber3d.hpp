@@ -96,6 +96,11 @@ public:
    */
   bool operator== (const fiber3D &other) const;
 
+  /**
+   * Function to sort fiber vertices by distance.
+   */
+  void sort_by_distance ();
+
 private:
   vertex3D m_seed;
   size_t m_gpoint_count;

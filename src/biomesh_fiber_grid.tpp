@@ -7,43 +7,13 @@ inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
   m_fiber_count = 0;
 }
 
-template <class vertex>
-static std::vector<vertex>
-compute_seeds (const vector_field &vfield)
-{
-  /* Obtain the seed cell index. */
-  auto sgrid = vfield.get_grid ();
-  std::vector<int> v = vfield.get_seed_indices ();
-  std::vector<vertex> sp;
-
-  BIOMESH_LINFO ("Compute seed points begin.");
-  for (int ii = 0; ii < v.size (); ++ii)
-    {
-      if (v[ii] == 3)
-        {
-          vtkCell *cell = sgrid->GetCell (ii);
-
-          double pcenter[3]; // to hold the parametric center
-          double xcenter[3]; // to hold the physical center
-          double
-              weights[8]; // size depends on the maximum number of cell points
-          int subId;
-          cell->GetParametricCenter (pcenter);
-          cell->EvaluateLocation (subId, pcenter, xcenter, weights);
-          vertex seed_point (xcenter[0], xcenter[1], xcenter[2]);
-
-          sp.push_back (seed_point);
-        }
-    }
-  BIOMESH_LINFO ("Compute seed points end.");
-
-  return sp;
-}
-
 template <class fiber, class vertex>
-inline int
-fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
+void
+fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
+                                          std::vector<vertex> &seed_points)
 {
+  BIOMESH_LINFO ("Compute seed points begin.");
+
   auto sgrid = vfield.get_grid ();
   m_config.read_config_file ();
 
@@ -71,89 +41,89 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   writer->SetInputData (cut);
   writer->Write ();
 
-  int counter = 0;
+  for (int ii = 0; ii < cut->GetNumberOfCells (); ++ii)
+    {
+      vtkCell *cell = cut->GetCell (ii);
+
+      double pCenter[3]; // world coordinates of cell center
+      double pcoords[3]; // parametric center
+      double weights[8]; // interpolation weights (max 8 for hex/quad, safe
+                         // buffer)
+      int subId = cell->GetParametricCenter (pcoords);
+      cell->EvaluateLocation (subId, pcoords, pCenter, weights);
+
+      int sid;
+      double paracoords[3];
+      double w[VTK_CELL_SIZE];
+      auto cid = sgrid->FindCell (pCenter, nullptr, -1, 0, sid, paracoords, w);
+
+      if (vfield[cid] == 2)
+        {
+          vertex seed (pCenter[0], pCenter[1], pCenter[2]);
+          seed_points.push_back (seed);
+        }
+    }
+
+  BIOMESH_LINFO ("Compute seed points end.");
+}
+
+template <class fiber, class vertex>
+inline int
+fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
+{
+  /**
+   * Compute the seed points for the fibers.
+   */
+  std::vector<vertex> seeds;
+  compute_seeds (vfield, seeds);
+
+  int fiber_index = 0;
 
   size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
   double width = m_config.get_value<double> ("vertex_width");
 
-  /**
-   * Generate fibers in the forward direction.
-   */
-  for (int ii = 0; ii < cut->GetNumberOfCells (); ++ii)
+  for (const vertex &seed : seeds)
     {
-      vtkCell *cell = cut->GetCell (ii);
+      /* Initialize the fiber. */
+      fiber f (seed, fpoint_count, width);
 
-      double pCenter[3]; // world coordinates of cell center
-      double pcoords[3]; // parametric center
-      double weights[8]; // interpolation weights (max 8 for hex/quad, safe
-                         // buffer)
-      int subId = cell->GetParametricCenter (pcoords);
-      cell->EvaluateLocation (subId, pcoords, pCenter, weights);
+      /* Generate fiber in forward direction. */
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in forward direction begin.");
+      f.generate_fiber (vfield, 0, m_config);
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in forward direction end.");
 
-      int sid;
-      double paracoords[3];
-      double w[VTK_CELL_SIZE];
-      auto cid = sgrid->FindCell (pCenter, nullptr, -1, 0, sid, paracoords, w);
+      /* Push fiber to fiber grid. */
+      m_fiber_set.emplace_back (f);
 
-      if (vfield[cid] == 2)
-        {
-          vertex seed (pCenter[0], pCenter[1], pCenter[2]);
+      ++fiber_index;
+    }
 
-          /* Initialize the fiber. */
-          fiber f (seed, fpoint_count, width);
+  for (const vertex &seed : seeds)
+    {
+      /* Initialize the fiber. */
+      fiber f (seed, fpoint_count, width);
 
-          /* Generate fiber in forward direction. */
-          BIOMESH_LINFO ("Fiber" + std::to_string (counter)
-                         + " in forward direction begin.");
-          f.generate_fiber (vfield, 0, m_config);
-          BIOMESH_LINFO ("Fiber" + std::to_string (counter)
-                         + " in forward direction end.");
+      /* Generate fiber in reverse direction. */
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in reverse direction begin.");
+      f.generate_fiber (vfield, 1, m_config);
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in reverse direction end.");
 
-          /* Push fiber to fiber grid. */
-          m_fiber_set.emplace_back (f);
+      /* Push fiber to fiber grid. */
+      m_fiber_set.emplace_back (f);
 
-          ++counter;
-        }
+      ++fiber_index;
     }
 
   /**
-   * Generate fibers in the reverse direction.
+   * Sort the vertices for every fiber.
    */
-  for (int ii = 0; ii < cut->GetNumberOfCells (); ++ii)
+  for (fiber &f : m_fiber_set)
     {
-      vtkCell *cell = cut->GetCell (ii);
-
-      double pCenter[3]; // world coordinates of cell center
-      double pcoords[3]; // parametric center
-      double weights[8]; // interpolation weights (max 8 for hex/quad, safe
-                         // buffer)
-      int subId = cell->GetParametricCenter (pcoords);
-      cell->EvaluateLocation (subId, pcoords, pCenter, weights);
-
-      int sid;
-      double paracoords[3];
-      double w[VTK_CELL_SIZE];
-      auto cid = sgrid->FindCell (pCenter, nullptr, -1, 0, sid, paracoords, w);
-
-      if (vfield[cid] == 2)
-        {
-          vertex seed (pCenter[0], pCenter[1], pCenter[2]);
-
-          /* Initialize the fiber. */
-          fiber f (seed, fpoint_count, width);
-
-          /* Generate fiber in reverse direction. */
-          BIOMESH_LINFO ("Fiber" + std::to_string (counter)
-                         + " in reverse direction begin.");
-          f.generate_fiber (vfield, 1, m_config);
-          BIOMESH_LINFO ("Fiber" + std::to_string (counter)
-                         + " in reverse direction end.");
-
-          /* Push fiber to fiber grid. */
-          m_fiber_set.emplace_back (f);
-
-          ++counter;
-        }
+      f.sort_by_distance ();
     }
 
   return BIOMESH_SUCCESS;

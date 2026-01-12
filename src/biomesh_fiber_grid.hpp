@@ -58,6 +58,17 @@ public:
   int generate_fiber_grid (const vector_field &vfield);
 
   /**
+   * Function to compute the seed points for fibers.
+   *
+   * A seed points marks the initial vertex for a fiber (1D mesh).
+   *
+   * @param[in] vfield The vector field which holds the vector field data.
+   * @param[in,out] seed_points The seeds points that need to be computed.
+   */
+  void compute_seeds (const vector_field &vfield,
+                      std::vector<vertex> &seed_points);
+
+  /**
    * Return the fiber at the specified index.
    *
    * @param[in] idx The index at which fiber needs to retrieved.
