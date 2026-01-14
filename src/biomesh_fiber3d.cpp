@@ -273,6 +273,32 @@ fiber3D::sort_by_distance ()
 
                return dist1 > dist2;
              });
+
+#ifdef BIOMESH_ENABLE_DEBUG
+  double disp = 0.0;
+
+  std::array<double, 3> v0
+      = { m_fiber_vertices[0]('x'), m_fiber_vertices[0]('y'),
+          m_fiber_vertices[0]('z') };
+
+  double dx = m_fiber_vertices[1]('x') - m_fiber_vertices[0]('x');
+  double dy = m_fiber_vertices[1]('y') - m_fiber_vertices[0]('y');
+  double dz = m_fiber_vertices[1]('z') - m_fiber_vertices[0]('z');
+  std::array<double, 3> dir = { dx, dy, dz };
+
+  double norm = std::sqrt (dx * dx + dy * dy + dz * dz);
+  dir[0] /= norm;
+  dir[1] /= norm;
+  dir[2] /= norm;
+
+  for (const vertex3D &v : m_fiber_vertices)
+    {
+      std::array<double, 3> disp
+          = { v ('x') - v0[0], v ('y') - v0[1], v ('z') - v0[2] };
+      double s = disp[0] * dir[0] + disp[1] * dir[1] + disp[2] * dir[2];
+      BIOMESH_ASSERT (s >= 0.0);
+    }
+#endif
 }
 
 } // namespace biomesh
