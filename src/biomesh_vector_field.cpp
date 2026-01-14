@@ -9,10 +9,6 @@ vector_field::vector_field (const std::string &file_path)
     : m_file_path{ file_path }, m_sgrid{
         vtkSmartPointer<vtkStructuredGrid>::New ()
       }
-#if 0
-      ,
-      m_ct{m_sgrid}
-#endif
 {
 }
 
@@ -56,9 +52,6 @@ vector_field::load_vtk_grid ()
   m_sgrid->Print (std::cout);
 #endif
 
-  /* TODO: Add the parallel xml reader when the parallel file format is
-   * available. */
-
   return (m_sgrid != nullptr) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
 
@@ -66,19 +59,12 @@ void
 vector_field::preprocess ()
 {
   m_ct.classify_cells (m_sgrid);
-  // m_ct.find_seed_cells (m_sgrid);
 }
 
 int
 vector_field::operator[] (size_t cell_index) const
 {
   return m_ct[cell_index];
-}
-
-std::vector<int>
-vector_field::get_seed_indices () const
-{
-  return m_ct.get_seed_cells ();
 }
 
 vtkSmartPointer<vtkStructuredGrid>

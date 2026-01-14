@@ -75,9 +75,19 @@ public:
    */
   void preprocess ();
 
+  /**
+   * Retrieve the cell type in the VTK structured grid.
+   *
+   * The cells are classified as '0','1','2' cells.
+   *
+   * '0' cell -> The cells which have all corners with no vector data.
+   * '1' cell -> The cells which have some (not all) corners with vector data.
+   * '2' cell -> The cells which have all corners with vector data.
+   *
+   * @param[in] cell_index The linear index of cells in the VTK structured
+   * grid.
+   */
   int operator[] (size_t cell_index) const;
-
-  std::vector<int> get_seed_indices () const;
 
   /**
    * Getter to the underlying VTK structured grid.
