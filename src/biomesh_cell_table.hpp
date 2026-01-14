@@ -34,16 +34,12 @@ public:
    */
   cell_table ();
 
-  // void cell_table (vtkSmartPointer<vtkStructuredGrid> sgrid);
-
   /**
    * Function to perform the classification operation.
    *
    * @param[in] sgrid The VTK grid imported from the input VTK file.
    */
   void classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid);
-
-  // void find_seed_cells (vtkSmartPointer<vtkStructuredGrid> sgrid);
 
   /**
    * Function to return the seed cell indices.
