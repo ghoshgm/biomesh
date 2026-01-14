@@ -12,11 +12,10 @@ void
 fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
                                           std::vector<vertex> &seed_points)
 {
-  BIOMESH_LINFO ("Compute seed points begin.");
-
   auto sgrid = vfield.get_grid ();
   m_config.read_config_file ();
 
+  BIOMESH_LINFO ("Compute seed points begin.");
   vtkSmartPointer<vtkPlane> plane = vtkSmartPointer<vtkPlane>::New ();
   auto p = m_config.get_value<std::tuple<double, double, double> > (
       "plane_point");
