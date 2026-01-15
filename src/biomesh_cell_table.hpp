@@ -22,7 +22,8 @@ namespace biomesh
  * The cell classification is as follows:
  * 0 -> The cells whose corners have no vectors.
  * 1 -> The cells whose corners have 1 or more corners ( not every corner )
- * with a vector. 2 -> The cells with vectors in all corners.
+ * with a vector.
+ * 2 -> The cells with vectors in all corners.
  *
  * The fibers are allowed to move in the '1' and '2' cells.
  */
