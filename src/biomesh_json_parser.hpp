@@ -42,13 +42,6 @@ public:
   int read ();
 
   /**
-   * Function to retrive JSON string from the JSON file.
-   *
-   * @return The JSON string.
-   */
-  Json::Value get_json_string () const;
-
-  /**
    * @brief Function to export fiber grid to JSON format.
    *
    * This function should be only called when the computation
@@ -71,6 +64,6 @@ private:
   Json::Reader reader;
 };
 
-}
+} // namespace biomesh
 
 #endif

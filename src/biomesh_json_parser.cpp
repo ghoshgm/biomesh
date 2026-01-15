@@ -36,13 +36,6 @@ json_parser::read ()
   return (success == true) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
 
-Json::Value
-json_parser::get_json_string () const
-{
-  BIOMESH_ASSERT (!m_jstring.isNull ());
-  return m_jstring;
-}
-
 template <class T>
 void
 json_parser::export_fiber_grid_json (const T &fgrid,
