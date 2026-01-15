@@ -49,7 +49,6 @@ public:
   int operator[] (size_t cell_index) const;
 
 private:
-  // vtkStructuredGrid *sgrid;
   std::vector<int> m_boundary_cell_index;
   std::vector<int> m_seed_cell_index;
   std::vector<int> m_cell_type;
