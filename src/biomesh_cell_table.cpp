@@ -108,12 +108,6 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
   BIOMESH_LINFO ("Cell classification end.");
 }
 
-std::vector<int>
-biomesh::cell_table::get_seed_cells () const
-{
-  return m_seed_cell_index;
-}
-
 int
 biomesh::cell_table::operator[] (size_t cell_index) const
 {

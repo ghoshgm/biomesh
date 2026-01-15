@@ -46,6 +46,13 @@ public:
    */
   double operator() (char dir) const;
 
+  /**
+   * Function to manually set the coordinates of a vertex.
+   *
+   * @param[in] x The changed x coordinate.
+   * @param[in] y The changed y coordinate.
+   * @param[in] z The changed z coordinate.
+   */
   void operator() (double x, double y, double z);
 
   /**

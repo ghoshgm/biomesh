@@ -42,11 +42,6 @@ public:
   void classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid);
 
   /**
-   * Function to return the seed cell indices.
-   */
-  std::vector<int> get_seed_cells () const;
-
-  /**
    * Function to return the cell type of a cell.
    *
    * @param[in] cell_index The index of the VTK cell.

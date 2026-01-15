@@ -15,6 +15,9 @@ namespace biomesh
  * The input is a single vertex. This initial vertex will be used
  * to sequentially compute the next fiber vertex.
  * The output is a set of vertices which define the fiber geometry.
+ *
+ * NOTE: This class is not actively maintained any more. Eventually
+ * the 2D features need to be deprecated.
  */
 class fiber2D : public fiber
 {
