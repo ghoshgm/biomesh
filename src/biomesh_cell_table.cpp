@@ -21,9 +21,9 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
 
       /* Check if the cell has non-zero vectors. */
       int arridx = 1;
-      vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt",
+      // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors",
       // arridx);
+      vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
       BIOMESH_ASSERT ((da != nullptr));
 
       vtkIdList *pids = neighbor->GetPointIds ();
@@ -84,7 +84,6 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
       else
         {
           m_cell_type.push_back (1);
-          m_boundary_cell_index.push_back (ii);
         }
 #else
       std::array<double, 4> vx{ (da->GetTuple3 (pids->GetId (0)))[0],

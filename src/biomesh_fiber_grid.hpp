@@ -16,6 +16,7 @@
 #include <vtkCutter.h>
 #include <vtkDataArray.h>
 #include <vtkExtractGeometry.h>
+#include <vtkMinimalStandardRandomSequence.h>
 #include <vtkPlane.h>
 #include <vtkPoints.h>
 #include <vtkPolyData.h>
@@ -23,6 +24,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkStructuredGrid.h>
 #include <vtkStructuredGridWriter.h>
+#include <vtkTriangle.h>
 #include <vtkUnstructuredGrid.h>
 
 #include <string>

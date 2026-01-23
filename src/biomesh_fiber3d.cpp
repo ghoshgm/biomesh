@@ -47,8 +47,8 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
   double weights[VTK_CELL_SIZE];
 
   int arridx = 1;
-  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-  // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
+  // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
+  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
   /* The initial seed vertex. */
@@ -275,8 +275,6 @@ fiber3D::sort_by_distance ()
              });
 
 #ifdef BIOMESH_ENABLE_DEBUG
-  double disp = 0.0;
-
   std::array<double, 3> v0
       = { m_fiber_vertices[0]('x'), m_fiber_vertices[0]('y'),
           m_fiber_vertices[0]('z') };
