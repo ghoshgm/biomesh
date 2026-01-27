@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fiber_set>
+    <vertex_count>10000</vertex_count>
+    <vertex_width>0.14</vertex_width>
+
+    <integration_scheme>runge-kutta4</integration_scheme>
+    <adaptive_steps_max>0</adaptive_steps_max>
+    <strategy>static</strategy>
+
+    <plane_point>
+        <x>25.3503</x>
+        <y>33.4815</y>
+        <z>165.581</z>
+    </plane_point>
+
+    <plane_normal>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>1.0</z>
+    </plane_normal>
+</fiber_set>

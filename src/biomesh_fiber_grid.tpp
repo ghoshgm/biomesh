@@ -176,11 +176,16 @@ fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
                       w * p0[1] + u * p1[1] + v * p2[1],
                       w * p0[2] + u * p1[2] + v * p2[2] };
 
+      vertex seed (x[0], x[1], x[2]);
+      seed_points.push_back (seed);
+
       sampledPoints->SetPoint (i, x);
     }
 
   vtkNew<vtkPolyData> output;
   output->SetPoints (sampledPoints);
+
+  std::cout << output->GetNumberOfPoints () << std::endl;
 
   std::string s_path
       = std::string (BIOMESH_BUILD_DIR) + "/results/" + "sampled_points.vtk";
@@ -189,6 +194,7 @@ fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
   w->SetInputData (output);
   w->Write ();
 
+#if 0
   for (int ii = 0; ii < cut->GetNumberOfCells (); ++ii)
     {
       vtkCell *cell = cut->GetCell (ii);
@@ -210,7 +216,9 @@ fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
           vertex seed (pCenter[0], pCenter[1], pCenter[2]);
           seed_points.push_back (seed);
         }
+
     }
+#endif
 
   BIOMESH_LINFO ("Compute seed points end.");
 }
@@ -224,16 +232,16 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
    */
   std::vector<vertex> seeds;
   compute_seeds (vfield, seeds);
-#if 0
+#if 1
   int fiber_index = 0;
 
   size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
   double width = m_config.get_value<double> ("vertex_width");
 
-  for(const vertex &seed : seeds)
-  {
-    /* Initialize the fiber. */
-      fiber f (seed, fpoint_count/2, width);
+  for (const vertex &seed : seeds)
+    {
+      /* Initialize the fiber. */
+      fiber f (seed, fpoint_count / 2, width);
 
       /* Generate fiber in forward direction. */
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
@@ -247,14 +255,14 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
       f.generate_fiber (vfield, 1, m_config);
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
                      + " in reverse direction end.");
-      
+
       f.sort_by_distance ();
 
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);
 
       ++fiber_index;
-  }
+    }
 #endif
   return BIOMESH_SUCCESS;
 }
