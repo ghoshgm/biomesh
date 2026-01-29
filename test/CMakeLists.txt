@@ -87,3 +87,9 @@ add_executable(test_configuration test_configuration.cpp)
 target_include_directories(test_configuration PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_configuration PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so LibXml2::LibXml2)
 add_test(NAME test_configuration COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_configuration ${CMAKE_SOURCE_DIR}/test/config.xml)
+
+# Test for seeder.
+add_executable(test_seeder test_seeder.cpp)
+target_include_directories(test_seeder PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
+target_link_libraries(test_seeder PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${VTK_LIBRARIES} Eigen3::Eigen)
+add_test(NAME test_seeder COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_seeder)
