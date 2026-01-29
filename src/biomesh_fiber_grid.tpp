@@ -232,7 +232,7 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
    */
   std::vector<vertex> seeds;
   compute_seeds (vfield, seeds);
-#if 1
+
   int fiber_index = 0;
 
   size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
@@ -241,29 +241,27 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   for (const vertex &seed : seeds)
     {
       /* Initialize the fiber. */
-      fiber f (seed, fpoint_count / 2, width);
+      fiber f (seed, fpoint_count, width);
 
       /* Generate fiber in forward direction. */
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
                      + " in forward direction begin.");
-      f.generate_fiber (vfield, 0, m_config);
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in forward direction end.");
-
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in reverse direction begin.");
       f.generate_fiber (vfield, 1, m_config);
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in forward direction end.");
+      f.reverse ();
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in reverse direction begin.");
+      f.generate_fiber (vfield, 0, m_config);
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
                      + " in reverse direction end.");
-
-      f.sort_by_distance ();
 
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);
 
       ++fiber_index;
     }
-#endif
+
   return BIOMESH_SUCCESS;
 }
 

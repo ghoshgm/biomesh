@@ -101,6 +101,12 @@ public:
    */
   void sort_by_distance ();
 
+  void reverse ();
+
+  int check_duplicates ();
+
+  void remove_duplicates (int i);
+
 private:
   vertex3D m_seed;
   size_t m_gpoint_count;

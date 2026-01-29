@@ -152,9 +152,19 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
     {
       if (!adaptive or (adaptive and adaptive_count == adaptive_tol))
         {
+          vertex3D next (vertex[0], vertex[1], vertex[2]);
+
+          if (!(m_fiber_vertices.back () == next))
+            {
+              /* Push to fiber. */
+              m_fiber_vertices.emplace_back (
+                  vertex3D (vertex[0], vertex[1], vertex[2]));
+            }
+#if 0
           /* Push to fiber. */
           m_fiber_vertices.emplace_back (
               vertex3D (vertex[0], vertex[1], vertex[2]));
+#endif
         }
 
       /* Do one step of numeric integration. */
@@ -297,6 +307,40 @@ fiber3D::sort_by_distance ()
       BIOMESH_ASSERT (s >= 0.0);
     }
 #endif
+}
+
+void
+fiber3D::reverse ()
+{
+  std::reverse (m_fiber_vertices.begin (), m_fiber_vertices.end ());
+}
+
+int
+fiber3D::check_duplicates ()
+{
+  int result = -1;
+  for (int ii = 1; ii < m_fiber_vertices.size (); ++ii)
+    {
+      auto v1 = m_fiber_vertices[ii - 1];
+      auto v2 = m_fiber_vertices[ii];
+
+      if (v1 == v2)
+        {
+          std::cout << "-------------- duplicate exists at index " << ii
+                    << std::endl;
+          v1.print ();
+          v2.print ();
+          result = ii;
+          break;
+        }
+    }
+  return result;
+}
+
+void
+fiber3D::remove_duplicates (int i)
+{
+  m_fiber_vertices.erase (m_fiber_vertices.begin () + i);
 }
 
 } // namespace biomesh
