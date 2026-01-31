@@ -227,18 +227,34 @@ template <class fiber, class vertex>
 inline int
 fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
 {
+  auto sgrid = vfield.get_grid ();
+  m_config.read_config_file ();
+
+  auto p = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_point");
+  auto n = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_normal");
+
+  seed_plane splane (p, n);
+  splane.intersection (vfield);
+
+  seeder s (100);
+  s.generate_seeds (vfield, splane);
+
+#if 0
   /**
    * Compute the seed points for the fibers.
    */
   std::vector<vertex> seeds;
   compute_seeds (vfield, seeds);
+#endif
 
   int fiber_index = 0;
 
   size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
   double width = m_config.get_value<double> ("vertex_width");
 
-  for (const vertex &seed : seeds)
+  for (const vertex &seed : s)
     {
       /* Initialize the fiber. */
       fiber f (seed, fpoint_count, width);

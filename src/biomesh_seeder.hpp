@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <vector>
 
+#include <vtkMinimalStandardRandomSequence.h>
+#include <vtkPoints.h>
+
+#include <biomesh_seed_plane.hpp>
 #include <biomesh_vector_field.hpp>
 #include <biomesh_vertex3d.hpp>
 
@@ -22,6 +26,8 @@ namespace biomesh
 class seeder
 {
 public:
+  using seed_vertices = std::vector<vertex3D>;
+
   /**
    * Default constructor.
    *
@@ -39,7 +45,7 @@ public:
    *
    * @param[in] index Index to access individual seed vertices.
    */
-  vertex3D operator[] (size_t index) const;
+  const vertex3D &operator[] (size_t index) const;
 
   /**
    * Routine to compute the seed vertices.
@@ -47,7 +53,7 @@ public:
    * @param[in] vfield The vector field embedded onto a VTK structured grid.
    * @param[in] splane The plane which intersects the VTK structured grid.
    */
-  void generate_seeds (const vector_field &vfield);
+  void generate_seeds (const vector_field &vfield, seed_plane &splane);
 
   /**
    * Iterator for traversing seed points.
@@ -60,7 +66,7 @@ public:
 
 private:
   size_t m_seed_count;
-  std::vector<vertex3D> m_seeds;
+  seed_vertices m_seeds;
 
 public:
   class iterator
