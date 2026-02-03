@@ -101,7 +101,7 @@ seed_plane::operator[] (size_t index)
 }
 
 size_t
-seed_plane::size () const
+seed_plane::triangle_count () const
 {
   return m_striangulation->GetNumberOfCells ();
 }

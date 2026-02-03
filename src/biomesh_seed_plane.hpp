@@ -57,10 +57,15 @@ public:
 
   /**
    * Index operator to access the triangle at a specific index;
+   *
+   * @param[in] index The linear index of the triangle.
    */
   vtkCell *operator[] (size_t index);
 
-  size_t size () const;
+  /**
+   * Get the total triangle count in the triangulation.
+   */
+  size_t triangle_count () const;
 
 private:
   plane_point m_ppoint;

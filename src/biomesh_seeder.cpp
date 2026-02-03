@@ -24,7 +24,7 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
   std::vector<double> cumulative_areas;
   double total_area = 0.0;
 
-  for (size_t ii = 0; ii < splane.size (); ++ii)
+  for (size_t ii = 0; ii < splane.triangle_count (); ++ii)
     {
       vtkCell *cell = splane[ii];
       BIOMESH_ASSERT ((cell != nullptr));
