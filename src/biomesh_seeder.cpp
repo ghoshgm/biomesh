@@ -40,8 +40,8 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
       cumulative_areas.push_back (total_area);
     }
 
-  vtkNew<vtkPoints> sampledPoints;
-  sampledPoints->SetNumberOfPoints (m_seed_count);
+  vtkNew<vtkPoints> sampled_points;
+  sampled_points->SetNumberOfPoints (m_seed_count);
 
   vtkNew<vtkMinimalStandardRandomSequence> rng;
   rng->SetSeed (1);
@@ -82,7 +82,7 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
       vertex3D seed (x[0], x[1], x[2]);
       m_seeds.push_back (seed);
 
-      sampledPoints->SetPoint (i, x);
+      sampled_points->SetPoint (i, x);
     }
 
   BIOMESH_LINFO ("Seed generation end.");
