@@ -24,28 +24,28 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
   std::vector<double> cumulative_areas;
   double total_area = 0.0;
 
-  std::for_each (splane.begin (), splane.end (),
-                 [&, this] (vtkTriangle *cell) {
-#if 1
-                   // vtkTriangle *cell = &c;
-                   double p0[3], p1[3], p2[3];
-                   cell->GetPoints ()->GetPoint (0, p0);
-                   cell->GetPoints ()->GetPoint (1, p1);
-                   cell->GetPoints ()->GetPoint (2, p2);
+  for (size_t ii = 0; ii < splane.size (); ++ii)
+    {
+      vtkCell *cell = splane[ii];
+      BIOMESH_ASSERT ((cell != nullptr));
 
-                   double area = vtkTriangle::TriangleArea (p0, p1, p2);
-                   total_area += area;
+      double p0[3], p1[3], p2[3];
+      cell->GetPoints ()->GetPoint (0, p0);
+      cell->GetPoints ()->GetPoint (1, p1);
+      cell->GetPoints ()->GetPoint (2, p2);
 
-                   cumulative_areas.push_back (total_area);
-#endif
-                 });
-  std::cout << "-----------------------" << std::endl;
+      double area = vtkTriangle::TriangleArea (p0, p1, p2);
+      total_area += area;
+
+      cumulative_areas.push_back (total_area);
+    }
+
   vtkNew<vtkPoints> sampledPoints;
   sampledPoints->SetNumberOfPoints (m_seed_count);
 
   vtkNew<vtkMinimalStandardRandomSequence> rng;
   rng->SetSeed (1);
-#if 0
+
   for (vtkIdType i = 0; i < m_seed_count; ++i)
     {
       rng->Next ();
@@ -55,12 +55,12 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
                                         cumulative_areas.end (), r)
                       - cumulative_areas.begin ();
 
-      vtkTriangle &cell = splane[tid];
+      vtkCell *cell = splane[tid];
 
       double p0[3], p1[3], p2[3];
-      (&cell)->GetPoints ()->GetPoint (0, p0);
-      (&cell)->GetPoints ()->GetPoint (1, p1);
-      (&cell)->GetPoints ()->GetPoint (2, p2);
+      cell->GetPoints ()->GetPoint (0, p0);
+      cell->GetPoints ()->GetPoint (1, p1);
+      cell->GetPoints ()->GetPoint (2, p2);
 
       rng->Next ();
       double u = rng->GetValue ();
@@ -84,8 +84,9 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
 
       sampledPoints->SetPoint (i, x);
     }
-#endif
+
   BIOMESH_LINFO ("Seed generation end.");
+  BIOMESH_LINFO ("Seed vertex count = " + std::to_string (m_seeds.size ()));
 }
 
 seeder::iterator

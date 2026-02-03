@@ -8,6 +8,134 @@ inline fiber_grid<fiber, vertex>::fiber_grid (const std::string &file_name)
 }
 
 template <class fiber, class vertex>
+inline int
+fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
+{
+  auto sgrid = vfield.get_grid ();
+  m_config.read_config_file ();
+
+  auto p = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_point");
+  auto n = m_config.get_value<std::tuple<double, double, double> > (
+      "plane_normal");
+
+  /* Compute the plane for seed vertices. */
+  seed_plane splane (p, n);
+  splane.intersection (vfield);
+
+  /* Compute seed vertices. */
+  seeder s (100);
+  s.generate_seeds (vfield, splane);
+
+  int fiber_index = 0;
+
+  size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
+  double width = m_config.get_value<double> ("vertex_width");
+
+  for (const vertex &seed : s)
+    {
+      /* Initialize the fiber. */
+      fiber f (seed, fpoint_count, width);
+
+      /* Generate fiber in forward direction. */
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in forward direction begin.");
+      f.generate_fiber (vfield, 1, m_config);
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in forward direction end.");
+      f.reverse ();
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in reverse direction begin.");
+      f.generate_fiber (vfield, 0, m_config);
+      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
+                     + " in reverse direction end.");
+
+      /* Push fiber to fiber grid. */
+      m_fiber_set.emplace_back (f);
+
+      ++fiber_index;
+    }
+
+  return BIOMESH_SUCCESS;
+}
+
+template <class fiber, class vertex>
+inline fiber
+fiber_grid<fiber, vertex>::operator[] (int idx) const
+{
+  return m_fiber_set[idx];
+}
+
+template <class fiber, class vertex>
+inline size_t
+fiber_grid<fiber, vertex>::size () const
+{
+  return m_fiber_set.size ();
+}
+
+template <class fiber, class vertex>
+template <typename... Args>
+void
+biomesh::fiber_grid<fiber, vertex>::transformation (
+    std::function<void (std::vector<fiber> &, Args...)> transform_function,
+    Args... args)
+{
+  transform_function (this->m_fiber_set, args...);
+}
+
+namespace affine_transform
+{
+
+template <class fiber>
+void
+translation (std::vector<fiber> &fiber_set, double x, double y, double z)
+{
+  for (fiber &f : fiber_set)
+    {
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x') + x;
+          double yy = f[ii]('y') + y;
+          double zz = f[ii]('z') + z;
+          f.update_vertex (ii, xx, yy, zz);
+        }
+    }
+}
+
+template <class fiber>
+void
+reflection (std::vector<fiber> &fiber_set, int dir)
+{
+  for (fiber &f : fiber_set)
+    {
+      for (size_t ii = 0; ii < f.size (); ++ii)
+        {
+          double xx = f[ii]('x');
+          double yy = f[ii]('y');
+          double zz = f[ii]('z');
+
+          if (dir == 0)
+            {
+              xx *= -1.0;
+            }
+          else if (dir == 1)
+            {
+              yy *= -1.0;
+            }
+          else if (dir == 2)
+            {
+              zz *= -1.0;
+            }
+
+          f.update_vertex (ii, xx, yy, zz);
+        }
+    }
+}
+
+}
+
+#if 0
+template <class fiber, class vertex>
 void
 fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
                                           std::vector<vertex> &seed_points)
@@ -222,136 +350,4 @@ fiber_grid<fiber, vertex>::compute_seeds (const vector_field &vfield,
 
   BIOMESH_LINFO ("Compute seed points end.");
 }
-
-template <class fiber, class vertex>
-inline int
-fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
-{
-  auto sgrid = vfield.get_grid ();
-  m_config.read_config_file ();
-
-  auto p = m_config.get_value<std::tuple<double, double, double> > (
-      "plane_point");
-  auto n = m_config.get_value<std::tuple<double, double, double> > (
-      "plane_normal");
-
-  seed_plane splane (p, n);
-  splane.intersection (vfield);
-
-  seeder s (100);
-  s.generate_seeds (vfield, splane);
-
-#if 0
-  /**
-   * Compute the seed points for the fibers.
-   */
-  std::vector<vertex> seeds;
-  compute_seeds (vfield, seeds);
 #endif
-
-  int fiber_index = 0;
-
-  size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
-  double width = m_config.get_value<double> ("vertex_width");
-
-  for (const vertex &seed : s)
-    {
-      /* Initialize the fiber. */
-      fiber f (seed, fpoint_count, width);
-
-      /* Generate fiber in forward direction. */
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in forward direction begin.");
-      f.generate_fiber (vfield, 1, m_config);
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in forward direction end.");
-      f.reverse ();
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in reverse direction begin.");
-      f.generate_fiber (vfield, 0, m_config);
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in reverse direction end.");
-
-      /* Push fiber to fiber grid. */
-      m_fiber_set.emplace_back (f);
-
-      ++fiber_index;
-    }
-
-  return BIOMESH_SUCCESS;
-}
-
-template <class fiber, class vertex>
-inline fiber
-fiber_grid<fiber, vertex>::operator[] (int idx) const
-{
-  return m_fiber_set[idx];
-}
-
-template <class fiber, class vertex>
-inline size_t
-fiber_grid<fiber, vertex>::size () const
-{
-  return m_fiber_set.size ();
-}
-
-template <class fiber, class vertex>
-template <typename... Args>
-void
-biomesh::fiber_grid<fiber, vertex>::transformation (
-    std::function<void (std::vector<fiber> &, Args...)> transform_function,
-    Args... args)
-{
-  transform_function (this->m_fiber_set, args...);
-}
-
-namespace affine_transform
-{
-
-template <class fiber>
-void
-translation (std::vector<fiber> &fiber_set, double x, double y, double z)
-{
-  for (fiber &f : fiber_set)
-    {
-      for (size_t ii = 0; ii < f.size (); ++ii)
-        {
-          double xx = f[ii]('x') + x;
-          double yy = f[ii]('y') + y;
-          double zz = f[ii]('z') + z;
-          f.update_vertex (ii, xx, yy, zz);
-        }
-    }
-}
-
-template <class fiber>
-void
-reflection (std::vector<fiber> &fiber_set, int dir)
-{
-  for (fiber &f : fiber_set)
-    {
-      for (size_t ii = 0; ii < f.size (); ++ii)
-        {
-          double xx = f[ii]('x');
-          double yy = f[ii]('y');
-          double zz = f[ii]('z');
-
-          if (dir == 0)
-            {
-              xx *= -1.0;
-            }
-          else if (dir == 1)
-            {
-              yy *= -1.0;
-            }
-          else if (dir == 2)
-            {
-              zz *= -1.0;
-            }
-
-          f.update_vertex (ii, xx, yy, zz);
-        }
-    }
-}
-
-}

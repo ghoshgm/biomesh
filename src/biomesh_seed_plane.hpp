@@ -32,7 +32,7 @@ class seed_plane
 public:
   using plane_point = std::tuple<double, double, double>;
   using plane_normal = std::tuple<double, double, double>;
-  using surface_triangulation = std::vector<vtkTriangle *>;
+  using surface_triangulation = vtkNew<vtkPolyData>;
 
   /**
    * Constructor.
@@ -58,96 +58,14 @@ public:
   /**
    * Index operator to access the triangle at a specific index;
    */
-  vtkTriangle *operator[] (size_t index);
+  vtkCell *operator[] (size_t index);
 
-  /**
-   * Iterator to traverse the surface triangulation.
-   */
-  class iterator;
-
-  iterator begin ();
-
-  iterator end ();
+  size_t size () const;
 
 private:
   plane_point m_ppoint;
   plane_normal m_pnormal;
   surface_triangulation m_striangulation;
-
-public:
-  class iterator
-  {
-    using category = std::forward_iterator_tag;
-    using value_type = vtkTriangle;
-    using pointer = vtkTriangle *;
-    using reference = vtkTriangle &;
-
-  public:
-    /**
-     * Constructor.
-     */
-    explicit iterator (pointer triangle_ptr) : m_triangle{ triangle_ptr } {}
-
-    /**
-     * Dereference operator.
-     */
-    reference
-    operator* () const
-    {
-      return *m_triangle;
-    }
-
-    /**
-     * Arrow operator.
-     */
-    pointer
-    operator->()
-    {
-      return m_triangle;
-    }
-
-    /**
-     * Equality operator.
-     */
-    friend bool
-    operator== (const iterator &itr1, const iterator &itr2)
-    {
-      return itr1.m_triangle == itr2.m_triangle;
-    }
-
-    /**
-     * Inequality operator.
-     */
-    friend bool
-    operator!= (const iterator &itr1, const iterator &itr2)
-    {
-      return itr1.m_triangle != itr2.m_triangle;
-    }
-
-    /**
-     * Pre-increment operator.
-     */
-    iterator
-    operator++ ()
-    {
-      ++m_triangle;
-      return *this;
-    }
-
-    /**
-     * Post-increment operator.
-     */
-    iterator
-    operator++ ([[maybe_unused]] int)
-    {
-      iterator tmp = *this;
-      ++(*this);
-      return tmp;
-    }
-
-  private:
-    pointer m_triangle;
-  };
 };
 
 } // namespace biomesh

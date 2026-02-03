@@ -32,6 +32,8 @@ seed_plane::intersection (const vector_field &vfield)
   cut = cutter->GetOutput ();
   BIOMESH_ASSERT ((cut->CheckAttributes () == 0));
   BIOMESH_LINFO ("Surface triangulation created successfuly.");
+  BIOMESH_LINFO ("Triangle count = "
+                 + std::to_string (cut->GetNumberOfCells ()));
 
   BIOMESH_LINFO ("Finding triangles for seeding begin.");
   std::vector<vtkSmartPointer<vtkTriangle> > tarray;
@@ -84,41 +86,24 @@ seed_plane::intersection (const vector_field &vfield)
       subset_polys->InsertNextCell (3, ptIds);
     }
 
-  vtkNew<vtkPolyData> subset_mesh;
-  subset_mesh->SetPoints (subset_points);
-  subset_mesh->SetPolys (subset_polys);
+  m_striangulation->SetPoints (subset_points);
+  m_striangulation->SetPolys (subset_polys);
 
-  for (vtkIdType cell_id = 0; cell_id < subset_mesh->GetNumberOfCells ();
-       ++cell_id)
-    {
-      vtkCell *cell = subset_mesh->GetCell (cell_id);
-      BIOMESH_ASSERT ((cell != nullptr));
-      BIOMESH_ASSERT ((cell->GetCellType () == VTK_TRIANGLE));
-
-      vtkTriangle *t = vtkTriangle::SafeDownCast (cell);
-      m_striangulation.push_back (t);
-    }
   BIOMESH_LINFO ("Finding triangles for seeding end.");
+  BIOMESH_LINFO ("Triangle count = "
+                 + std::to_string (m_striangulation->GetNumberOfCells ()));
 }
 
-vtkTriangle *
+vtkCell *
 seed_plane::operator[] (size_t index)
 {
-  BIOMESH_ASSERT ((index >= 0));
-  return (m_striangulation[index]);
+  return m_striangulation->GetCell (index);
 }
 
-seed_plane::iterator
-seed_plane::begin ()
+size_t
+seed_plane::size () const
 {
-  return iterator (m_striangulation[0]);
-}
-
-seed_plane::iterator
-seed_plane::end ()
-{
-  const size_t size = m_striangulation.size ();
-  return iterator (m_striangulation[size]);
+  return m_striangulation->GetNumberOfCells ();
 }
 
 } // namespace biomesh
