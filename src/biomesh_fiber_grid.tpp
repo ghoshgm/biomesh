@@ -41,17 +41,11 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
       fiber f (seed, fpoint_count, width);
 
       /* Generate fiber in forward direction. */
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in forward direction begin.");
       f.generate_fiber (vfield, 1, m_config);
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in forward direction end.");
       f.reverse ();
-      BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in reverse direction begin.");
       f.generate_fiber (vfield, 0, m_config);
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
-                     + " in reverse direction end.");
+                     + " generation successful.");
 
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);

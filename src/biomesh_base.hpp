@@ -3,7 +3,6 @@
 #define BIOMESH_BASE_HPP
 
 #include <biomesh_config.hpp>
-#include <biomesh_stopwatch.hpp>
 
 #include <cassert>
 #include <cstdio>

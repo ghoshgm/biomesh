@@ -5,6 +5,7 @@
 #include <biomesh_base.hpp>
 #include <biomesh_configuration.hpp>
 #include <biomesh_interpolation.hpp>
+#include <biomesh_stopwatch.hpp>
 #include <biomesh_vector_field.hpp>
 #include <biomesh_vertex2d.hpp>
 #include <biomesh_vertex3d.hpp>

@@ -5,18 +5,20 @@
 #include <biomesh_base.hpp>
 
 #include <chrono>
+#include <ctime>
 
 namespace biomesh
 {
 /**
- * @brief Class for measuring wall time.
+ * @brief Class for measuring wall time and CPU time.
  */
-
-using time_point = std::chrono::high_resolution_clock::time_point;
 
 class stopwatch
 {
 public:
+  using wtime_point = std::chrono::high_resolution_clock::time_point;
+  using ctime_point = std::clock_t;
+
   /**
    * Constructor.
    */
@@ -39,8 +41,10 @@ public:
   void end ();
 
 private:
-  time_point m_start;
-  time_point m_end;
+  ctime_point m_cstart;
+  ctime_point m_cend;
+  wtime_point m_wstart;
+  wtime_point m_wend;
 };
 
 } // namespace biomesh

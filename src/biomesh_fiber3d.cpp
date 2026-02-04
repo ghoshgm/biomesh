@@ -124,9 +124,6 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
   auto sgrid = vfield.get_grid ().GetPointer ();
   BIOMESH_ASSERT ((sgrid != nullptr));
 
-  stopwatch watch;
-  watch.start ();
-
   double t_start = 0.0;
   double t_end = m_gpoint_count * m_width;
   double dt = m_width;
@@ -228,7 +225,6 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
       t_start += dt;
     }
 
-  watch.end ();
   BIOMESH_LINFO ("Fiber vertex count = "
                  + std::to_string (m_fiber_vertices.size ()));
 }
