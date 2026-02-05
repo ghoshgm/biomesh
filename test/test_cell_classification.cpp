@@ -1,29 +1,30 @@
-#include <iostream>
-#include <biomesh_vector_field.hpp>
-#include <biomesh_json_parser.hpp>
 #include <biomesh_fiber_grid.hpp>
+#include <biomesh_json_parser.hpp>
+#include <biomesh_vector_field.hpp>
 #include <biomesh_visualization.hpp>
+#include <iostream>
 
 using namespace biomesh;
 
-int main(int argc, char **argv)
+int
+main (int argc, char **argv)
 {
 #ifndef BIOMESH_ENABLE_2D
   /* Load vector field from VTK file. */
-  vector_field field(argv[2]);
-  field.load_vtk_grid();
+  vector_field field (argv[2]);
+  field.load_vtk_grid ();
 
   /* Classify cell in the vector field. */
   cell_table ct;
-  ct.classify_cells(field.get_grid());
+  ct.classify_cells (field.get_grid ());
 #else
   /* Load vector field from VTK file. */
-  vector_field field(argv[1]);
-  field.load_vtk_grid();
+  vector_field field (argv[1]);
+  field.load_vtk_grid ();
 
   /* Classify cell in the vector field. */
-  cell_table ct(field.get_grid());
-  ct.classify_cells();
+  cell_table ct (field.get_grid ());
+  ct.classify_cells ();
 #endif
 
   return EXIT_SUCCESS;

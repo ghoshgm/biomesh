@@ -1,13 +1,14 @@
 
-#include <iostream>
-#include <biomesh_vector_field.hpp>
-#include <biomesh_json_parser.hpp>
 #include <biomesh_fiber_grid.hpp>
+#include <biomesh_json_parser.hpp>
+#include <biomesh_vector_field.hpp>
 #include <biomesh_visualization.hpp>
+#include <iostream>
 
 using namespace biomesh;
 
-int main(int argc, char **argv)
+int
+main (int argc, char **argv)
 {
 #if 0
   {
