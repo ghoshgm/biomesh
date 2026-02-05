@@ -55,6 +55,11 @@ seed_plane::intersection (const vector_field &vfield)
       auto cidx
           = sgrid->FindCell (pCenter, nullptr, -1, 0, sid, paracoords, w);
 
+      if (cidx < 0)
+        {
+          continue;
+        }
+
       if (vfield[cidx] == 2)
         {
           vtkSmartPointer<vtkTriangle> tri

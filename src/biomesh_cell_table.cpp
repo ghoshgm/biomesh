@@ -104,6 +104,7 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid)
                 });
 #endif
     }
+  BIOMESH_ASSERT ((cell_count == m_cell_type.size ()));
   BIOMESH_LINFO ("Cell classification end.");
 }
 
