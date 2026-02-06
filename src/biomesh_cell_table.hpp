@@ -40,7 +40,8 @@ public:
    *
    * @param[in] sgrid The VTK grid imported from the input VTK file.
    */
-  void classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid);
+  void classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid,
+                       const std::string &vfield_tag);
 
   /**
    * Function to return the cell type of a cell.

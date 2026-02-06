@@ -1,3 +1,7 @@
+
+# Utility string
+set(VECTOR_TAG "vectors")
+
 # Test for VTK installation.
 add_executable(test_vtk test_vtk.cpp)
 target_link_libraries(test_vtk PUBLIC ${VTK_LIBRARIES})
@@ -12,7 +16,7 @@ add_test(NAME test_eigen COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_eigen)
 add_executable(test_vtk_structured_grid test_vtk_structured_grid.cpp)
 target_include_directories(test_vtk_structured_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_vtk_structured_grid PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
-add_test(NAME test_vtk_structured_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_vtk_structured_grid ${CMAKE_SOURCE_DIR}/test/sgrid_example.vtk)
+add_test(NAME test_vtk_structured_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_vtk_structured_grid ${CMAKE_SOURCE_DIR}/test/sgrid_example.vtk ${VECTOR_TAG} )
 
 # Test for vertex class.
 add_executable(test_vertex test_vertex.cpp)
@@ -79,8 +83,7 @@ ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero_
 add_executable(test_cell_classification test_cell_classification.cpp)
 target_include_directories(test_cell_classification PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_cell_classification PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
-#add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk ${CMAKE_SOURCE_DIR}/examples/sgrid3d_ellipsoid_new.vtk)
-add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/cell_classification_2d.vtk ${CMAKE_SOURCE_DIR}/test/Static_90_S09_2_deep.vtk)
+add_test(NAME test_cell_classification COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_cell_classification ${CMAKE_SOURCE_DIR}/test/ellipsoid.vtk ${VECTOR_TAG})
 
 # Test for configuration class.
 add_executable(test_configuration test_configuration.cpp)

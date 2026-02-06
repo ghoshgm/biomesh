@@ -4,7 +4,7 @@
 int
 main (int argc, char **argv)
 {
-  biomesh::vector_field field (argv[1]);
+  biomesh::vector_field field (argv[1], argv[2]);
 
   field.load_vtk_grid ();
 

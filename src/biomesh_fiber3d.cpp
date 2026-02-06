@@ -33,7 +33,8 @@ fiber3D::~fiber3D () {}
 
 static void
 compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
-                std::vector<double> &drdt, double t, int &cid)
+                std::vector<double> &drdt, double t, int &cid,
+                const std::string &vfield_tag)
 {
   /**
    * The 'FindCell' function in the VTK lib returns more information
@@ -47,8 +48,8 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
   double weights[VTK_CELL_SIZE];
 
   int arridx = 1;
-  // vtkDataArray *da = sgrid->GetPointData ()->GetArray ("vectors", arridx);
-  vtkDataArray *da = sgrid->GetPointData ()->GetArray ("flowExt", arridx);
+  vtkDataArray *da
+      = sgrid->GetPointData ()->GetArray (vfield_tag.c_str (), arridx);
   BIOMESH_ASSERT ((da != nullptr));
 
   /* The initial seed vertex. */
@@ -168,7 +169,9 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
       int cell_id = 0;
       rk4_stepper.do_step (
           [&] (const std::vector<double> &svec, std::vector<double> &drdt,
-               double t) { compute_vector (sgrid, svec, drdt, t, cell_id); },
+               double t) {
+            compute_vector (sgrid, svec, drdt, t, cell_id, vfield.get_tag ());
+          },
           vertex, t_start, dt);
 
       /* Set distance between two adjacent vertices. */

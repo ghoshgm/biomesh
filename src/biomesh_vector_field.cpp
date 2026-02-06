@@ -14,8 +14,9 @@
 
 namespace biomesh
 {
-vector_field::vector_field (const std::string &file_path)
-    : m_file_path{ file_path }, m_sgrid{
+vector_field::vector_field (const std::string &file_path,
+                            const std::string &vfield_tag)
+    : m_vfield_tag{ vfield_tag }, m_file_path{ file_path }, m_sgrid{
         vtkSmartPointer<vtkStructuredGrid>::New ()
       }
 {
@@ -415,15 +416,15 @@ vector_field::preprocess ()
   BIOMESH_LINFO ("Preprocessing vector field begin.");
   BIOMESH_LINFO ("Structured grid expansion begin.");
   vtkSmartPointer<vtkStructuredGrid> extendedX
-      = addBothXLayers (m_sgrid, 5, "flowExt");
+      = addBothXLayers (m_sgrid, 5, m_vfield_tag);
   vtkSmartPointer<vtkStructuredGrid> extendedXY
-      = addBothYLayers (extendedX, 5, "flowExt");
+      = addBothYLayers (extendedX, 5, m_vfield_tag);
   vtkSmartPointer<vtkStructuredGrid> extendedXYZ
-      = addBothZLayers (extendedXY, 5, "flowExt");
+      = addBothZLayers (extendedXY, 5, m_vfield_tag);
   m_sgrid->DeepCopy (extendedXYZ);
   BIOMESH_LINFO ("Structured grid expansion end.");
 
-  m_ct.classify_cells (m_sgrid);
+  m_ct.classify_cells (m_sgrid, m_vfield_tag);
   BIOMESH_LINFO ("Preprocessing vector field end.");
 }
 
@@ -437,6 +438,12 @@ vtkSmartPointer<vtkStructuredGrid>
 vector_field::get_grid () const
 {
   return m_sgrid;
+}
+
+std::string
+vector_field::get_tag () const
+{
+  return m_vfield_tag;
 }
 
 } // namespace biomesh

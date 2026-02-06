@@ -9,23 +9,16 @@ using namespace biomesh;
 int
 main (int argc, char **argv)
 {
-#ifndef BIOMESH_ENABLE_2D
+  std::string t = argv[2];
+  std::cout << t << std::endl;
+
   /* Load vector field from VTK file. */
-  vector_field field (argv[2]);
+  vector_field field (argv[1], argv[2]);
   field.load_vtk_grid ();
 
   /* Classify cell in the vector field. */
   cell_table ct;
-  ct.classify_cells (field.get_grid ());
-#else
-  /* Load vector field from VTK file. */
-  vector_field field (argv[1]);
-  field.load_vtk_grid ();
-
-  /* Classify cell in the vector field. */
-  cell_table ct (field.get_grid ());
-  ct.classify_cells ();
-#endif
+  ct.classify_cells (field.get_grid (), argv[2]);
 
   return EXIT_SUCCESS;
 }

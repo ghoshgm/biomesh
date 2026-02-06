@@ -32,8 +32,10 @@ public:
    * Default constructor.
    *
    * @param[in] file_path Path to the vtk file.
+   * @param[in] vfield_tag The identifier for the vector field array in the VTK
+   * structured grid.
    */
-  vector_field (const std::string &file_path);
+  vector_field (const std::string &file_path, const std::string &vfield_tag);
 
   /**
    * Copy constructor.
@@ -94,7 +96,13 @@ public:
    */
   vtkSmartPointer<vtkStructuredGrid> get_grid () const;
 
+  /**
+   * Getter for the vector field tag in the VTK structured grid.
+   */
+  std::string get_tag () const;
+
 private:
+  std::string m_vfield_tag;
   std::string m_file_path;
   vtkSmartPointer<vtkStructuredGrid> m_sgrid;
   cell_table m_ct;
