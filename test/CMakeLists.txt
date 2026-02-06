@@ -16,7 +16,7 @@ add_test(NAME test_eigen COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_eigen)
 add_executable(test_vtk_structured_grid test_vtk_structured_grid.cpp)
 target_include_directories(test_vtk_structured_grid PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_vtk_structured_grid PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
-add_test(NAME test_vtk_structured_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_vtk_structured_grid ${CMAKE_SOURCE_DIR}/test/sgrid_example.vtk ${VECTOR_TAG} )
+add_test(NAME test_vtk_structured_grid COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_vtk_structured_grid ${CMAKE_SOURCE_DIR}/test/ellipsoid.vtk ${VECTOR_TAG} )
 
 # Test for vertex class.
 add_executable(test_vertex test_vertex.cpp)
@@ -34,7 +34,7 @@ add_test(NAME test_interpolation COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_interp
 add_executable(test_jsoncpp test_json.cpp)
 target_include_directories(test_jsoncpp PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_jsoncpp PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so ${JSONCPP_LIBRARIES} Eigen3::Eigen ${VTK_LIBRARIES})
-add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp ${CMAKE_SOURCE_DIR}/test/read_sample.json)
+add_test(NAME test_jsoncpp COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_jsoncpp ${CMAKE_SOURCE_DIR}/test/test.json)
 
 # Test Boost installation.
 add_executable(test_boost test_boost.cpp)
@@ -53,31 +53,6 @@ add_executable(test_stopwatch test_stopwatch.cpp)
 target_include_directories(test_stopwatch PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
 target_link_libraries(test_stopwatch PUBLIC ${CMAKE_BINARY_DIR}/lib/libbiomesh.so)
 add_test(NAME test_stopwatch COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_stopwatch)
-
-# Test for 3D fiber grid.
-add_executable(test_fiber_grid3d test_fiber_grid3d.cpp)
-target_include_directories(test_fiber_grid3d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
-target_link_libraries(test_fiber_grid3d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
-add_test(NAME test_fiber_grid3d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid3d ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_straight_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_z.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_diagnol_z_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid3d_wave_laminar.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_wave_laminar_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid3d_spiral.vtk ${CMAKE_SOURCE_DIR}/test/sgrid3d_spiral_seed.json
-)
-
-# Test for 2D fiber grid.
-add_executable(test_fiber_grid2d test_fiber_grid2d.cpp)
-target_include_directories(test_fiber_grid2d PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/include)
-target_link_libraries(test_fiber_grid2d PUBLIC ${VTK_LIBRARIES} ${CMAKE_BINARY_DIR}/lib/libbiomesh.so Eigen3::Eigen ${JSONCPP_LIBRARIES})
-add_test(NAME test_fiber_grid2d COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_fiber_grid2d ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_straight_x_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_radial.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_radial_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_diagnol_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_quarter_circle_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_melon.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_melon_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_random.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_random_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_circle.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_circle_seed.json
-${CMAKE_SOURCE_DIR}/test/sgrid2d_zero.vtk ${CMAKE_SOURCE_DIR}/test/sgrid2d_zero_seed.json
-)
 
 # Test for cell classification.
 add_executable(test_cell_classification test_cell_classification.cpp)
