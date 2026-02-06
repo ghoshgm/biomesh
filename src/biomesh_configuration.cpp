@@ -65,7 +65,7 @@ configuration::read_config_file ()
 
           m_settings[key] = std::tuple<double, double, double>{ x, y, z };
         }
-      else if (key == "seed_file")
+      else if (key == "vector_field_tag")
         {
           xmlChar *val = xmlNodeGetContent (node);
           std::string path;
@@ -91,7 +91,7 @@ configuration::read_config_file ()
           std::string text (reinterpret_cast<const char *> (content));
           xmlFree (content);
 
-          if (key == "vertex_count" || key == "fiber_count"
+          if (key == "vertex_count" || key == "seed_vertex_count"
               || key == "adaptive_steps_max")
             {
               m_settings[key] = std::stoi (text);

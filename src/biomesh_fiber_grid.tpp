@@ -18,13 +18,14 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
       "plane_point");
   auto n = m_config.get_value<std::tuple<double, double, double> > (
       "plane_normal");
+  int seed_vertex_count = m_config.get_value<int> ("seed_vertex_count");
 
   /* Compute the plane for seed vertices. */
   seed_plane splane (p, n);
   splane.intersection (vfield);
 
   /* Compute seed vertices. */
-  seeder s (100);
+  seeder s (seed_vertex_count);
   s.generate_seeds (vfield, splane);
 
   int fiber_index = 0;
@@ -46,13 +47,14 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
       f.generate_fiber (vfield, 0, m_config);
       BIOMESH_LINFO ("Fiber" + std::to_string (fiber_index)
                      + " generation successful.");
+      BIOMESH_LINFO ("vertex count = " + std::to_string (f.size ()));
 
       /* Push fiber to fiber grid. */
       m_fiber_set.emplace_back (f);
 
       ++fiber_index;
     }
-  BIOMESH_LINFO ("Fiber grid generation begin.");
+  BIOMESH_LINFO ("Fiber grid generation end.");
   timer.end ();
 
   return BIOMESH_SUCCESS;

@@ -96,16 +96,9 @@ public:
    */
   bool operator== (const fiber3D &other) const;
 
-  /**
-   * Function to sort fiber vertices by distance.
-   */
-  void sort_by_distance ();
-
   void reverse ();
 
   int check_duplicates ();
-
-  void remove_duplicates (int i);
 
 private:
   vertex3D m_seed;

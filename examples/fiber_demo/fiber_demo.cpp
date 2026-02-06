@@ -12,7 +12,7 @@ main (int argc, char **argv)
   vector_field field (argv[1]);
   field.load_vtk_grid ();
   field.preprocess ();
-
+#if 1
   /* Generate fibers. */
   fiber_grid3d f (argv[2]);
   f.generate_fiber_grid (field);
@@ -23,6 +23,6 @@ main (int argc, char **argv)
 
   /* Write fibers to VTK format. */
   visualization::export_fiber_grid_vtk<fiber_grid3d> (f, "fiber_demo");
-
+#endif
   return EXIT_SUCCESS;
 }

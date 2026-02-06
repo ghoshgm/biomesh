@@ -224,9 +224,6 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
       /* Increment step. */
       t_start += dt;
     }
-
-  BIOMESH_LINFO ("Fiber vertex count = "
-                 + std::to_string (m_fiber_vertices.size ()));
 }
 
 size_t
@@ -238,14 +235,14 @@ fiber3D::size () const
 vertex3D
 fiber3D::operator[] (int idx) const
 {
-  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
+  BIOMESH_ASSERT ((idx >= 0 && idx < m_fiber_vertices.size ()));
   return m_fiber_vertices[idx];
 }
 
 void
 fiber3D::update_vertex (int idx, double x_new, double y_new, double z_new)
 {
-  BIOMESH_ASSERT (idx >= 0 && idx < m_fiber_vertices.size ());
+  BIOMESH_ASSERT ((idx >= 0 && idx < m_fiber_vertices.size ()));
   m_fiber_vertices[idx](x_new, y_new, z_new);
 }
 
@@ -253,56 +250,6 @@ bool
 fiber3D::operator== (const fiber3D &other) const
 {
   return this->m_seed == other.m_seed;
-}
-
-void
-fiber3D::sort_by_distance ()
-{
-  vertex3D ref = m_fiber_vertices.back ();
-
-  std::sort (m_fiber_vertices.begin (), m_fiber_vertices.end (),
-             [ref] (const vertex3D &v1, const vertex3D &v2) {
-               double xdiff1 = v1 ('x') - ref ('x');
-               double ydiff1 = v1 ('y') - ref ('y');
-               double zdiff1 = v1 ('z') - ref ('z');
-
-               double xdiff2 = v2 ('x') - ref ('x');
-               double ydiff2 = v2 ('y') - ref ('y');
-               double zdiff2 = v2 ('z') - ref ('z');
-
-               double dist1
-                   = std::sqrt (std::pow (xdiff1, 2.0) + std::pow (ydiff1, 2.0)
-                                + std::pow (zdiff1, 2.0));
-               double dist2
-                   = std::sqrt (std::pow (xdiff2, 2.0) + std::pow (ydiff2, 2.0)
-                                + std::pow (zdiff2, 2.0));
-
-               return dist1 > dist2;
-             });
-
-#ifdef BIOMESH_ENABLE_DEBUG
-  std::array<double, 3> v0
-      = { m_fiber_vertices[0]('x'), m_fiber_vertices[0]('y'),
-          m_fiber_vertices[0]('z') };
-
-  double dx = m_fiber_vertices[1]('x') - m_fiber_vertices[0]('x');
-  double dy = m_fiber_vertices[1]('y') - m_fiber_vertices[0]('y');
-  double dz = m_fiber_vertices[1]('z') - m_fiber_vertices[0]('z');
-  std::array<double, 3> dir = { dx, dy, dz };
-
-  double norm = std::sqrt (dx * dx + dy * dy + dz * dz);
-  dir[0] /= norm;
-  dir[1] /= norm;
-  dir[2] /= norm;
-
-  for (const vertex3D &v : m_fiber_vertices)
-    {
-      std::array<double, 3> disp
-          = { v ('x') - v0[0], v ('y') - v0[1], v ('z') - v0[2] };
-      double s = disp[0] * dir[0] + disp[1] * dir[1] + disp[2] * dir[2];
-      BIOMESH_ASSERT (s >= 0.0);
-    }
-#endif
 }
 
 void
@@ -315,7 +262,7 @@ int
 fiber3D::check_duplicates ()
 {
   int result = -1;
-  for (int ii = 1; ii < m_fiber_vertices.size (); ++ii)
+  for (size_t ii = 1; ii < m_fiber_vertices.size (); ++ii)
     {
       auto v1 = m_fiber_vertices[ii - 1];
       auto v2 = m_fiber_vertices[ii];
@@ -331,12 +278,6 @@ fiber3D::check_duplicates ()
         }
     }
   return result;
-}
-
-void
-fiber3D::remove_duplicates (int i)
-{
-  m_fiber_vertices.erase (m_fiber_vertices.begin () + i);
 }
 
 } // namespace biomesh

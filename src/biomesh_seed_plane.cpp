@@ -102,6 +102,8 @@ seed_plane::intersection (const vector_field &vfield)
 vtkCell *
 seed_plane::operator[] (size_t index)
 {
+  BIOMESH_ASSERT ((index >= 0)
+                  and (index < m_striangulation->GetNumberOfCells ()));
   return m_striangulation->GetCell (index);
 }
 

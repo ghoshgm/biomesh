@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
+    <seed_vertex_count>100</seed_vertex_count>
     <vertex_count>10000</vertex_count>
     <vertex_width>0.14</vertex_width>
 
@@ -10,7 +11,7 @@
     <plane_point>
         <x>39.3324</x>
         <y>39.1577</y>
-        <z>158.306</z>
+        <z>60.0</z>
     </plane_point>
 
     <plane_normal>

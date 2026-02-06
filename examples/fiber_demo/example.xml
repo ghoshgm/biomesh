@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
+    <seed_vertex_count>100</seed_vertex_count>
     <vertex_count>10000</vertex_count>
     <vertex_width>0.14</vertex_width>
 
@@ -18,4 +19,6 @@
         <y>0.0</y>
         <z>1.0</z>
     </plane_normal>
+
+    <vector_field_tag>flowExt</vector_field_tag>
 </fiber_set>

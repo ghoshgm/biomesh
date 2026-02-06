@@ -409,33 +409,22 @@ addBothZLayers (vtkStructuredGrid *sgrid, int numLayers,
   return newSGrid;
 }
 
-vtkSmartPointer<vtkStructuredGrid>
-inflate_grid (int layer_count, vtkSmartPointer<vtkStructuredGrid> m_sgrid)
-{
-
-  vtkSmartPointer<vtkStructuredGrid> extendedX
-      = addBothXLayers (m_sgrid, layer_count, "vectors");
-  vtkSmartPointer<vtkStructuredGrid> extendedXY
-      = addBothYLayers (extendedX, layer_count, "vectors");
-  vtkSmartPointer<vtkStructuredGrid> extendedXYZ
-      = addBothZLayers (extendedXY, layer_count, "vectors");
-  BIOMESH_LINFO ("Inflate structured grid end.");
-  return extendedXYZ;
-}
-
 void
 vector_field::preprocess ()
 {
-#if 0
-  BIOMESH_LINFO ("Inflate structured grid begin.");
-  vtkSmartPointer<vtkStructuredGrid> extendedX = addBothXLayers(m_sgrid, 5, "vectors");
-  vtkSmartPointer<vtkStructuredGrid> extendedXY = addBothYLayers(extendedX, 5, "vectors");
-  vtkSmartPointer<vtkStructuredGrid> extendedXYZ = addBothZLayers(extendedXY, 5, "vectors");
-  m_sgrid->DeepCopy(extendedXYZ);
-  BIOMESH_LINFO ("Inflate structured grid end.");
-#endif
+  BIOMESH_LINFO ("Preprocessing vector field begin.");
+  BIOMESH_LINFO ("Structured grid expansion begin.");
+  vtkSmartPointer<vtkStructuredGrid> extendedX
+      = addBothXLayers (m_sgrid, 5, "flowExt");
+  vtkSmartPointer<vtkStructuredGrid> extendedXY
+      = addBothYLayers (extendedX, 5, "flowExt");
+  vtkSmartPointer<vtkStructuredGrid> extendedXYZ
+      = addBothZLayers (extendedXY, 5, "flowExt");
+  m_sgrid->DeepCopy (extendedXYZ);
+  BIOMESH_LINFO ("Structured grid expansion end.");
 
   m_ct.classify_cells (m_sgrid);
+  BIOMESH_LINFO ("Preprocessing vector field end.");
 }
 
 int

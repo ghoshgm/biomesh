@@ -21,6 +21,9 @@ void
 seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
 {
   BIOMESH_LINFO ("Seed generation begin.");
+
+  BIOMESH_ASSERT ((splane.triangle_count () > 0));
+
   std::vector<double> cumulative_areas;
   double total_area = 0.0;
 
