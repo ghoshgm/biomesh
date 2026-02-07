@@ -24,18 +24,20 @@ main (int argc, char **argv)
   /* Write fibers to VTK format. */
   visualization::export_fiber_grid_vtk<fiber_grid3d> (f, "twin_fibers_original");
 
+  fiber_grid3d f_new = f;
+
   /* Apply translation operation. */
-  f.transformation(affine_transform::translation<fiber3D>, 0.0, 0.0, 250);
+  f_new.transformation(affine_transform::translation<fiber3D>, 0.0, 0.0, 250);
   
   /* Apply reflection operation.  */
-  f.transformation(affine_transform::reflection<fiber3D>, 2);
+  f_new.transformation(affine_transform::reflection<fiber3D>, 2);
 
   /* Write fibers to JSON format. */
   json_parser jp2;
-  jp2.export_fiber_grid_json<fiber_grid3d>(f, "twin_fibers2.json");
+  jp2.export_fiber_grid_json<fiber_grid3d>(f_new, "twin_fibers2.json");
 
   /* Write fibers to VTK format. */
-  visualization::export_fiber_grid_vtk<fiber_grid3d>(f, "twin_fibers_transformed");
+  visualization::export_fiber_grid_vtk<fiber_grid3d>(f_new, "twin_fibers_transformed");
 
   return EXIT_SUCCESS;
 }

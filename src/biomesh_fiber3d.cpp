@@ -19,13 +19,27 @@ fiber3D::fiber3D (const vertex3D &seed, size_t gpoint_count, double width)
 
 fiber3D::fiber3D (const fiber3D &other)
 {
+  this->m_gpoint_count = other.m_gpoint_count;
+  this->m_width = other.m_width;
   this->m_seed = other.m_seed;
   this->m_fiber_vertices = other.m_fiber_vertices;
+}
+
+fiber3D &
+fiber3D::operator= (fiber3D &other)
+{
+  std::swap (m_seed, other.m_seed);
+  std::swap (m_gpoint_count, other.m_gpoint_count);
+  std::swap (m_width, other.m_width);
+  std::swap (m_fiber_vertices, other.m_fiber_vertices);
+  return *this;
 }
 
 fiber3D::fiber3D (fiber3D &&other)
 {
   this->m_seed = other.m_seed;
+  this->m_width = other.m_width;
+  this->m_gpoint_count = other.m_gpoint_count;
   this->m_fiber_vertices = std::move (other.m_fiber_vertices);
 }
 

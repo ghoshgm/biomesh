@@ -44,6 +44,11 @@ public:
   fiber3D (const fiber3D &other);
 
   /**
+   * Copy assignment operator.
+   */
+  fiber3D &operator= (fiber3D &other);
+
+  /**
    * Move constructor.
    */
   fiber3D (fiber3D &&other);
