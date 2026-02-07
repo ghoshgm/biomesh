@@ -1,5 +1,7 @@
 #include "biomesh_seed_plane.hpp"
 
+#include <vtkPolyDataWriter.h>
+
 namespace biomesh
 {
 
@@ -34,6 +36,16 @@ seed_plane::intersection (const vector_field &vfield)
   BIOMESH_LINFO ("Surface triangulation created successfuly.");
   BIOMESH_LINFO ("Triangle count = "
                  + std::to_string (cut->GetNumberOfCells ()));
+
+#ifdef BIOMESH_ENABLE_DEBUG
+  std::string file_path
+      = std::string (BIOMESH_BUILD_DIR) + "/results/" + "seed_plane.vtk";
+  vtkSmartPointer<vtkPolyDataWriter> writer
+      = vtkSmartPointer<vtkPolyDataWriter>::New ();
+  writer->SetFileName (file_path.c_str ());
+  writer->SetInputData (cut);
+  writer->Write ();
+#endif
 
   BIOMESH_LINFO ("Finding triangles for seeding begin.");
   std::vector<vtkSmartPointer<vtkTriangle> > tarray;

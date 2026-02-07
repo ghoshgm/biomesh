@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
-    <vertex_count>200</vertex_count>
+    <seed_vertex_count>100</seed_vertex_count>
+    <vertex_count>10000</vertex_count>
     <vertex_width>0.14</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
-    <adaptive_steps_max>1000</adaptive_steps_max>
+    <adaptive_steps_max>0</adaptive_steps_max>
     <strategy>static</strategy>
 
     <plane_point>
-        <x>6.0</x>
-        <y>6.0</y>
-        <z>18.0</z>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
     </plane_point>
 
     <plane_normal>
@@ -18,4 +19,5 @@
         <y>0.0</y>
         <z>1.0</z>
     </plane_normal>
+
 </fiber_set>

@@ -29,35 +29,34 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid,
       vtkIdList *pids = neighbor->GetPointIds ();
       BIOMESH_ASSERT ((pids != nullptr));
 
-      bool is_zero = false;
 #ifndef BIOMESH_ENABLE_2D
-      std::array<double, 8> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
-                                (da->GetTuple3 (pids->GetId (1)))[0],
-                                (da->GetTuple3 (pids->GetId (2)))[0],
-                                (da->GetTuple3 (pids->GetId (3)))[0],
-                                (da->GetTuple3 (pids->GetId (4)))[0],
-                                (da->GetTuple3 (pids->GetId (5)))[0],
-                                (da->GetTuple3 (pids->GetId (6)))[0],
-                                (da->GetTuple3 (pids->GetId (7)))[0] };
+      std::array<Eigen::Vector3d, 8> vectors;
+      for (int ii = 0; ii < 8; ++ii)
+        {
+          vectors[ii] = { (da->GetTuple3 (pids->GetId (ii)))[0],
+                          (da->GetTuple3 (pids->GetId (ii)))[1],
+                          (da->GetTuple3 (pids->GetId (ii)))[2] };
+        }
 
-      std::array<double, 8> vy{ (da->GetTuple3 (pids->GetId (0)))[1],
-                                (da->GetTuple3 (pids->GetId (1)))[1],
-                                (da->GetTuple3 (pids->GetId (2)))[1],
-                                (da->GetTuple3 (pids->GetId (3)))[1],
-                                (da->GetTuple3 (pids->GetId (4)))[1],
-                                (da->GetTuple3 (pids->GetId (5)))[1],
-                                (da->GetTuple3 (pids->GetId (6)))[1],
-                                (da->GetTuple3 (pids->GetId (7)))[1] };
-
-      std::array<double, 8> vz{ (da->GetTuple3 (pids->GetId (0)))[2],
-                                (da->GetTuple3 (pids->GetId (1)))[2],
-                                (da->GetTuple3 (pids->GetId (2)))[2],
-                                (da->GetTuple3 (pids->GetId (3)))[2],
-                                (da->GetTuple3 (pids->GetId (4)))[2],
-                                (da->GetTuple3 (pids->GetId (5)))[2],
-                                (da->GetTuple3 (pids->GetId (6)))[2],
-                                (da->GetTuple3 (pids->GetId (7)))[2] };
-
+      if (std::all_of (vectors.begin (), vectors.end (),
+                       [] (const Eigen::Vector3d &v) {
+                         return BIOMESH_DCOMP (v.norm (), 0.0);
+                       }))
+        {
+          m_cell_type.push_back (0);
+        }
+      else if (std::all_of (vectors.begin (), vectors.end (),
+                            [] (const Eigen::Vector3d &v) {
+                              return !BIOMESH_DCOMP (v.norm (), 0.0);
+                            }))
+        {
+          m_cell_type.push_back (2);
+        }
+      else
+        {
+          m_cell_type.push_back (1);
+        }
+#if 0
       if (std::all_of (vx.begin (), vx.end (),
                        [] (double val) { return BIOMESH_DCOMP (val, 0.0); })
           and std::all_of (
@@ -72,10 +71,10 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid,
       else if (std::all_of (
                    vx.begin (), vx.end (),
                    [] (double val) { return !BIOMESH_DCOMP (val, 0.0); })
-               and std::all_of (
+               or std::all_of (
                    vy.begin (), vy.end (),
                    [] (double val) { return !BIOMESH_DCOMP (val, 0.0); })
-               and std::all_of (vz.begin (), vz.end (), [] (double val) {
+               or std::all_of (vz.begin (), vz.end (), [] (double val) {
                      return !BIOMESH_DCOMP (val, 0.0);
                    }))
         {
@@ -85,6 +84,8 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid,
         {
           m_cell_type.push_back (1);
         }
+#endif
+
 #else
       std::array<double, 4> vx{ (da->GetTuple3 (pids->GetId (0)))[0],
                                 (da->GetTuple3 (pids->GetId (1)))[0],

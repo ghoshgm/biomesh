@@ -9,9 +9,9 @@
     <strategy>static</strategy>
 
     <plane_point>
-        <x>25.350335</x>
-        <y>33.48145</y>
-        <z>105.581035</z>
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
     </plane_point>
 
     <plane_normal>
@@ -19,5 +19,4 @@
         <y>0.0</y>
         <z>1.0</z>
     </plane_normal>
-
 </fiber_set>

@@ -422,6 +422,16 @@ vector_field::preprocess ()
   vtkSmartPointer<vtkStructuredGrid> extendedXYZ
       = addBothZLayers (extendedXY, 5, m_vfield_tag);
   m_sgrid->DeepCopy (extendedXYZ);
+#ifdef BIOMESH_ENABLE_DEBUG
+  std::string file_path = std::string (BIOMESH_BUILD_DIR) + "/results/"
+                          + "expanded_structured_grid.vtk";
+  vtkSmartPointer<vtkStructuredGridWriter> writer
+      = vtkSmartPointer<vtkStructuredGridWriter>::New ();
+  writer->SetFileName (file_path.c_str ());
+  writer->SetInputData (m_sgrid);
+  writer->Write ();
+  BIOMESH_LINFO ("The expanded structured grid is written to: " + file_path);
+#endif
   BIOMESH_LINFO ("Structured grid expansion end.");
 
   m_ct.classify_cells (m_sgrid, m_vfield_tag);
