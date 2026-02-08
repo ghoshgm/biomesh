@@ -1,102 +1,71 @@
 # BioMesh
-**BioMesh** is a C++ library to generate computational meshes for skeletal muscle simulations.
 
-The software is developed at the University of Stuttgart.
+**BioMesh** is an open source C++ library for generating computational meshes for skeletal muscle simulations.
+
+BioMesh is intended to be used as a thirdparty meshing tool for the **OpenDiHu** library.
+
+It is being actively developed at the [University of Stuttgart](https://www.ipvs.uni-stuttgart.de/).
+
+## Purpose
+
+
+A crucial part of neuromuscular simulations involves modelling the interaction between muscle components. The core biological strucuture of a muscle is composed of fibers, sacromeres and muscle belly, this naturally results in complex configurations with meshes in different dimensions:
+
+- **0D** meshes for sarcomeres  
+- **1D** meshes for muscle fibers  
+- **3D** meshes for mechanical deformation and EMG simulations on the muscle belly.
+
+Therefore, it becomes necessary to develop a specialized meshing tool to accurately capture the muscle deformations and neural responses.
+
+The BioMesh library is being developed to offer implementations of these meshing algorithms. In literature, researchers have used MRI scans and CT-Scans as the starting point in the meshing workflow. It has been observed that the workflows are not optimized. We primarily build upon the work of Benjamin Maier and offer an alternative approach. In our work we primarily use Ultrasound Imaging data (Vector Fields indicating local fiber orientations) as a starting point for mesh generation. Our approach is a two-step process:
+
+1. **Generation of muscle fibers as 1D meshes**
+2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
 ## Dependencies
-* VTK 9.3.0 or newer
-* Eigen 3.4.0 or newer
-* JsonCpp 1.9.5 or newer
-* Boost 1.74.0 or newer
 
-## Building dependencies
-The dependencies can be built from source or package managers like Spack, apt.
+### Required dependencies
 
-Make sure you have Spack installed on your machine.\
-Instructions to build Spack:
-```
-git clone https://github.com/spack/spack.git
-cd spack
-. share/spack/setup-env.sh
-```
+| Dependency | Minimum Version|
+|------------|----------------|
+| VTK        | 9.3.0          |
+| Eigen      | 3.4.0          |
+| JsonCpp    | 1.9.5          |
+| Boost      | 1.74.0         |
+| LibXml2    | 2.13.5         |
+| CMake      | 3.15           |
 
-### VTK
-Building VTK from source is advisable.\
-The Spack container for VTK has build issues.
-```
-git clone https://github.com/Kitware/VTK.git
-mkdir vtk_build && cd vtk_build
-cmake path/to/vtk/source
-make -j8
-```
-### Eigen
-Using Spack is easier and faster.
-```
-spack install eigen
-```
-### JsonCpp
-Using Spack is easier and faster.
-```
-spack install jsoncpp
-```
-### Boost
-Using apt is easier and faster.
-```
-sudo apt-get update && sudo apt-get install libboost-all-dev
-```
+### Useful tools
+| Dependency | Minimum Version|
+|------------|----------------|
+| Paraview   | 9.3.0          |
+| Valgrind   | 3.26.0         |
 
-## Compiler support
-* GCC 11.4.0 or newer
 
-## OS support
-* Ubuntu 22.04
+You can install these via a package manager (e.g., `apt`, `spack`), or build from source.
 
-## Build
-CMake is required to build BioMesh from source.  
-The default directory for installtion is the build directory.
+**NOTE:** It is highly recommended to build the VTK library from source because the package managers offer limited support.
 
-### Obtaining the source code
-The source code is hosted on GitHub.  
-```
-git clone https://github.com/opendihu/biomesh.git
-```
+## Installation
+Installation instructions can be found at our wiki page for install instructions.
 
-### Configuration
-`-DCMAKE_BUILD_TYPE` enables debug mode.  
-It activates assertions and additional code verifications.  
-Set to 'debug' to enable.  
+## Getting started
+We recommend exploring the examples directory to get warmed-up. For a minimal hello world example you may refer to the wiki page for [examples/cuboid_fibers](examples/cuboid_fibers).
 
-`-DCMAKE_PREFIX_PATH` points CMake to the build directories of dependencies.
+## Documentation
+BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation. Refer to the wiki for more useful information.
 
-An example configuration line for debug builds:  
-```
-cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
-```
+## Contributing
+BioMesh is an open-source project and contributions from the community are much appreciated.
 
-An example configuration line for release builds:  
-```
-cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
-```
+Here’s how you can help:
 
-### Compilation
-Run the command: 
-```
-make
-```  
+1. Open issues for bugs or feature requests
 
-**NOTE:** Parallel builds are not supported at the moment.
+2. Open pull requests with improvements
 
-### Testing
-
-Tests can executed via 
-```
-ctest path/to/build/dir
-```  
-
-For checking memory leaks use 
-```
-ctest path/to/build/dir -T memcheck
-``` 
+Please ensure your contributions are consistent with the existing coding style and include tests when applicable.
 
 ## License
-The BioMesh library is distributed under the MIT License.
+BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
+file for details.
