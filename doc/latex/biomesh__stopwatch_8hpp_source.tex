@@ -1,0 +1,41 @@
+\doxysection{biomesh\+\_\+stopwatch.\+hpp}
+\hypertarget{biomesh__stopwatch_8hpp_source}{}\label{biomesh__stopwatch_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_stopwatch.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_stopwatch.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_STOPWATCH\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_STOPWATCH\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1stopwatch}{stopwatch}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \textcolor{keyword}{using\ }wtime\_point\ =\ std::chrono::high\_resolution\_clock::time\_point;}
+\DoxyCodeLine{00020\ \ \ \textcolor{keyword}{using\ }ctime\_point\ =\ std::clock\_t;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{classbiomesh_1_1stopwatch_a0c43766a6541a81c68f82c9fbc281d73}{stopwatch}}\ ();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{classbiomesh_1_1stopwatch_aa27ac7be21b0b199de85397ee1fc4ded}{\string~stopwatch}}\ ();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1stopwatch_a494fdb0d0e5cf26efe6cf2eba7ad66b5}{start}}\ ();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1stopwatch_a2d583c1f41a237ef3f30e4c55e1dcc4d}{end}}\ ();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ ctime\_point\ m\_cstart;}
+\DoxyCodeLine{00045\ \ \ ctime\_point\ m\_cend;}
+\DoxyCodeLine{00046\ \ \ wtime\_point\ m\_wstart;}
+\DoxyCodeLine{00047\ \ \ wtime\_point\ m\_wend;}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

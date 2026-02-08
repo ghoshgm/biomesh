@@ -1,0 +1,81 @@
+\doxysection{biomesh\+::cell\+\_\+table Class Reference}
+\hypertarget{classbiomesh_1_1cell__table}{}\label{classbiomesh_1_1cell__table}\index{biomesh::cell\_table@{biomesh::cell\_table}}
+
+
+Class to perform cell classification for the VTK structured grid.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+cell\+\_\+table.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1cell__table_adc751281aab7ab53f5a6e976197d936b}{cell\+\_\+table}} ()
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1cell__table_a2b895f1ebb350a51e407a24c7f9a52ef}{classify\+\_\+cells}} (vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ sgrid, const std\+::string \&vfield\+\_\+tag)
+\item 
+int \mbox{\hyperlink{classbiomesh_1_1cell__table_adedc17e2ba1b7686280306d1916f363b}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t cell\+\_\+index) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to perform cell classification for the VTK structured grid. 
+
+The input file for generating fibers is a VTK structured grid, a vector field is embedded in on the grid. It is important to classify the cells to identify the bounds of the fibers.
+
+The cell classification is as follows\+: 0 -\/\texorpdfstring{$>$}{>} The cells whose corners have no vectors. 1 -\/\texorpdfstring{$>$}{>} The cells whose corners have 1 or more corners ( not every corner ) with a vector. 2 -\/\texorpdfstring{$>$}{>} The cells with vectors in all corners.
+
+The fibers are allowed to move in the \textquotesingle{}1\textquotesingle{} and \textquotesingle{}2\textquotesingle{} cells. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1cell__table_adc751281aab7ab53f5a6e976197d936b}\label{classbiomesh_1_1cell__table_adc751281aab7ab53f5a6e976197d936b} 
+\index{biomesh::cell\_table@{biomesh::cell\_table}!cell\_table@{cell\_table}}
+\index{cell\_table@{cell\_table}!biomesh::cell\_table@{biomesh::cell\_table}}
+\doxysubsubsection{\texorpdfstring{cell\_table()}{cell\_table()}}
+{\footnotesize\ttfamily biomesh\+::cell\+\_\+table\+::cell\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1cell__table_a2b895f1ebb350a51e407a24c7f9a52ef}\label{classbiomesh_1_1cell__table_a2b895f1ebb350a51e407a24c7f9a52ef} 
+\index{biomesh::cell\_table@{biomesh::cell\_table}!classify\_cells@{classify\_cells}}
+\index{classify\_cells@{classify\_cells}!biomesh::cell\_table@{biomesh::cell\_table}}
+\doxysubsubsection{\texorpdfstring{classify\_cells()}{classify\_cells()}}
+{\footnotesize\ttfamily void biomesh\+::cell\+\_\+table\+::classify\+\_\+cells (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$}]{sgrid,  }\item[{const std\+::string \&}]{vfield\+\_\+tag }\end{DoxyParamCaption})}
+
+Function to perform the classification operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em sgrid} & The VTK grid imported from the input VTK file. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1cell__table_a2b895f1ebb350a51e407a24c7f9a52ef_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1cell__table_adedc17e2ba1b7686280306d1916f363b}\label{classbiomesh_1_1cell__table_adedc17e2ba1b7686280306d1916f363b} 
+\index{biomesh::cell\_table@{biomesh::cell\_table}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::cell\_table@{biomesh::cell\_table}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily int biomesh\+::cell\+\_\+table\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{cell\+\_\+index }\end{DoxyParamCaption}) const}
+
+Function to return the cell type of a cell.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em cell\+\_\+index} & The index of the VTK cell. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+cell\+\_\+table.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+cell\+\_\+table.\+cpp\end{DoxyCompactItemize}

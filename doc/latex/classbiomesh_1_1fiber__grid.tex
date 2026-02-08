@@ -1,0 +1,139 @@
+\doxysection{biomesh\+::fiber\+\_\+grid\texorpdfstring{$<$}{<} fiber, vertex \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classbiomesh_1_1fiber__grid}{}\label{classbiomesh_1_1fiber__grid}\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+
+
+Class for modelling the set of fibers.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+fiber\+\_\+grid.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber__grid_aefe823f5fb0865170ff3d12c66c2d5ed}{fiber\+\_\+grid}} (const std\+::string \&file\+\_\+name)
+\item 
+int \mbox{\hyperlink{classbiomesh_1_1fiber__grid_a9b5bb2bd6df5e710b254973d2b6729f3}{generate\+\_\+fiber\+\_\+grid}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield)
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1fiber__grid_a94015eda076a2fbbec225599979fd729}{compute\+\_\+seeds}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, std\+::vector$<$ \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \&seed\+\_\+points)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} \mbox{\hyperlink{classbiomesh_1_1fiber__grid_a43e1ea04d78e1da671b03db1eeac27e6}{operator\mbox{[}$\,$\mbox{]}}} (int idx) const
+\item 
+size\+\_\+t \mbox{\hyperlink{classbiomesh_1_1fiber__grid_a45fbdfb2ad6c5be4062e91c370947f86}{size}} () const
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{classbiomesh_1_1fiber__grid_aed048e45af8e113d6ec60d9041055f85}{transformation}} (std\+::function$<$ void(std\+::vector$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} $>$ \&, Args...)$>$ transform\+\_\+function, Args... args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}}$>$\newline
+class biomesh\+::fiber\+\_\+grid$<$ fiber, vertex $>$}
+Class for modelling the set of fibers. 
+
+The set of all fibers constitutes a fiber grid. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1fiber__grid_aefe823f5fb0865170ff3d12c66c2d5ed}\label{classbiomesh_1_1fiber__grid_aefe823f5fb0865170ff3d12c66c2d5ed} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!fiber\_grid@{fiber\_grid}}
+\index{fiber\_grid@{fiber\_grid}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{fiber\_grid()}{fiber\_grid()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+\mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::fiber\+\_\+grid (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+name }\end{DoxyParamCaption})}
+
+Default constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+\_\+name} & The path to the JSON file which holds the seed coordinates of the fiber. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1fiber__grid_a94015eda076a2fbbec225599979fd729}\label{classbiomesh_1_1fiber__grid_a94015eda076a2fbbec225599979fd729} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!compute\_seeds@{compute\_seeds}}
+\index{compute\_seeds@{compute\_seeds}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{compute\_seeds()}{compute\_seeds()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+void \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::compute\+\_\+seeds (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \&}]{seed\+\_\+points }\end{DoxyParamCaption})}
+
+Function to compute the seed points for fibers.
+
+A seed points marks the initial vertex for a fiber (1D mesh).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field which holds the vector field data. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em seed\+\_\+points} & The seeds points that need to be computed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber__grid_a9b5bb2bd6df5e710b254973d2b6729f3}\label{classbiomesh_1_1fiber__grid_a9b5bb2bd6df5e710b254973d2b6729f3} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!generate\_fiber\_grid@{generate\_fiber\_grid}}
+\index{generate\_fiber\_grid@{generate\_fiber\_grid}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{generate\_fiber\_grid()}{generate\_fiber\_grid()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+int \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::generate\+\_\+fiber\+\_\+grid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield }\end{DoxyParamCaption})}
+
+Function to generate all fibers from the JSON file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field which will be used to interpolate grid point in a fiber. \\
+\hline
+\mbox{\texttt{ in}}  & {\em fpoint\+\_\+count} & The number of grid points on a single grid.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Success if the fiber grid is valid otherwise Error is returned. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber__grid_a43e1ea04d78e1da671b03db1eeac27e6}\label{classbiomesh_1_1fiber__grid_a43e1ea04d78e1da671b03db1eeac27e6} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+\mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption}) const}
+
+Return the fiber at the specified index.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em idx} & The index at which fiber needs to retrieved.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The fiber at index \textquotesingle{}idx\textquotesingle{}. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber__grid_a45fbdfb2ad6c5be4062e91c370947f86}\label{classbiomesh_1_1fiber__grid_a45fbdfb2ad6c5be4062e91c370947f86} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!size@{size}}
+\index{size@{size}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+size\+\_\+t \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the fiber count.
+
+\begin{DoxyReturn}{Returns}
+The fiber count in the fiber grid. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber__grid_aed048e45af8e113d6ec60d9041055f85}\label{classbiomesh_1_1fiber__grid_aed048e45af8e113d6ec60d9041055f85} 
+\index{biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}!transformation@{transformation}}
+\index{transformation@{transformation}!biomesh::fiber\_grid$<$ fiber, vertex $>$@{biomesh::fiber\_grid$<$ fiber, vertex $>$}}
+\doxysubsubsection{\texorpdfstring{transformation()}{transformation()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} , class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$ \\
+template$<$typename... Args$>$ \\
+void \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{biomesh\+::fiber\+\_\+grid}}$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}, \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} $>$\+::transformation (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(std\+::vector$<$ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}} $>$ \&, Args...)$>$}]{transform\+\_\+function,  }\item[{Args...}]{args }\end{DoxyParamCaption})}
+
+Apply geometric transformations to the fiber vertices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em transform\+\_\+function} & The function call-\/back to apply appropriate transformation function. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber\+\_\+grid.\+hpp\end{DoxyCompactItemize}

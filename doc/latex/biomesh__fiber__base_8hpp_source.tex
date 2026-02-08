@@ -1,0 +1,41 @@
+\doxysection{biomesh\+\_\+fiber\+\_\+base.\+hpp}
+\hypertarget{biomesh__fiber__base_8hpp_source}{}\label{biomesh__fiber__base_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_fiber\_base.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_fiber\_base.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_FIBER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_FIBER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <biomesh\_configuration.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <biomesh\_interpolation.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <biomesh\_stopwatch.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <biomesh\_vector\_field.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex2d.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex3d.hpp>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vtkDataArray.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <vtkPointData.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vtkPoints.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <boost/numeric/odeint.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce}{generate\_fiber}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&vfield,\ \textcolor{keywordtype}{int}\ dir,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}\ config)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

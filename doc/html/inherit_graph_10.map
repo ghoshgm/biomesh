@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classbiomesh_1_1vertex.html" title="Base class for vertices/points in the Euclidean space. This class defines all basic functions and mem..." alt="" coords="5,31,133,56"/>
+<area shape="rect" id="Node000001" href="$classbiomesh_1_1vertex2D.html" title="Derived class for 2D vertices/points in the Eucledian space." alt="" coords="181,5,328,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="147,30,181,25,181,31,147,35"/>
+<area shape="rect" id="Node000002" href="$classbiomesh_1_1vertex3D.html" title="Derived class for 3D vertices/points in the Eucledian space." alt="" coords="181,55,328,80"/>
+<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="147,51,181,55,181,60,147,56"/>
+</map>

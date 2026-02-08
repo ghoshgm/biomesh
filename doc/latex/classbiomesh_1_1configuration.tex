@@ -1,0 +1,88 @@
+\doxysection{biomesh\+::configuration Class Reference}
+\hypertarget{classbiomesh_1_1configuration}{}\label{classbiomesh_1_1configuration}\index{biomesh::configuration@{biomesh::configuration}}
+
+
+Class for parsing the configuration file for generating fibers.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+configuration.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1configuration_a822a002fdd9f5118e46d10950b8d66bb}{configuration}} (const std\+::string \&file\+\_\+path)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1configuration_a305bfd67a5b85f22faa9c912fa64186d}{\texorpdfstring{$\sim$}{\string~}configuration}} ()
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1configuration_aec08b44459330433be5b44177d47c7f7}{read\+\_\+config\+\_\+file}} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608}{get\+\_\+value}} (const std\+::string \&parameter) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for parsing the configuration file for generating fibers. 
+
+Currently, the XML format is used. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1configuration_a822a002fdd9f5118e46d10950b8d66bb}\label{classbiomesh_1_1configuration_a822a002fdd9f5118e46d10950b8d66bb} 
+\index{biomesh::configuration@{biomesh::configuration}!configuration@{configuration}}
+\index{configuration@{configuration}!biomesh::configuration@{biomesh::configuration}}
+\doxysubsubsection{\texorpdfstring{configuration()}{configuration()}}
+{\footnotesize\ttfamily biomesh\+::configuration\+::configuration (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+\_\+path} & The path to the XML file. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1configuration_a305bfd67a5b85f22faa9c912fa64186d}\label{classbiomesh_1_1configuration_a305bfd67a5b85f22faa9c912fa64186d} 
+\index{biomesh::configuration@{biomesh::configuration}!````~configuration@{\texorpdfstring{$\sim$}{\string~}configuration}}
+\index{````~configuration@{\texorpdfstring{$\sim$}{\string~}configuration}!biomesh::configuration@{biomesh::configuration}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}configuration()}{\string~configuration()}}
+{\footnotesize\ttfamily biomesh\+::configuration\+::\texorpdfstring{$\sim$}{\string~}configuration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608}\label{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608} 
+\index{biomesh::configuration@{biomesh::configuration}!get\_value@{get\_value}}
+\index{get\_value@{get\_value}!biomesh::configuration@{biomesh::configuration}}
+\doxysubsubsection{\texorpdfstring{get\_value()}{get\_value()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T biomesh\+::configuration\+::get\+\_\+value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{parameter }\end{DoxyParamCaption}) const}
+
+Function to return the value for a parameter in the XML file.
+
+This function should only be called after \textquotesingle{}read\+\_\+config\+\_\+file\textquotesingle{}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em parameter} & The parameter name. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1configuration_aec08b44459330433be5b44177d47c7f7}\label{classbiomesh_1_1configuration_aec08b44459330433be5b44177d47c7f7} 
+\index{biomesh::configuration@{biomesh::configuration}!read\_config\_file@{read\_config\_file}}
+\index{read\_config\_file@{read\_config\_file}!biomesh::configuration@{biomesh::configuration}}
+\doxysubsubsection{\texorpdfstring{read\_config\_file()}{read\_config\_file()}}
+{\footnotesize\ttfamily void biomesh\+::configuration\+::read\+\_\+config\+\_\+file (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to read the XML file. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+configuration.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+configuration.\+cpp\end{DoxyCompactItemize}

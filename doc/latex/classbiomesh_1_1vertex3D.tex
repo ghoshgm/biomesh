@@ -1,0 +1,104 @@
+\doxysection{biomesh\+::vertex3D Class Reference}
+\hypertarget{classbiomesh_1_1vertex3D}{}\label{classbiomesh_1_1vertex3D}\index{biomesh::vertex3D@{biomesh::vertex3D}}
+
+
+Derived class for 3D vertices/points in the Eucledian space.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+vertex3d.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::vertex3D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classbiomesh_1_1vertex3D__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for biomesh\+::vertex3D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classbiomesh_1_1vertex3D__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex3D_aecff98c404440f80cbbbbd2a9c0678e3}{vertex3D}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex3D_ad8b3b603fcdb0c21475b5addca58de16}{vertex3D}} (double x, double y, double z)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex3D_a733fa55683914ce9c7497b79ea82856f}{\texorpdfstring{$\sim$}{\string~}vertex3D}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classbiomesh_1_1vertex}{biomesh\+::vertex}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c}{vertex}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7}{\texorpdfstring{$\sim$}{\string~}vertex}} ()
+\item 
+double \mbox{\hyperlink{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}{operator()}} (char dir) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a1a24ba94fe38b190494b6cf0e998e4bb}{operator()}} (double x, double y, double z)
+\item 
+bool \mbox{\hyperlink{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc}{operator==}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f}{operator=}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other)
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483}{print}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classbiomesh_1_1vertex}{biomesh\+::vertex}}}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d {\bfseries m\+\_\+position}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Derived class for 3D vertices/points in the Eucledian space. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1vertex3D_aecff98c404440f80cbbbbd2a9c0678e3}\label{classbiomesh_1_1vertex3D_aecff98c404440f80cbbbbd2a9c0678e3} 
+\index{biomesh::vertex3D@{biomesh::vertex3D}!vertex3D@{vertex3D}}
+\index{vertex3D@{vertex3D}!biomesh::vertex3D@{biomesh::vertex3D}}
+\doxysubsubsection{\texorpdfstring{vertex3D()}{vertex3D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily biomesh\+::vertex3\+D\+::vertex3D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor. \Hypertarget{classbiomesh_1_1vertex3D_ad8b3b603fcdb0c21475b5addca58de16}\label{classbiomesh_1_1vertex3D_ad8b3b603fcdb0c21475b5addca58de16} 
+\index{biomesh::vertex3D@{biomesh::vertex3D}!vertex3D@{vertex3D}}
+\index{vertex3D@{vertex3D}!biomesh::vertex3D@{biomesh::vertex3D}}
+\doxysubsubsection{\texorpdfstring{vertex3D()}{vertex3D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily biomesh\+::vertex3\+D\+::vertex3D (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & The X coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & The Y coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em z} & The Z coordinate \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vertex3D_a733fa55683914ce9c7497b79ea82856f}\label{classbiomesh_1_1vertex3D_a733fa55683914ce9c7497b79ea82856f} 
+\index{biomesh::vertex3D@{biomesh::vertex3D}!````~vertex3D@{\texorpdfstring{$\sim$}{\string~}vertex3D}}
+\index{````~vertex3D@{\texorpdfstring{$\sim$}{\string~}vertex3D}!biomesh::vertex3D@{biomesh::vertex3D}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}vertex3D()}{\string~vertex3D()}}
+{\footnotesize\ttfamily biomesh\+::vertex3\+D\+::\texorpdfstring{$\sim$}{\string~}vertex3D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex3d.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex3d.\+cpp\end{DoxyCompactItemize}

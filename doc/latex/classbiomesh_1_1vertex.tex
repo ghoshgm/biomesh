@@ -1,0 +1,136 @@
+\doxysection{biomesh\+::vertex Class Reference}
+\hypertarget{classbiomesh_1_1vertex}{}\label{classbiomesh_1_1vertex}\index{biomesh::vertex@{biomesh::vertex}}
+
+
+Base class for vertices/points in the Euclidean space. This class defines all basic functions and members.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+vertex\+\_\+base.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::vertex\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{classbiomesh_1_1vertex__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c}{vertex}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7}{\texorpdfstring{$\sim$}{\string~}vertex}} ()
+\item 
+double \mbox{\hyperlink{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}{operator()}} (char dir) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a1a24ba94fe38b190494b6cf0e998e4bb}{operator()}} (double x, double y, double z)
+\item 
+bool \mbox{\hyperlink{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc}{operator==}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f}{operator=}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other)
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483}{print}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classbiomesh_1_1vertex_ac43ef27509720b46635bb9ac6b4f3be1}\label{classbiomesh_1_1vertex_ac43ef27509720b46635bb9ac6b4f3be1} 
+Eigen\+::\+Vector3d {\bfseries m\+\_\+position}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for vertices/points in the Euclidean space. This class defines all basic functions and members. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c}\label{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c} 
+\index{biomesh::vertex@{biomesh::vertex}!vertex@{vertex}}
+\index{vertex@{vertex}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{vertex()}{vertex()}}
+{\footnotesize\ttfamily biomesh\+::vertex\+::vertex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor. \Hypertarget{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7}\label{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7} 
+\index{biomesh::vertex@{biomesh::vertex}!````~vertex@{\texorpdfstring{$\sim$}{\string~}vertex}}
+\index{````~vertex@{\texorpdfstring{$\sim$}{\string~}vertex}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}vertex()}{\string~vertex()}}
+{\footnotesize\ttfamily biomesh\+::vertex\+::\texorpdfstring{$\sim$}{\string~}vertex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}\label{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083} 
+\index{biomesh::vertex@{biomesh::vertex}!operator()@{operator()}}
+\index{operator()@{operator()}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double biomesh\+::vertex\+::operator() (\begin{DoxyParamCaption}\item[{char}]{dir }\end{DoxyParamCaption}) const}
+
+Function to retrieve the value of coordiante. Set dir to \textquotesingle{}x\textquotesingle{} to get the X coordiante. Set dir to \textquotesingle{}y\textquotesingle{} to get the Y coordiante. Set dir to \textquotesingle{}z\textquotesingle{} to get the Z coordinate.
+
+If this function is called via \doxylink{classbiomesh_1_1vertex2D}{vertex2D} then the Z coordinate will always be 0.
+
+If dir does not match \textquotesingle{}x\textquotesingle{} or \textquotesingle{}y\textquotesingle{} or \textquotesingle{}z\textquotesingle{} then DOUBLE\+\_\+\+MAX will be returned.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em dir} & The required coordinates value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The magnitude of the desired coordinate. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1vertex_a1a24ba94fe38b190494b6cf0e998e4bb}\label{classbiomesh_1_1vertex_a1a24ba94fe38b190494b6cf0e998e4bb} 
+\index{biomesh::vertex@{biomesh::vertex}!operator()@{operator()}}
+\index{operator()@{operator()}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void biomesh\+::vertex\+::operator() (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})}
+
+Function to manually set the coordinates of a vertex.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & The changed x coordinate. \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & The changed y coordinate. \\
+\hline
+\mbox{\texttt{ in}}  & {\em z} & The changed z coordinate. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f}\label{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f} 
+\index{biomesh::vertex@{biomesh::vertex}!operator=@{operator=}}
+\index{operator=@{operator=}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void biomesh\+::vertex\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&}]{other }\end{DoxyParamCaption})}
+
+Copy assignment operator. \Hypertarget{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc}\label{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc} 
+\index{biomesh::vertex@{biomesh::vertex}!operator==@{operator==}}
+\index{operator==@{operator==}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool biomesh\+::vertex\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&}]{other }\end{DoxyParamCaption}) const}
+
+Function to test the equality of two vertices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em other} & The reference vertex object for comparison.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if equal else false. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483}\label{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483} 
+\index{biomesh::vertex@{biomesh::vertex}!print@{print}}
+\index{print@{print}!biomesh::vertex@{biomesh::vertex}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void biomesh\+::vertex\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Print coordinates. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex\+\_\+base.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex\+\_\+base.\+cpp\end{DoxyCompactItemize}

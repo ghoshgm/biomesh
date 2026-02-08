@@ -1,0 +1,97 @@
+\doxysection{biomesh\+::json\+\_\+parser Class Reference}
+\hypertarget{classbiomesh_1_1json__parser}{}\label{classbiomesh_1_1json__parser}\index{biomesh::json\_parser@{biomesh::json\_parser}}
+
+
+Class for parsing JSON files.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+json\+\_\+parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1json__parser_a8b8043f63420f465f88195d1d05a7091}{json\+\_\+parser}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1json__parser_abca4361e47fe1dfd2e0dbabfcc34c37c}{json\+\_\+parser}} (const std\+::string \&file\+\_\+path)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1json__parser_a6a94f4033b418e81a77292071295f14c}{\texorpdfstring{$\sim$}{\string~}json\+\_\+parser}} ()
+\item 
+int \mbox{\hyperlink{classbiomesh_1_1json__parser_acf30f98abe8f1a1229f3f940de5b02a5}{read}} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{classbiomesh_1_1json__parser_a93c0a4f1c34673232ce0f3718a6a7bd1}{export\+\_\+fiber\+\_\+grid\+\_\+json}} (const T \&\mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}}, std\+::string file\+\_\+name) const
+\begin{DoxyCompactList}\small\item\em Function to export fiber grid to JSON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for parsing JSON files. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1json__parser_a8b8043f63420f465f88195d1d05a7091}\label{classbiomesh_1_1json__parser_a8b8043f63420f465f88195d1d05a7091} 
+\index{biomesh::json\_parser@{biomesh::json\_parser}!json\_parser@{json\_parser}}
+\index{json\_parser@{json\_parser}!biomesh::json\_parser@{biomesh::json\_parser}}
+\doxysubsubsection{\texorpdfstring{json\_parser()}{json\_parser()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily biomesh\+::json\+\_\+parser\+::json\+\_\+parser (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor. \Hypertarget{classbiomesh_1_1json__parser_abca4361e47fe1dfd2e0dbabfcc34c37c}\label{classbiomesh_1_1json__parser_abca4361e47fe1dfd2e0dbabfcc34c37c} 
+\index{biomesh::json\_parser@{biomesh::json\_parser}!json\_parser@{json\_parser}}
+\index{json\_parser@{json\_parser}!biomesh::json\_parser@{biomesh::json\_parser}}
+\doxysubsubsection{\texorpdfstring{json\_parser()}{json\_parser()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily biomesh\+::json\+\_\+parser\+::json\+\_\+parser (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+\_\+path} & The path to json file. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1json__parser_a6a94f4033b418e81a77292071295f14c}\label{classbiomesh_1_1json__parser_a6a94f4033b418e81a77292071295f14c} 
+\index{biomesh::json\_parser@{biomesh::json\_parser}!````~json\_parser@{\texorpdfstring{$\sim$}{\string~}json\_parser}}
+\index{````~json\_parser@{\texorpdfstring{$\sim$}{\string~}json\_parser}!biomesh::json\_parser@{biomesh::json\_parser}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}json\_parser()}{\string~json\_parser()}}
+{\footnotesize\ttfamily biomesh\+::json\+\_\+parser\+::\texorpdfstring{$\sim$}{\string~}json\+\_\+parser (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1json__parser_a93c0a4f1c34673232ce0f3718a6a7bd1}\label{classbiomesh_1_1json__parser_a93c0a4f1c34673232ce0f3718a6a7bd1} 
+\index{biomesh::json\_parser@{biomesh::json\_parser}!export\_fiber\_grid\_json@{export\_fiber\_grid\_json}}
+\index{export\_fiber\_grid\_json@{export\_fiber\_grid\_json}!biomesh::json\_parser@{biomesh::json\_parser}}
+\doxysubsubsection{\texorpdfstring{export\_fiber\_grid\_json()}{export\_fiber\_grid\_json()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+template void biomesh\+::json\+\_\+parser\+::export\+\_\+fiber\+\_\+grid\+\_\+json (\begin{DoxyParamCaption}\item[{const T \&}]{fiber\+\_\+grid,  }\item[{std\+::string}]{file\+\_\+name }\end{DoxyParamCaption}) const}
+
+
+
+Function to export fiber grid to JSON format. 
+
+This function should be only called when the computation of fibers is completed.
+
+The default directory for the generated JSON file is the build directory.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em \doxylink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} & The vector of fibers computed by libbiomesh. \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+name} & The desired name of the JSON file. This is just the name of the file and not the path to the file. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1json__parser_acf30f98abe8f1a1229f3f940de5b02a5}\label{classbiomesh_1_1json__parser_acf30f98abe8f1a1229f3f940de5b02a5} 
+\index{biomesh::json\_parser@{biomesh::json\_parser}!read@{read}}
+\index{read@{read}!biomesh::json\_parser@{biomesh::json\_parser}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily int biomesh\+::json\+\_\+parser\+::read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to read JSON file and store the data.
+
+\begin{DoxyReturn}{Returns}
+Success if the file was read without error otherwise Error is returned. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+json\+\_\+parser.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+json\+\_\+parser.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,104 @@
+\doxysection{biomesh\+\_\+seeder.\+hpp}
+\hypertarget{biomesh__seeder_8hpp_source}{}\label{biomesh__seeder_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_seeder.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_seeder.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_SEEDER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_SEEDER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vtkMinimalStandardRandomSequence.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vtkPoints.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <biomesh\_seed\_plane.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <biomesh\_vector\_field.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex3d.hpp>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1seeder}{seeder}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{using\ }seed\_vertices\ =\ std::vector<vertex3D>;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classbiomesh_1_1seeder}{seeder}}\ (\textcolor{keywordtype}{size\_t}\ seed\_count);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_af8d0edcf2449d92649dcbc2f4c0ebca7}{\string~seeder}}\ ();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}}\ \&\mbox{\hyperlink{classbiomesh_1_1seeder_a3327b293c2eeefcfde2bb96774eb7620}{operator[]\ }}(\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1seeder_a1dbb26414716a09cb92ba2350cbf283e}{generate\_seeds}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&vfield,\ \mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\_plane}}\ \&splane);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ begin\ ();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ end\ ();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{size\_t}\ m\_seed\_count;}
+\DoxyCodeLine{00069\ \ \ seed\_vertices\ m\_seeds;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}}
+\DoxyCodeLine{00073\ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{using\ }category\ =\ std::forward\_iterator\_tag;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classbiomesh_1_1vertex3D}{value\_type}}\ =\ \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}};}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classbiomesh_1_1vertex3D}{pointer}}\ =\ \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}}\ *;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classbiomesh_1_1vertex3D}{reference}}\ =\ \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}}\ \&;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a7c9208a859d5a32068a116dd40e09e55}{iterator}}\ (\mbox{\hyperlink{classbiomesh_1_1vertex3D}{pointer}}\ vertex\_ptr)\ :\ m\_vertex\_ptr\{\ vertex\_ptr\ \}\ \{\}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \ \ reference}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a672a67d1fc6dec98dc2e02933e5d582a}{operator*\ }}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00090\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *m\_vertex\_ptr;}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ pointer}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a8df5199dd3ef7a853a6d88d3076b9651}{operator-\/>}}()}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_vertex\_ptr;}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a99232ff7665ecdaf9d0b0889e3a47f5a}{operator==\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ \&itr1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ \&itr2)}
+\DoxyCodeLine{00108\ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ itr1.m\_vertex\_ptr\ ==\ itr2.m\_vertex\_ptr;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a7911ca016c062fe703219bd89dec2d33}{operator!=\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ \&itr1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ \&itr2)}
+\DoxyCodeLine{00117\ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ itr1.m\_vertex\_ptr\ !=\ itr2.m\_vertex\_ptr;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a71f45c6c655ec990b20cf713cae88aa8}{operator++\ }}()}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ ++m\_vertex\_ptr;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}}
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator_a71f45c6c655ec990b20cf713cae88aa8}{operator++\ }}([[maybe\_unused]]\ \textcolor{keywordtype}{int})}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}\ tmp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00143\ \ \ \ \ pointer\ m\_vertex\_ptr;}
+\DoxyCodeLine{00144\ \ \ \};}
+\DoxyCodeLine{00145\ \};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

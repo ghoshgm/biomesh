@@ -1,0 +1,31 @@
+\doxysection{biomesh\+\_\+interpolation.\+hpp}
+\hypertarget{biomesh__interpolation_8hpp_source}{}\label{biomesh__interpolation_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_interpolation.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_interpolation.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_INTERPOLATION\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_INTERPOLATION\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex2d.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex3d.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }interpolation}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{double}\ bilinear\ (\textcolor{keyword}{const}\ vertex2D\ \&probe,\ std::array<double,\ 4>\ \&scalars);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{double}\ trilinear\ (\textcolor{keyword}{const}\ vertex3D\ \&probe,\ std::array<double,\ 8>\ \&scalars);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \}\ \textcolor{comment}{//\ namespace\ interpolation.}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

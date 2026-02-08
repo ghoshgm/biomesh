@@ -1,0 +1,219 @@
+\doxysection{biomesh\+::fiber3D Class Reference}
+\hypertarget{classbiomesh_1_1fiber3D}{}\label{classbiomesh_1_1fiber3D}\index{biomesh::fiber3D@{biomesh::fiber3D}}
+
+
+Class for modelling a 3D fiber.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+fiber3d.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::fiber3D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classbiomesh_1_1fiber3D__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for biomesh\+::fiber3D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classbiomesh_1_1fiber3D__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D_a868b4621c280e5f319cfaf06d4a707c2}{fiber3D}} (size\+\_\+t gpoint\+\_\+count, double width)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D_a52328743acdd09541dc67d16b19fc487}{fiber3D}} (const \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} \&seed, size\+\_\+t gpoint\+\_\+count, double width)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D_a63c94b9eaeca484ee9fda355be96c930}{fiber3D}} (const \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \& \mbox{\hyperlink{classbiomesh_1_1fiber3D_ae8ca570590c74704c34ec23cec16b2d8}{operator=}} (\mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D_acad9c3a89e0431cc3c8838291c4ed47b}{fiber3D}} (\mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&\&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber3D_a3a00d18f64f3376d6b16d5a9fc7f0bfb}{\texorpdfstring{$\sim$}{\string~}fiber3D}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{classbiomesh_1_1fiber3D_a98e1092a86f81affcda5e86af79a6f68}{size}} () const
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} \mbox{\hyperlink{classbiomesh_1_1fiber3D_a428520bba3b006027550b09d836c331f}{operator\mbox{[}$\,$\mbox{]}}} (int idx) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1fiber3D_a344e222b12c13b7d1c5183cb5a8cbdd8}{update\+\_\+vertex}} (int idx, double x\+\_\+new, double y\+\_\+new, double z\+\_\+new)
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1fiber3D_ab0b76a7aa1600faf318fabb336bf20cf}{generate\+\_\+fiber}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, int dir, \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}} config)
+\item 
+bool \mbox{\hyperlink{classbiomesh_1_1fiber3D_a3ec7a30b39bd8ed2df6b8ee20593dbf1}{operator==}} (const \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&other) const
+\item 
+\Hypertarget{classbiomesh_1_1fiber3D_a9e214d38bd5ca9a20ecf17644e4ef29c}\label{classbiomesh_1_1fiber3D_a9e214d38bd5ca9a20ecf17644e4ef29c} 
+void {\bfseries reverse} ()
+\item 
+\Hypertarget{classbiomesh_1_1fiber3D_af362a55d045095da0026b43bf30054fc}\label{classbiomesh_1_1fiber3D_af362a55d045095da0026b43bf30054fc} 
+int {\bfseries check\+\_\+duplicates} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for modelling a 3D fiber. 
+
+Muscle fiber is represented as a 1D grid. A fiber is modelled as an ordered set of cartesian coordiantes. The input is a single vertex. This initial vertex will be used to sequentially compute the next fiber vertex. The output is a set of vertices which define the fiber geometry. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1fiber3D_a868b4621c280e5f319cfaf06d4a707c2}\label{classbiomesh_1_1fiber3D_a868b4621c280e5f319cfaf06d4a707c2} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!fiber3D@{fiber3D}}
+\index{fiber3D@{fiber3D}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{fiber3D()}{fiber3D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber3\+D\+::fiber3D (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{gpoint\+\_\+count,  }\item[{double}]{width }\end{DoxyParamCaption})}
+
+Default constructor.
+
+The seed coordinates are set to 0 by default.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gpoint\+\_\+count} & The number of grid points on fiber. Let\textquotesingle{}s say you want 4 grid points then the first point will be the seed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber3D_a52328743acdd09541dc67d16b19fc487}\label{classbiomesh_1_1fiber3D_a52328743acdd09541dc67d16b19fc487} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!fiber3D@{fiber3D}}
+\index{fiber3D@{fiber3D}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{fiber3D()}{fiber3D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber3\+D\+::fiber3D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} \&}]{seed,  }\item[{size\+\_\+t}]{gpoint\+\_\+count,  }\item[{double}]{width }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em seed} & The initial vertex of the fiber. \\
+\hline
+\mbox{\texttt{ in}}  & {\em gpoint\+\_\+count} & The number of grid points on fiber. Let\textquotesingle{}s say you want 4 grid points then the first point will be the seed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber3D_a63c94b9eaeca484ee9fda355be96c930}\label{classbiomesh_1_1fiber3D_a63c94b9eaeca484ee9fda355be96c930} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!fiber3D@{fiber3D}}
+\index{fiber3D@{fiber3D}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{fiber3D()}{fiber3D()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber3\+D\+::fiber3D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&}]{other }\end{DoxyParamCaption})}
+
+Copy constructor. \Hypertarget{classbiomesh_1_1fiber3D_acad9c3a89e0431cc3c8838291c4ed47b}\label{classbiomesh_1_1fiber3D_acad9c3a89e0431cc3c8838291c4ed47b} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!fiber3D@{fiber3D}}
+\index{fiber3D@{fiber3D}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{fiber3D()}{fiber3D()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber3\+D\+::fiber3D (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&\&}]{other }\end{DoxyParamCaption})}
+
+Move constructor. \Hypertarget{classbiomesh_1_1fiber3D_a3a00d18f64f3376d6b16d5a9fc7f0bfb}\label{classbiomesh_1_1fiber3D_a3a00d18f64f3376d6b16d5a9fc7f0bfb} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!````~fiber3D@{\texorpdfstring{$\sim$}{\string~}fiber3D}}
+\index{````~fiber3D@{\texorpdfstring{$\sim$}{\string~}fiber3D}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}fiber3D()}{\string~fiber3D()}}
+{\footnotesize\ttfamily biomesh\+::fiber3\+D\+::\texorpdfstring{$\sim$}{\string~}fiber3D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1fiber3D_ab0b76a7aa1600faf318fabb336bf20cf}\label{classbiomesh_1_1fiber3D_ab0b76a7aa1600faf318fabb336bf20cf} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!generate\_fiber@{generate\_fiber}}
+\index{generate\_fiber@{generate\_fiber}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{generate\_fiber()}{generate\_fiber()}}
+{\footnotesize\ttfamily void biomesh\+::fiber3\+D\+::generate\+\_\+fiber (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{int}]{dir,  }\item[{\mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Function to generate fiber coordinates.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field. \\
+\hline
+\mbox{\texttt{ in}}  & {\em dir} & The direction of fiber in the vector field. \\
+\hline
+\mbox{\texttt{ in}}  & {\em config} & The object which holds the configuration data. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce}{biomesh\+::fiber}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1fiber3D_ab0b76a7aa1600faf318fabb336bf20cf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1fiber3D_ae8ca570590c74704c34ec23cec16b2d8}\label{classbiomesh_1_1fiber3D_ae8ca570590c74704c34ec23cec16b2d8} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!operator=@{operator=}}
+\index{operator=@{operator=}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \& biomesh\+::fiber3\+D\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&}]{other }\end{DoxyParamCaption})}
+
+Copy assignment operator. \Hypertarget{classbiomesh_1_1fiber3D_a3ec7a30b39bd8ed2df6b8ee20593dbf1}\label{classbiomesh_1_1fiber3D_a3ec7a30b39bd8ed2df6b8ee20593dbf1} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!operator==@{operator==}}
+\index{operator==@{operator==}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool biomesh\+::fiber3\+D\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}} \&}]{other }\end{DoxyParamCaption}) const}
+
+Test equality of two fibers.
+
+\begin{DoxyReturn}{Returns}
+True if equal otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber3D_a428520bba3b006027550b09d836c331f}\label{classbiomesh_1_1fiber3D_a428520bba3b006027550b09d836c331f} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} biomesh\+::fiber3\+D\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption}) const}
+
+Return vertex at the specified index.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em idx} & The index at which fiber vertex is located.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vertex at index \textquotesingle{}idx\textquotesingle{}. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber3D_a98e1092a86f81affcda5e86af79a6f68}\label{classbiomesh_1_1fiber3D_a98e1092a86f81affcda5e86af79a6f68} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!size@{size}}
+\index{size@{size}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t biomesh\+::fiber3\+D\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the grid point count.
+
+\begin{DoxyReturn}{Returns}
+The grid point count. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber3D_a344e222b12c13b7d1c5183cb5a8cbdd8}\label{classbiomesh_1_1fiber3D_a344e222b12c13b7d1c5183cb5a8cbdd8} 
+\index{biomesh::fiber3D@{biomesh::fiber3D}!update\_vertex@{update\_vertex}}
+\index{update\_vertex@{update\_vertex}!biomesh::fiber3D@{biomesh::fiber3D}}
+\doxysubsubsection{\texorpdfstring{update\_vertex()}{update\_vertex()}}
+{\footnotesize\ttfamily void biomesh\+::fiber3\+D\+::update\+\_\+vertex (\begin{DoxyParamCaption}\item[{int}]{idx,  }\item[{double}]{x\+\_\+new,  }\item[{double}]{y\+\_\+new,  }\item[{double}]{z\+\_\+new }\end{DoxyParamCaption})}
+
+Function to modify the vertex coordiantes.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em idx} & The index at which fiber vertex needs to be updated. \\
+\hline
+\mbox{\texttt{ in}}  & {\em x\+\_\+new} & The updated x coordinate. \\
+\hline
+\mbox{\texttt{ in}}  & {\em y\+\_\+new} & The updated y coordinate. \\
+\hline
+\mbox{\texttt{ in}}  & {\em z\+\_\+new} & The updated z coordinate. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber3d.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber3d.\+cpp\end{DoxyCompactItemize}

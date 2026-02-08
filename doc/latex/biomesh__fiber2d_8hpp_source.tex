@@ -1,0 +1,50 @@
+\doxysection{biomesh\+\_\+fiber2d.\+hpp}
+\hypertarget{biomesh__fiber2d_8hpp_source}{}\label{biomesh__fiber2d_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_fiber2d.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_fiber2d.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_FIBER2D\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_FIBER2D\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <biomesh\_fiber\_base.hpp>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <biomesh\_stopwatch.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <biomesh\_vertex2d.hpp>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ (\textcolor{keywordtype}{size\_t}\ gpoint\_count,\ \textcolor{keywordtype}{double}\ width);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}}\ \&seed,\ \textcolor{keywordtype}{size\_t}\ gpoint\_count,\ \textcolor{keywordtype}{double}\ width);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ \&other);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ (\mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ \&\&other);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{classbiomesh_1_1fiber2D_ab057d7d356e14333f2ce01bc2339d71a}{\string~fiber2D}}\ ();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D_ad146b0f07d9deb11e5cad4f006466d68}{size}}\ ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D_a9b7f8284575df239d5bcf07b5365d099}{operator[]\ }}(\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D_a0b762fd44b556f376c8fa81de6aef6e0}{operator==\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb}{generate\_fiber}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&vfield,\ \textcolor{keywordtype}{int}\ dir,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}\ config);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ pop\ ();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}}\ m\_seed;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{size\_t}\ m\_gpoint\_count;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{double}\ m\_width;}
+\DoxyCodeLine{00103\ \ \ std::vector<vertex2D>\ m\_fiber\_vertices;}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

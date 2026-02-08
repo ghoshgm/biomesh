@@ -1,0 +1,62 @@
+\doxysection{biomesh\+::visualization Namespace Reference}
+\hypertarget{namespacebiomesh_1_1visualization}{}\label{namespacebiomesh_1_1visualization}\index{biomesh::visualization@{biomesh::visualization}}
+
+
+Class for exporting data for visualization using paraview.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} $>$ }\\void \mbox{\hyperlink{namespacebiomesh_1_1visualization_a6ae209b8b8c9df892bac008a75018193}{export\+\_\+fiber\+\_\+grid\+\_\+vtk}} (const \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} \&fgrid, const std\+::string \&file\+\_\+prefix)
+\item 
+{\footnotesize template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} $>$ }\\void \mbox{\hyperlink{namespacebiomesh_1_1visualization_a21de54444b7ecc24fe260c7e4e03a39d}{write\+\_\+cell\+\_\+type\+\_\+vtk}} (const \mbox{\hyperlink{classbiomesh_1_1cell__table}{cell\+\_\+table}} \&ctable, const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, const std\+::string \&file\+\_\+prefix)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for exporting data for visualization using paraview. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacebiomesh_1_1visualization_a6ae209b8b8c9df892bac008a75018193}\label{namespacebiomesh_1_1visualization_a6ae209b8b8c9df892bac008a75018193} 
+\index{biomesh::visualization@{biomesh::visualization}!export\_fiber\_grid\_vtk@{export\_fiber\_grid\_vtk}}
+\index{export\_fiber\_grid\_vtk@{export\_fiber\_grid\_vtk}!biomesh::visualization@{biomesh::visualization}}
+\doxysubsubsection{\texorpdfstring{export\_fiber\_grid\_vtk()}{export\_fiber\_grid\_vtk()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} $>$ \\
+void biomesh\+::visualization\+::export\+\_\+fiber\+\_\+grid\+\_\+vtk (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} \&}]{fgrid,  }\item[{const std\+::string \&}]{file\+\_\+prefix }\end{DoxyParamCaption})}
+
+Export fiber grid to VTK format for visualization in paraview. Every fiber in the fiber grid is written to a separate VTK file.
+
+The default directory for the files is the build directory.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fgrid} & The fiber grid data structure to be written. \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+prefix} & The prefix to the VTK files. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacebiomesh_1_1visualization_a21de54444b7ecc24fe260c7e4e03a39d}\label{namespacebiomesh_1_1visualization_a21de54444b7ecc24fe260c7e4e03a39d} 
+\index{biomesh::visualization@{biomesh::visualization}!write\_cell\_type\_vtk@{write\_cell\_type\_vtk}}
+\index{write\_cell\_type\_vtk@{write\_cell\_type\_vtk}!biomesh::visualization@{biomesh::visualization}}
+\doxysubsubsection{\texorpdfstring{write\_cell\_type\_vtk()}{write\_cell\_type\_vtk()}}
+{\footnotesize\ttfamily template$<$class \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}} $>$ \\
+void biomesh\+::visualization\+::write\+\_\+cell\+\_\+type\+\_\+vtk (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1cell__table}{cell\+\_\+table}} \&}]{ctable,  }\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{const std\+::string \&}]{file\+\_\+prefix }\end{DoxyParamCaption})}
+
+Write cell type data to a VTK structured grid for visualization in paraview.
+
+This function does not modify the VTK file provided as the user. It writes a new VTK structured grid embedded with cell type data.
+
+This function is only meant to be used for visualization of the muscle domain.
+
+The default directory for the files is the build directory.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ctable} & The cell table class to be visualized. \\
+\hline
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field provided by the user. \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+prefix} & The prefix to the VTK files. \\
+\hline
+\end{DoxyParams}

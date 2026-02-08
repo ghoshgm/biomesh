@@ -1,0 +1,49 @@
+\doxysection{biomesh\+::fiber Class Reference}
+\hypertarget{classbiomesh_1_1fiber}{}\label{classbiomesh_1_1fiber}\index{biomesh::fiber@{biomesh::fiber}}
+
+
+Base class for modelling muscle fibers.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+fiber\+\_\+base.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::fiber\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{classbiomesh_1_1fiber__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce}{generate\+\_\+fiber}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, int dir, \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}} config)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for modelling muscle fibers. 
+
+Muscle fiber is represented as a 1D grid. A fiber is modelled as an ordered set of cartesian coordiantes. The input is a single vertex. This initial vertex will be used to sequentially compute the next fiber vertex. The output is a set of vertices which define the fiber geometry. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce}\label{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce} 
+\index{biomesh::fiber@{biomesh::fiber}!generate\_fiber@{generate\_fiber}}
+\index{generate\_fiber@{generate\_fiber}!biomesh::fiber@{biomesh::fiber}}
+\doxysubsubsection{\texorpdfstring{generate\_fiber()}{generate\_fiber()}}
+{\footnotesize\ttfamily virtual void biomesh\+::fiber\+::generate\+\_\+fiber (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{int}]{dir,  }\item[{\mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Function to generate the fiber coordinates. 
+
+Implemented in \mbox{\hyperlink{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb}{biomesh\+::fiber2D}}, and \mbox{\hyperlink{classbiomesh_1_1fiber3D_ab0b76a7aa1600faf318fabb336bf20cf}{biomesh\+::fiber3D}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber\+\_\+base.\+hpp\end{DoxyCompactItemize}
