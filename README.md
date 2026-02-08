@@ -8,7 +8,6 @@ It is being actively developed at the [University of Stuttgart](https://www.ipvs
 
 ## Purpose
 
-
 A crucial part of neuromuscular simulations involves modelling the interaction between muscle components. The core biological strucuture of a muscle is composed of fibers, sacromeres and muscle belly, this naturally results in complex configurations with meshes in different dimensions:
 
 - **0D** meshes for sarcomeres  
@@ -22,32 +21,8 @@ The BioMesh library is being developed to offer implementations of these meshing
 1. **Generation of muscle fibers as 1D meshes**
 2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
-## Dependencies
-
-### Required dependencies
-
-| Dependency | Minimum Version|
-|------------|----------------|
-| VTK        | 9.3.0          |
-| Eigen      | 3.4.0          |
-| JsonCpp    | 1.9.5          |
-| Boost      | 1.74.0         |
-| LibXml2    | 2.13.5         |
-| CMake      | 3.15           |
-
-### Useful tools
-| Dependency | Minimum Version|
-|------------|----------------|
-| Paraview   | 9.3.0          |
-| Valgrind   | 3.26.0         |
-
-
-You can install these via a package manager (e.g., `apt`, `spack`), or build from source.
-
-**NOTE:** It is highly recommended to build the VTK library from source because the package managers offer limited support.
-
 ## Installation
-Installation instructions can be found at our wiki page for install instructions.
+Installation instructions can be found at our wiki page [install instructions](https://github.com/ghoshgm/biomesh/wiki/INSTALLATION).
 
 ## Getting started
 We recommend exploring the examples directory to get warmed-up. For a minimal hello world example you may refer to the wiki page for [examples/cuboid_fibers](examples/cuboid_fibers).
