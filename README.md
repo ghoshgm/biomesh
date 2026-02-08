@@ -4,7 +4,7 @@
 
 BioMesh is intended to be used as a thirdparty meshing tool for the **OpenDiHu** library.
 
-It is being actively developed at the [University of Stuttgart](https://www.ipvs.uni-stuttgart.de/).
+It is being actively developed at the [University of Stuttgart](https://www.ipvs.uni-stuttgart.de/departments/sgs/).
 
 ## Purpose
 
