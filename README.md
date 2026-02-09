@@ -25,10 +25,10 @@ The BioMesh library is being developed to offer implementations of these meshing
 Installation instructions can be found at our wiki page [install instructions](https://github.com/ghoshgm/biomesh/wiki/INSTALLATION).
 
 ## Getting started
-We recommend exploring the examples directory to get warmed-up. For a minimal hello world example you may refer to the wiki page for [examples/cuboid_fibers](examples/cuboid_fibers).
+We recommend exploring the examples directory to get warmed-up. For a minimal hello world example you may refer to the wiki page for [helloworld](https://github.com/ghoshgm/biomesh/wiki/HELLOWORLD).
 
 ## Documentation
-BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation. Refer to the wiki for more useful information.
+BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation. Refer to the [wiki](https://github.com/ghoshgm/biomesh/wiki) for more useful information.
 
 ## Contributing
 BioMesh is an open-source project and contributions from the community are much appreciated.
