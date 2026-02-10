@@ -1,5 +1,6 @@
 
 #include <vtkMath.h>
+#include <iostream>
 
 int
 main (int, char *[])

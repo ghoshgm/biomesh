@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/biomeshTargets.cmake")
+
+include(CMakeFindDependencyMacro)
+find_dependency(VTK REQUIRED)
+find_dependency(Eigen3 REQUIRED)
+find_dependency(JSONCPP REQUIRED)
+find_dependency(Boost REQUIRED)
+find_dependency(LibXml2 REQUIRED)
+
+
