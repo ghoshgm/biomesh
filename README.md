@@ -40,3 +40,6 @@ Refer to the [contributing](doc/CONTRIBUTING.md) document for guidelines.
 ## License
 BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
 file for details.
+
+## Funding
+BioMesh development was funded by the Deutsche Forschungsgemeinschaft(DFG, German Research Foundation) through [EXC2075](https://gepris.dfg.de/gepris/projekt/390740016?language=en) in Germany's Excellence Strategy.
