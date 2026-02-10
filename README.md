@@ -16,31 +16,27 @@ A crucial part of neuromuscular simulations involves modelling the interaction b
 
 Therefore, it becomes necessary to develop a specialized meshing tool to accurately capture the muscle deformations and neural responses.
 
-The BioMesh library is being developed to offer implementations of these meshing algorithms. In literature, researchers have used MRI scans and CT-Scans as the starting point in the meshing workflow. It has been observed that the workflows are not optimized. We primarily build upon the work of Benjamin Maier and offer an alternative approach. In our work we primarily use Ultrasound Imaging data (Vector Fields indicating local fiber orientations) as a starting point for mesh generation. Our approach is a two-step process:
+The BioMesh library is being developed to offer implementations of these meshing algorithms. In literature, researchers have used MRI scans and CT-Scans as the starting point in the meshing workflow. It has been observed that the workflows are not optimized. We primarily build upon the work of [Benjamin Maier](https://doi.org/10.48550/arXiv.2107.07104) and offer an alternative approach. In our work we primarily use Ultrasound Imaging data (Vector Fields indicating local fiber orientations) as a starting point for mesh generation. Our approach is a two-step process:
 
 1. **Generation of muscle fibers as 1D meshes**
 2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
 ## Installation
-Installation instructions can be found at our wiki page [install instructions](https://github.com/ghoshgm/biomesh/wiki/INSTALLATION).
+Refer to the [install](doc/INSTALLATION.md) document for building and installation.
 
 ## Getting started
-We recommend exploring the examples directory to get warmed-up. For a minimal hello world example you may refer to the wiki page for [helloworld](https://github.com/ghoshgm/biomesh/wiki/HELLOWORLD).
+- If this your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
+- For a minimal hello world example you may refer to [helloworld](doc/HELLOWORLD.md).
 
 ## Documentation
-BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation. Refer to the [wiki](https://github.com/ghoshgm/biomesh/wiki) for more useful information.
+- BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.
+- Refer to [roadmap](ROADMAP.md) to get latest development status. 
 
 ## Contributing
 BioMesh is an open-source project and contributions from the community are much appreciated.
 
-Here’s how you can help:
-
-1. Open issues for bugs or feature requests
-
-2. Open pull requests with improvements
-
-Please ensure your contributions are consistent with the existing coding style and include tests when applicable.
+Refer to the [contributing](doc/CONTRIBUTING.md) document for guidelines.
 
 ## License
-BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
+BioMesh is released under the MIT License — see the [LICENSE](LICENSE.md)
 file for details.
