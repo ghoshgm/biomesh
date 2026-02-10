@@ -1,0 +1,124 @@
+\doxysection{biomesh\+::seed\+\_\+plane Class Reference}
+\hypertarget{classbiomesh_1_1seed__plane}{}\label{classbiomesh_1_1seed__plane}\index{biomesh::seed\_plane@{biomesh::seed\_plane}}
+
+
+Class to model the seed plane for seed vertices.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+seed\+\_\+plane.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classbiomesh_1_1seed__plane_a7ea7878231e4e46a4aa553b6d1994418}\label{classbiomesh_1_1seed__plane_a7ea7878231e4e46a4aa553b6d1994418} 
+using {\bfseries plane\+\_\+point} = std\+::tuple$<$ double, double, double $>$
+\item 
+\Hypertarget{classbiomesh_1_1seed__plane_aacf7ebe6ed6f1bf09ae01c41df7b17ba}\label{classbiomesh_1_1seed__plane_aacf7ebe6ed6f1bf09ae01c41df7b17ba} 
+using {\bfseries plane\+\_\+normal} = std\+::tuple$<$ double, double, double $>$
+\item 
+\Hypertarget{classbiomesh_1_1seed__plane_ab629de2e4f6ddd76c0046a869e05ddd2}\label{classbiomesh_1_1seed__plane_ab629de2e4f6ddd76c0046a869e05ddd2} 
+using {\bfseries surface\+\_\+triangulation} = vtk\+New$<$ vtk\+Poly\+Data $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1seed__plane_a04ad81eb65d22b9ab77f8ff3207aa431}{seed\+\_\+plane}} (const plane\+\_\+point \&ppoint, const plane\+\_\+normal \&pnormal)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1seed__plane_a430f62d45d0b11554b8bf47d68829faa}{\texorpdfstring{$\sim$}{\string~}seed\+\_\+plane}} ()
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1seed__plane_a4ba1b3ffe8724a159cab1aa7065fec04}{intersection}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield)
+\item 
+vtk\+Cell \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classbiomesh_1_1seed__plane_a906bc1770b92efa212df00cc07d2ebc7}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t index)
+\item 
+size\+\_\+t \mbox{\hyperlink{classbiomesh_1_1seed__plane_a4e877ee837564f3912a9a325b3616a89}{triangle\+\_\+count}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to model the seed plane for seed vertices. 
+
+The seed plane is modelled using the point-\/normal formulation. This plane is supposed to intersect the VTK structured grid. The intersection between the plane and the structured grid is a 2D surface. The VTK library models the 2D surface as a surface triangulation.
+
+The seed vertices are computed on this surface triangulation. We only consider the triangles within the bounds of the vector field. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1seed__plane_a04ad81eb65d22b9ab77f8ff3207aa431}\label{classbiomesh_1_1seed__plane_a04ad81eb65d22b9ab77f8ff3207aa431} 
+\index{biomesh::seed\_plane@{biomesh::seed\_plane}!seed\_plane@{seed\_plane}}
+\index{seed\_plane@{seed\_plane}!biomesh::seed\_plane@{biomesh::seed\_plane}}
+\doxysubsubsection{\texorpdfstring{seed\_plane()}{seed\_plane()}}
+{\footnotesize\ttfamily biomesh\+::seed\+\_\+plane\+::seed\+\_\+plane (\begin{DoxyParamCaption}\item[{const plane\+\_\+point \&}]{ppoint,  }\item[{const plane\+\_\+normal \&}]{pnormal }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ppoint} & The point describing the seed plane. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pnormal} & The orientation of the seed plane. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1seed__plane_a430f62d45d0b11554b8bf47d68829faa}\label{classbiomesh_1_1seed__plane_a430f62d45d0b11554b8bf47d68829faa} 
+\index{biomesh::seed\_plane@{biomesh::seed\_plane}!````~seed\_plane@{\texorpdfstring{$\sim$}{\string~}seed\_plane}}
+\index{````~seed\_plane@{\texorpdfstring{$\sim$}{\string~}seed\_plane}!biomesh::seed\_plane@{biomesh::seed\_plane}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}seed\_plane()}{\string~seed\_plane()}}
+{\footnotesize\ttfamily biomesh\+::seed\+\_\+plane\+::\texorpdfstring{$\sim$}{\string~}seed\+\_\+plane (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1seed__plane_a4ba1b3ffe8724a159cab1aa7065fec04}\label{classbiomesh_1_1seed__plane_a4ba1b3ffe8724a159cab1aa7065fec04} 
+\index{biomesh::seed\_plane@{biomesh::seed\_plane}!intersection@{intersection}}
+\index{intersection@{intersection}!biomesh::seed\_plane@{biomesh::seed\_plane}}
+\doxysubsubsection{\texorpdfstring{intersection()}{intersection()}}
+{\footnotesize\ttfamily void biomesh\+::seed\+\_\+plane\+::intersection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield }\end{DoxyParamCaption})}
+
+Compute the intersection between seed plane and the VTK structured grid.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field which is embedded onto to the VTK structured grid. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1seed__plane_a4ba1b3ffe8724a159cab1aa7065fec04_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1seed__plane_a906bc1770b92efa212df00cc07d2ebc7}\label{classbiomesh_1_1seed__plane_a906bc1770b92efa212df00cc07d2ebc7} 
+\index{biomesh::seed\_plane@{biomesh::seed\_plane}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::seed\_plane@{biomesh::seed\_plane}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily vtk\+Cell \texorpdfstring{$\ast$}{*} biomesh\+::seed\+\_\+plane\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+Index operator to access the triangle at a specific index;
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em index} & The linear index of the triangle. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1seed__plane_a4e877ee837564f3912a9a325b3616a89}\label{classbiomesh_1_1seed__plane_a4e877ee837564f3912a9a325b3616a89} 
+\index{biomesh::seed\_plane@{biomesh::seed\_plane}!triangle\_count@{triangle\_count}}
+\index{triangle\_count@{triangle\_count}!biomesh::seed\_plane@{biomesh::seed\_plane}}
+\doxysubsubsection{\texorpdfstring{triangle\_count()}{triangle\_count()}}
+{\footnotesize\ttfamily size\+\_\+t biomesh\+::seed\+\_\+plane\+::triangle\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Get the total triangle count in the triangulation. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1seed__plane_a4e877ee837564f3912a9a325b3616a89_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+seed\+\_\+plane.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+seed\+\_\+plane.\+cpp\end{DoxyCompactItemize}

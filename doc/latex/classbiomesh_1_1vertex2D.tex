@@ -1,0 +1,125 @@
+\doxysection{biomesh\+::vertex2D Class Reference}
+\hypertarget{classbiomesh_1_1vertex2D}{}\label{classbiomesh_1_1vertex2D}\index{biomesh::vertex2D@{biomesh::vertex2D}}
+
+
+Derived class for 2D vertices/points in the Eucledian space.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+vertex2d.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::vertex2D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classbiomesh_1_1vertex2D__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for biomesh\+::vertex2D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classbiomesh_1_1vertex2D__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex2D_a09c4b22a155b4bf6448ecb31e7c0db5b}{vertex2D}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex2D_a55de9bdc6f528cb4985f0c8e77b54b2e}{vertex2D}} (double x, double y)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex2D_a8d56a75bf2da269086de9a5818ad41c9}{vertex2D}} (double x, double y, double z)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex2D_af0446b50512f45abc43862e008e8dbee}{\texorpdfstring{$\sim$}{\string~}vertex2D}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classbiomesh_1_1vertex}{biomesh\+::vertex}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c}{vertex}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7}{\texorpdfstring{$\sim$}{\string~}vertex}} ()
+\item 
+double \mbox{\hyperlink{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}{operator()}} (char dir) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a1a24ba94fe38b190494b6cf0e998e4bb}{operator()}} (double x, double y, double z)
+\item 
+bool \mbox{\hyperlink{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc}{operator==}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f}{operator=}} (const \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}} \&other)
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483}{print}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classbiomesh_1_1vertex}{biomesh\+::vertex}}}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d {\bfseries m\+\_\+position}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Derived class for 2D vertices/points in the Eucledian space. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1vertex2D_a09c4b22a155b4bf6448ecb31e7c0db5b}\label{classbiomesh_1_1vertex2D_a09c4b22a155b4bf6448ecb31e7c0db5b} 
+\index{biomesh::vertex2D@{biomesh::vertex2D}!vertex2D@{vertex2D}}
+\index{vertex2D@{vertex2D}!biomesh::vertex2D@{biomesh::vertex2D}}
+\doxysubsubsection{\texorpdfstring{vertex2D()}{vertex2D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily biomesh\+::vertex2\+D\+::vertex2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor.
+
+Sets the coordinates to 0. \Hypertarget{classbiomesh_1_1vertex2D_a55de9bdc6f528cb4985f0c8e77b54b2e}\label{classbiomesh_1_1vertex2D_a55de9bdc6f528cb4985f0c8e77b54b2e} 
+\index{biomesh::vertex2D@{biomesh::vertex2D}!vertex2D@{vertex2D}}
+\index{vertex2D@{vertex2D}!biomesh::vertex2D@{biomesh::vertex2D}}
+\doxysubsubsection{\texorpdfstring{vertex2D()}{vertex2D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily biomesh\+::vertex2\+D\+::vertex2D (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & The X coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & The Y coordinate \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vertex2D_a8d56a75bf2da269086de9a5818ad41c9}\label{classbiomesh_1_1vertex2D_a8d56a75bf2da269086de9a5818ad41c9} 
+\index{biomesh::vertex2D@{biomesh::vertex2D}!vertex2D@{vertex2D}}
+\index{vertex2D@{vertex2D}!biomesh::vertex2D@{biomesh::vertex2D}}
+\doxysubsubsection{\texorpdfstring{vertex2D()}{vertex2D()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily biomesh\+::vertex2\+D\+::vertex2D (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})}
+
+Constructor.
+
+This is a helper constructor to avoid complicated templated code. The Z coordinate must be set to 0.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & The X coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & The Y coordinate \\
+\hline
+\mbox{\texttt{ in}}  & {\em z} & The Z coordinate \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vertex2D_af0446b50512f45abc43862e008e8dbee}\label{classbiomesh_1_1vertex2D_af0446b50512f45abc43862e008e8dbee} 
+\index{biomesh::vertex2D@{biomesh::vertex2D}!````~vertex2D@{\texorpdfstring{$\sim$}{\string~}vertex2D}}
+\index{````~vertex2D@{\texorpdfstring{$\sim$}{\string~}vertex2D}!biomesh::vertex2D@{biomesh::vertex2D}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}vertex2D()}{\string~vertex2D()}}
+{\footnotesize\ttfamily biomesh\+::vertex2\+D\+::\texorpdfstring{$\sim$}{\string~}vertex2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex2d.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vertex2d.\+cpp\end{DoxyCompactItemize}

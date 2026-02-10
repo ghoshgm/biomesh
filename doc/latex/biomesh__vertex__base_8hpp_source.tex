@@ -1,0 +1,43 @@
+\doxysection{biomesh\+\_\+vertex\+\_\+base.\+hpp}
+\hypertarget{biomesh__vertex__base_8hpp_source}{}\label{biomesh__vertex__base_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_vertex\_base.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_vertex\_base.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_VERTEX\_BASE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_VERTEX\_BASE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{classbiomesh_1_1vertex_ac83f6fb29142c4b16a69ff244348777c}{vertex}}\ ();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{classbiomesh_1_1vertex_a0929aff2e72c0f1bccb1e80e5294d6b7}{\string~vertex}}\ ();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}{operator()\ }}(\textcolor{keywordtype}{char}\ dir)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1vertex_ae3759c97aabe4765a79e227d3eb67083}{operator()\ }}(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ z);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbiomesh_1_1vertex_aacd41c0709fe1ed9fa8d5ec1e15fbfdc}{operator==\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}}\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1vertex_a30ea2d7a0aaca91d9066edd44409814f}{operator=\ }}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}}\ \&other);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1vertex_a15a6695215d83e0d12810f1d5e26b483}{print}}\ ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00078\ \ \ Eigen::Vector3d\ m\_position;\ \textcolor{comment}{/*\ The\ X,Y,Z\ coordinates\ of\ the\ vertex.\ */}}
+\DoxyCodeLine{00079\ \};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

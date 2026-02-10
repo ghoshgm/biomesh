@@ -1,0 +1,49 @@
+\doxysection{biomesh\+\_\+vector\+\_\+field.\+hpp}
+\hypertarget{biomesh__vector__field_8hpp_source}{}\label{biomesh__vector__field_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_vector\_field.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_vector\_field.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_VECTOR\_FIELD\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_VECTOR\_FIELD\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vtkSmartPointer.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vtkStructuredGrid.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vtkStructuredGridReader.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <biomesh\_cell\_table.hpp>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ (\textcolor{keyword}{const}\ std::string\ \&file\_path,\ \textcolor{keyword}{const}\ std::string\ \&vfield\_tag);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&other);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ (\mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&\&other);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{classbiomesh_1_1vector__field_a9e7bb5620d2040f3a8cc944dc0be959c}{\string~vector\_field}}\ ();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classbiomesh_1_1vector__field_ad5cf72482ecda62fc8699b0f0cda7496}{load\_vtk\_grid}}\ ();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1vector__field_a2bcca7cfb3959ea4c9b89d16f79cddbb}{preprocess}}\ ();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classbiomesh_1_1vector__field_a796e2bff8e7e1dcacc923d3ca4033390}{operator[]\ }}(\textcolor{keywordtype}{size\_t}\ cell\_index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ vtkSmartPointer<vtkStructuredGrid>\ \mbox{\hyperlink{classbiomesh_1_1vector__field_a5480ed15cf76019b0074cea300374c9d}{get\_grid}}\ ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \ \ std::string\ \mbox{\hyperlink{classbiomesh_1_1vector__field_adeb1f0e012772869b75e0635cedf4328}{get\_tag}}\ ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00105\ \ \ std::string\ m\_vfield\_tag;}
+\DoxyCodeLine{00106\ \ \ std::string\ m\_file\_path;}
+\DoxyCodeLine{00107\ \ \ vtkSmartPointer<vtkStructuredGrid>\ m\_sgrid;}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{classbiomesh_1_1cell__table}{cell\_table}}\ m\_ct;}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

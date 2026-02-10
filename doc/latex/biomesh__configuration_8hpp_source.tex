@@ -1,0 +1,59 @@
+\doxysection{biomesh\+\_\+configuration.\+hpp}
+\hypertarget{biomesh__configuration_8hpp_source}{}\label{biomesh__configuration_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_configuration.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_configuration.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_XML\_PARSER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_XML\_PARSER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}\ (\textcolor{keyword}{const}\ std::string\ \&file\_path);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{classbiomesh_1_1configuration_a305bfd67a5b85f22faa9c912fa64186d}{\string~configuration}}\ ();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1configuration_aec08b44459330433be5b44177d47c7f7}{read\_config\_file}}\ ();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ T\ \mbox{\hyperlink{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608}{get\_value}}\ (\textcolor{keyword}{const}\ std::string\ \&parameter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ std::string\ m\_file\_path;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keyword}{using\ }parameter\ =\ std::string;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{using\ }value\ =\ std::any;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ std::unordered\_map<parameter,\ value>\ m\_settings;}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00058\ T}
+\DoxyCodeLine{00059\ \mbox{\hyperlink{classbiomesh_1_1configuration_a10a621357105317a36ad6c805ffd9608}{configuration::get\_value}}\ (\textcolor{keyword}{const}\ std::string\ \&parameter)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{auto}\ it\ =\ m\_settings.find\ (parameter);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ m\_settings.end\ ())}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error\ (\textcolor{stringliteral}{"{}Parameter\ not\ found:\ "{}}\ +\ parameter);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::any\_cast<T>\ (it-\/>second);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::bad\_any\_cast\ \&)}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error\ (\textcolor{stringliteral}{"{}Type\ mismatch\ for\ parameter:\ "{}}\ +\ parameter);}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

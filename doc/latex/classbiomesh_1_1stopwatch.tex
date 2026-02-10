@@ -1,0 +1,86 @@
+\doxysection{biomesh\+::stopwatch Class Reference}
+\hypertarget{classbiomesh_1_1stopwatch}{}\label{classbiomesh_1_1stopwatch}\index{biomesh::stopwatch@{biomesh::stopwatch}}
+
+
+Class for measuring wall time and CPU time.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+stopwatch.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classbiomesh_1_1stopwatch_a158fca6c7feb5690ec8417418bfe9639}\label{classbiomesh_1_1stopwatch_a158fca6c7feb5690ec8417418bfe9639} 
+using {\bfseries wtime\+\_\+point} = std\+::chrono\+::high\+\_\+resolution\+\_\+clock\+::time\+\_\+point
+\item 
+\Hypertarget{classbiomesh_1_1stopwatch_abae968efa797b21fa9d30dcb0b6ee924}\label{classbiomesh_1_1stopwatch_abae968efa797b21fa9d30dcb0b6ee924} 
+using {\bfseries ctime\+\_\+point} = std\+::clock\+\_\+t
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1stopwatch_a0c43766a6541a81c68f82c9fbc281d73}{stopwatch}} ()
+\item 
+\mbox{\hyperlink{classbiomesh_1_1stopwatch_aa27ac7be21b0b199de85397ee1fc4ded}{\texorpdfstring{$\sim$}{\string~}stopwatch}} ()
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1stopwatch_a494fdb0d0e5cf26efe6cf2eba7ad66b5}{start}} ()
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1stopwatch_a2d583c1f41a237ef3f30e4c55e1dcc4d}{end}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for measuring wall time and CPU time. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1stopwatch_a0c43766a6541a81c68f82c9fbc281d73}\label{classbiomesh_1_1stopwatch_a0c43766a6541a81c68f82c9fbc281d73} 
+\index{biomesh::stopwatch@{biomesh::stopwatch}!stopwatch@{stopwatch}}
+\index{stopwatch@{stopwatch}!biomesh::stopwatch@{biomesh::stopwatch}}
+\doxysubsubsection{\texorpdfstring{stopwatch()}{stopwatch()}}
+{\footnotesize\ttfamily biomesh\+::stopwatch\+::stopwatch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor. \Hypertarget{classbiomesh_1_1stopwatch_aa27ac7be21b0b199de85397ee1fc4ded}\label{classbiomesh_1_1stopwatch_aa27ac7be21b0b199de85397ee1fc4ded} 
+\index{biomesh::stopwatch@{biomesh::stopwatch}!````~stopwatch@{\texorpdfstring{$\sim$}{\string~}stopwatch}}
+\index{````~stopwatch@{\texorpdfstring{$\sim$}{\string~}stopwatch}!biomesh::stopwatch@{biomesh::stopwatch}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}stopwatch()}{\string~stopwatch()}}
+{\footnotesize\ttfamily biomesh\+::stopwatch\+::\texorpdfstring{$\sim$}{\string~}stopwatch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1stopwatch_a2d583c1f41a237ef3f30e4c55e1dcc4d}\label{classbiomesh_1_1stopwatch_a2d583c1f41a237ef3f30e4c55e1dcc4d} 
+\index{biomesh::stopwatch@{biomesh::stopwatch}!end@{end}}
+\index{end@{end}!biomesh::stopwatch@{biomesh::stopwatch}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily void biomesh\+::stopwatch\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+End the stopwatch. This function prints the wall time to the console. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1stopwatch_a2d583c1f41a237ef3f30e4c55e1dcc4d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1stopwatch_a494fdb0d0e5cf26efe6cf2eba7ad66b5}\label{classbiomesh_1_1stopwatch_a494fdb0d0e5cf26efe6cf2eba7ad66b5} 
+\index{biomesh::stopwatch@{biomesh::stopwatch}!start@{start}}
+\index{start@{start}!biomesh::stopwatch@{biomesh::stopwatch}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily void biomesh\+::stopwatch\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Start the stopwatch. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1stopwatch_a494fdb0d0e5cf26efe6cf2eba7ad66b5_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+stopwatch.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+stopwatch.\+cpp\end{DoxyCompactItemize}

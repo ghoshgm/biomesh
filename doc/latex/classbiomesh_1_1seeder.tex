@@ -1,0 +1,111 @@
+\doxysection{biomesh\+::seeder Class Reference}
+\hypertarget{classbiomesh_1_1seeder}{}\label{classbiomesh_1_1seeder}\index{biomesh::seeder@{biomesh::seeder}}
+
+
+Class for generating seed vertices for the fibers.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+seeder.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classbiomesh_1_1seeder_a1f9648dfe3720b82f9f312ab209a08d0}\label{classbiomesh_1_1seeder_a1f9648dfe3720b82f9f312ab209a08d0} 
+using {\bfseries seed\+\_\+vertices} = std\+::vector$<$ \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} $>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1seeder_a1191be4aeff888f0b81d9b9f3436b310}{seeder}} (size\+\_\+t seed\+\_\+count)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1seeder_af8d0edcf2449d92649dcbc2f4c0ebca7}{\texorpdfstring{$\sim$}{\string~}seeder}} ()
+\item 
+const \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} \& \mbox{\hyperlink{classbiomesh_1_1seeder_a3327b293c2eeefcfde2bb96774eb7620}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t index) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1seeder_a1dbb26414716a09cb92ba2350cbf283e}{generate\+\_\+seeds}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, \mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\+\_\+plane}} \&splane)
+\item 
+\Hypertarget{classbiomesh_1_1seeder_a3b933cb3837b6b1fec9a3070a9ff89b4}\label{classbiomesh_1_1seeder_a3b933cb3837b6b1fec9a3070a9ff89b4} 
+\mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}} {\bfseries begin} ()
+\item 
+\Hypertarget{classbiomesh_1_1seeder_aca27dc7009321614c7bdbb9cd8efda60}\label{classbiomesh_1_1seeder_aca27dc7009321614c7bdbb9cd8efda60} 
+\mbox{\hyperlink{classbiomesh_1_1seeder_1_1iterator}{iterator}} {\bfseries end} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for generating seed vertices for the fibers. 
+
+A seed vertex is simply a vertex in the cartesian space. It is the initial condition for numeric integration routines. The seed vertices are located on the seed plane. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1seeder_a1191be4aeff888f0b81d9b9f3436b310}\label{classbiomesh_1_1seeder_a1191be4aeff888f0b81d9b9f3436b310} 
+\index{biomesh::seeder@{biomesh::seeder}!seeder@{seeder}}
+\index{seeder@{seeder}!biomesh::seeder@{biomesh::seeder}}
+\doxysubsubsection{\texorpdfstring{seeder()}{seeder()}}
+{\footnotesize\ttfamily biomesh\+::seeder\+::seeder (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{seed\+\_\+count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Default constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em seed\+\_\+count} & The number of seeds required to generate fibers. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1seeder_af8d0edcf2449d92649dcbc2f4c0ebca7}\label{classbiomesh_1_1seeder_af8d0edcf2449d92649dcbc2f4c0ebca7} 
+\index{biomesh::seeder@{biomesh::seeder}!````~seeder@{\texorpdfstring{$\sim$}{\string~}seeder}}
+\index{````~seeder@{\texorpdfstring{$\sim$}{\string~}seeder}!biomesh::seeder@{biomesh::seeder}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}seeder()}{\string~seeder()}}
+{\footnotesize\ttfamily biomesh\+::seeder\+::\texorpdfstring{$\sim$}{\string~}seeder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1seeder_a1dbb26414716a09cb92ba2350cbf283e}\label{classbiomesh_1_1seeder_a1dbb26414716a09cb92ba2350cbf283e} 
+\index{biomesh::seeder@{biomesh::seeder}!generate\_seeds@{generate\_seeds}}
+\index{generate\_seeds@{generate\_seeds}!biomesh::seeder@{biomesh::seeder}}
+\doxysubsubsection{\texorpdfstring{generate\_seeds()}{generate\_seeds()}}
+{\footnotesize\ttfamily void biomesh\+::seeder\+::generate\+\_\+seeds (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{\mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\+\_\+plane}} \&}]{splane }\end{DoxyParamCaption})}
+
+Routine to compute the seed vertices.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field embedded onto a VTK structured grid. \\
+\hline
+\mbox{\texttt{ in}}  & {\em splane} & The plane which intersects the VTK structured grid. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1seeder_a1dbb26414716a09cb92ba2350cbf283e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1seeder_a3327b293c2eeefcfde2bb96774eb7620}\label{classbiomesh_1_1seeder_a3327b293c2eeefcfde2bb96774eb7620} 
+\index{biomesh::seeder@{biomesh::seeder}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::seeder@{biomesh::seeder}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}} \& biomesh\+::seeder\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+Operator to access the seed vertex at a specified index.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em index} & Index to access individual seed vertices. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+seeder.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+seeder.\+cpp\end{DoxyCompactItemize}

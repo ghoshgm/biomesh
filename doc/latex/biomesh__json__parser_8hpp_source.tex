@@ -1,0 +1,42 @@
+\doxysection{biomesh\+\_\+json\+\_\+parser.\+hpp}
+\hypertarget{biomesh__json__parser_8hpp_source}{}\label{biomesh__json__parser_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_json\_parser.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_json\_parser.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_JSON\_PARSER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_JSON\_PARSER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <jsoncpp/json/json.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <jsoncpp/json/value.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <biomesh\_base.hpp>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1json__parser}{json\_parser}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{classbiomesh_1_1json__parser_a8b8043f63420f465f88195d1d05a7091}{json\_parser}}\ ();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{classbiomesh_1_1json__parser_a8b8043f63420f465f88195d1d05a7091}{json\_parser}}\ (\textcolor{keyword}{const}\ std::string\ \&file\_path);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{classbiomesh_1_1json__parser_a6a94f4033b418e81a77292071295f14c}{\string~json\_parser}}\ ();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classbiomesh_1_1json__parser_acf30f98abe8f1a1229f3f940de5b02a5}{read}}\ ();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1json__parser_a93c0a4f1c34673232ce0f3718a6a7bd1}{export\_fiber\_grid\_json}}\ (\textcolor{keyword}{const}\ T\ \&\mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\_grid}},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ file\_name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00062\ \ \ Json::Value\ m\_jstring;}
+\DoxyCodeLine{00063\ \ \ std::string\ m\_file\_path;}
+\DoxyCodeLine{00064\ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

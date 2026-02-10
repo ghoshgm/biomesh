@@ -1,0 +1,178 @@
+\doxysection{biomesh\+::vector\+\_\+field Class Reference}
+\hypertarget{classbiomesh_1_1vector__field}{}\label{classbiomesh_1_1vector__field}\index{biomesh::vector\_field@{biomesh::vector\_field}}
+
+
+Class to load and preprocess vector data from a vtk file.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+vector\+\_\+field.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vector__field_aacdf2bedbb20d5633f9b679406cb9851}{vector\+\_\+field}} (const std\+::string \&file\+\_\+path, const std\+::string \&vfield\+\_\+tag)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vector__field_a6db0d11a4a6637edaea6ba155f2c1b67}{vector\+\_\+field}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vector__field_a8fda992b4662875e3e904fd52ae9b4a6}{vector\+\_\+field}} (\mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&\&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vector__field_a9e7bb5620d2040f3a8cc944dc0be959c}{\texorpdfstring{$\sim$}{\string~}vector\+\_\+field}} ()
+\item 
+int \mbox{\hyperlink{classbiomesh_1_1vector__field_ad5cf72482ecda62fc8699b0f0cda7496}{load\+\_\+vtk\+\_\+grid}} ()
+\begin{DoxyCompactList}\small\item\em Read structured grid data from a vtk file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classbiomesh_1_1vector__field_a2bcca7cfb3959ea4c9b89d16f79cddbb}{preprocess}} ()
+\begin{DoxyCompactList}\small\item\em Preprocess vector data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classbiomesh_1_1vector__field_a796e2bff8e7e1dcacc923d3ca4033390}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t cell\+\_\+index) const
+\item 
+vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ \mbox{\hyperlink{classbiomesh_1_1vector__field_a5480ed15cf76019b0074cea300374c9d}{get\+\_\+grid}} () const
+\item 
+std\+::string \mbox{\hyperlink{classbiomesh_1_1vector__field_adeb1f0e012772869b75e0635cedf4328}{get\+\_\+tag}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to load and preprocess vector data from a vtk file. 
+
+The input is a vtk file which encodes the vtk structured grid data structure. The vertices of the grid cells hold the vectors ( one vector per vertex ).
+
+The class performs preprocessing of the vtk data. The processed vector field will be used for generating the 1D grids.
+
+The output is a vtk structured grid which holds all the necessary vector data for generating muscle fibers (1D grids). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1vector__field_aacdf2bedbb20d5633f9b679406cb9851}\label{classbiomesh_1_1vector__field_aacdf2bedbb20d5633f9b679406cb9851} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!vector\_field@{vector\_field}}
+\index{vector\_field@{vector\_field}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{vector\_field()}{vector\_field()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily biomesh\+::vector\+\_\+field\+::vector\+\_\+field (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{const std\+::string \&}]{vfield\+\_\+tag }\end{DoxyParamCaption})}
+
+Default constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em file\+\_\+path} & Path to the vtk file. \\
+\hline
+\mbox{\texttt{ in}}  & {\em vfield\+\_\+tag} & The identifier for the vector field array in the VTK structured grid. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vector__field_a6db0d11a4a6637edaea6ba155f2c1b67}\label{classbiomesh_1_1vector__field_a6db0d11a4a6637edaea6ba155f2c1b67} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!vector\_field@{vector\_field}}
+\index{vector\_field@{vector\_field}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{vector\_field()}{vector\_field()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily biomesh\+::vector\+\_\+field\+::vector\+\_\+field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{other }\end{DoxyParamCaption})}
+
+Copy constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em other} & Instantiated vector field object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vector__field_a8fda992b4662875e3e904fd52ae9b4a6}\label{classbiomesh_1_1vector__field_a8fda992b4662875e3e904fd52ae9b4a6} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!vector\_field@{vector\_field}}
+\index{vector\_field@{vector\_field}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{vector\_field()}{vector\_field()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily biomesh\+::vector\+\_\+field\+::vector\+\_\+field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&\&}]{other }\end{DoxyParamCaption})}
+
+Move constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em other} & Instantiated vector field object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vector__field_a9e7bb5620d2040f3a8cc944dc0be959c}\label{classbiomesh_1_1vector__field_a9e7bb5620d2040f3a8cc944dc0be959c} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!````~vector\_field@{\texorpdfstring{$\sim$}{\string~}vector\_field}}
+\index{````~vector\_field@{\texorpdfstring{$\sim$}{\string~}vector\_field}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}vector\_field()}{\string~vector\_field()}}
+{\footnotesize\ttfamily biomesh\+::vector\+\_\+field\+::\texorpdfstring{$\sim$}{\string~}vector\+\_\+field (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1vector__field_a5480ed15cf76019b0074cea300374c9d}\label{classbiomesh_1_1vector__field_a5480ed15cf76019b0074cea300374c9d} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!get\_grid@{get\_grid}}
+\index{get\_grid@{get\_grid}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{get\_grid()}{get\_grid()}}
+{\footnotesize\ttfamily vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ biomesh\+::vector\+\_\+field\+::get\+\_\+grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Getter to the underlying VTK structured grid. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1vector__field_a5480ed15cf76019b0074cea300374c9d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1vector__field_adeb1f0e012772869b75e0635cedf4328}\label{classbiomesh_1_1vector__field_adeb1f0e012772869b75e0635cedf4328} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!get\_tag@{get\_tag}}
+\index{get\_tag@{get\_tag}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{get\_tag()}{get\_tag()}}
+{\footnotesize\ttfamily std\+::string biomesh\+::vector\+\_\+field\+::get\+\_\+tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Getter for the vector field tag in the VTK structured grid. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1vector__field_adeb1f0e012772869b75e0635cedf4328_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1vector__field_ad5cf72482ecda62fc8699b0f0cda7496}\label{classbiomesh_1_1vector__field_ad5cf72482ecda62fc8699b0f0cda7496} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!load\_vtk\_grid@{load\_vtk\_grid}}
+\index{load\_vtk\_grid@{load\_vtk\_grid}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{load\_vtk\_grid()}{load\_vtk\_grid()}}
+{\footnotesize\ttfamily int biomesh\+::vector\+\_\+field\+::load\+\_\+vtk\+\_\+grid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read structured grid data from a vtk file. 
+
+Only The legacy VTK file format for structured grid is supported. The structured data structure is replicated on every MPI rank.
+
+\begin{DoxyReturn}{Returns}
+Success if the file was read without error otherwise Error is returned. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1vector__field_a796e2bff8e7e1dcacc923d3ca4033390}\label{classbiomesh_1_1vector__field_a796e2bff8e7e1dcacc923d3ca4033390} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily int biomesh\+::vector\+\_\+field\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{cell\+\_\+index }\end{DoxyParamCaption}) const}
+
+Retrieve the cell type in the VTK structured grid.
+
+The cells are classified as \textquotesingle{}0\textquotesingle{},\textquotesingle{}1\textquotesingle{},\textquotesingle{}2\textquotesingle{} cells.
+
+\textquotesingle{}0\textquotesingle{} cell -\/\texorpdfstring{$>$}{>} The cells which have all corners with no vector data. \textquotesingle{}1\textquotesingle{} cell -\/\texorpdfstring{$>$}{>} The cells which have some (not all) corners with vector data. \textquotesingle{}2\textquotesingle{} cell -\/\texorpdfstring{$>$}{>} The cells which have all corners with vector data.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em cell\+\_\+index} & The linear index of cells in the VTK structured grid. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1vector__field_a2bcca7cfb3959ea4c9b89d16f79cddbb}\label{classbiomesh_1_1vector__field_a2bcca7cfb3959ea4c9b89d16f79cddbb} 
+\index{biomesh::vector\_field@{biomesh::vector\_field}!preprocess@{preprocess}}
+\index{preprocess@{preprocess}!biomesh::vector\_field@{biomesh::vector\_field}}
+\doxysubsubsection{\texorpdfstring{preprocess()}{preprocess()}}
+{\footnotesize\ttfamily void biomesh\+::vector\+\_\+field\+::preprocess (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Preprocess vector data. 
+
+The muscle geometry is enclosed within the structured grid. Not every vector contributes to the muscle geometry. The function flags vectors which are not part of the actual muscle geometry. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1vector__field_a2bcca7cfb3959ea4c9b89d16f79cddbb_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vector\+\_\+field.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+vector\+\_\+field.\+cpp\end{DoxyCompactItemize}

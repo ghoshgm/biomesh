@@ -1,0 +1,199 @@
+\doxysection{biomesh\+::fiber2D Class Reference}
+\hypertarget{classbiomesh_1_1fiber2D}{}\label{classbiomesh_1_1fiber2D}\index{biomesh::fiber2D@{biomesh::fiber2D}}
+
+
+Class for modelling a 2D fiber.  
+
+
+
+
+{\ttfamily \#include $<$biomesh\+\_\+fiber2d.\+hpp$>$}
+
+
+
+Inheritance diagram for biomesh\+::fiber2D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classbiomesh_1_1fiber2D__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for biomesh\+::fiber2D\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classbiomesh_1_1fiber2D__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber2D_a8b58fafe5d6b466b11a7c6dccb0511d9}{fiber2D}} (size\+\_\+t gpoint\+\_\+count, double width)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber2D_ac066eb1bd89a147d0a47a51ba4b453ca}{fiber2D}} (const \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}} \&seed, size\+\_\+t gpoint\+\_\+count, double width)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber2D_aa8d5f9b87c40aee18f0406bf2e35869a}{fiber2D}} (const \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber2D_aa7d01091cad7695c5c0b6d0cd547b19a}{fiber2D}} (\mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&\&other)
+\item 
+\mbox{\hyperlink{classbiomesh_1_1fiber2D_ab057d7d356e14333f2ce01bc2339d71a}{\texorpdfstring{$\sim$}{\string~}fiber2D}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{classbiomesh_1_1fiber2D_ad146b0f07d9deb11e5cad4f006466d68}{size}} () const
+\item 
+\mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}} \mbox{\hyperlink{classbiomesh_1_1fiber2D_a9b7f8284575df239d5bcf07b5365d099}{operator\mbox{[}$\,$\mbox{]}}} (size\+\_\+t idx) const
+\item 
+bool \mbox{\hyperlink{classbiomesh_1_1fiber2D_a0b762fd44b556f376c8fa81de6aef6e0}{operator==}} (const \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&other) const
+\item 
+void \mbox{\hyperlink{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb}{generate\+\_\+fiber}} (const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&vfield, int dir, \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}} config)
+\item 
+\Hypertarget{classbiomesh_1_1fiber2D_a9090e75ebeaba9e3f6664a8f09963c3b}\label{classbiomesh_1_1fiber2D_a9090e75ebeaba9e3f6664a8f09963c3b} 
+void {\bfseries pop} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for modelling a 2D fiber. 
+
+Muscle fiber is represented as a 1D grid. A fiber is modelled as an ordered set of cartesian coordiantes. The input is a single vertex. This initial vertex will be used to sequentially compute the next fiber vertex. The output is a set of vertices which define the fiber geometry.
+
+NOTE\+: This class is not actively maintained any more. Eventually the 2D features need to be deprecated. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classbiomesh_1_1fiber2D_a8b58fafe5d6b466b11a7c6dccb0511d9}\label{classbiomesh_1_1fiber2D_a8b58fafe5d6b466b11a7c6dccb0511d9} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!fiber2D@{fiber2D}}
+\index{fiber2D@{fiber2D}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{fiber2D()}{fiber2D()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber2\+D\+::fiber2D (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{gpoint\+\_\+count,  }\item[{double}]{width }\end{DoxyParamCaption})}
+
+Default constructor.
+
+The seed coordinates are set to 0 by default.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gpoint\+\_\+count} & The number of grid points on fiber. Let\textquotesingle{}s say you want 4 grid points then the first point will be the seed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber2D_ac066eb1bd89a147d0a47a51ba4b453ca}\label{classbiomesh_1_1fiber2D_ac066eb1bd89a147d0a47a51ba4b453ca} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!fiber2D@{fiber2D}}
+\index{fiber2D@{fiber2D}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{fiber2D()}{fiber2D()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber2\+D\+::fiber2D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}} \&}]{seed,  }\item[{size\+\_\+t}]{gpoint\+\_\+count,  }\item[{double}]{width }\end{DoxyParamCaption})}
+
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em seed} & The initial vertex of the fiber. \\
+\hline
+\mbox{\texttt{ in}}  & {\em gpoint\+\_\+count} & The number of grid points on fiber. Let\textquotesingle{}s say you want 4 grid points then the first point will be the seed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber2D_aa8d5f9b87c40aee18f0406bf2e35869a}\label{classbiomesh_1_1fiber2D_aa8d5f9b87c40aee18f0406bf2e35869a} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!fiber2D@{fiber2D}}
+\index{fiber2D@{fiber2D}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{fiber2D()}{fiber2D()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber2\+D\+::fiber2D (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&}]{other }\end{DoxyParamCaption})}
+
+Copy constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em other} & The reference \doxylink{classbiomesh_1_1fiber2D}{fiber2D} object that needs to be copied. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber2D_aa7d01091cad7695c5c0b6d0cd547b19a}\label{classbiomesh_1_1fiber2D_aa7d01091cad7695c5c0b6d0cd547b19a} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!fiber2D@{fiber2D}}
+\index{fiber2D@{fiber2D}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{fiber2D()}{fiber2D()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily biomesh\+::fiber2\+D\+::fiber2D (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&\&}]{other }\end{DoxyParamCaption})}
+
+Move constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em other} & The reference \doxylink{classbiomesh_1_1fiber2D}{fiber2D} object whose data needs to be moved. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classbiomesh_1_1fiber2D_ab057d7d356e14333f2ce01bc2339d71a}\label{classbiomesh_1_1fiber2D_ab057d7d356e14333f2ce01bc2339d71a} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!````~fiber2D@{\texorpdfstring{$\sim$}{\string~}fiber2D}}
+\index{````~fiber2D@{\texorpdfstring{$\sim$}{\string~}fiber2D}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}fiber2D()}{\string~fiber2D()}}
+{\footnotesize\ttfamily biomesh\+::fiber2\+D\+::\texorpdfstring{$\sim$}{\string~}fiber2D (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb}\label{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!generate\_fiber@{generate\_fiber}}
+\index{generate\_fiber@{generate\_fiber}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{generate\_fiber()}{generate\_fiber()}}
+{\footnotesize\ttfamily void biomesh\+::fiber2\+D\+::generate\+\_\+fiber (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}} \&}]{vfield,  }\item[{int}]{dir,  }\item[{\mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Generate fiber.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vfield} & The vector field which will be used to interpolate grid point in a fiber. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classbiomesh_1_1fiber_a2f44538d994c6c74c70090da8241d6ce}{biomesh\+::fiber}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classbiomesh_1_1fiber2D_a586a0cdd45b1a9c9ba1bbc3aa10c5cdb_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classbiomesh_1_1fiber2D_a0b762fd44b556f376c8fa81de6aef6e0}\label{classbiomesh_1_1fiber2D_a0b762fd44b556f376c8fa81de6aef6e0} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!operator==@{operator==}}
+\index{operator==@{operator==}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool biomesh\+::fiber2\+D\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}} \&}]{other }\end{DoxyParamCaption}) const}
+
+Test equality of two fibers.
+
+\begin{DoxyReturn}{Returns}
+True if equal otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber2D_a9b7f8284575df239d5bcf07b5365d099}\label{classbiomesh_1_1fiber2D_a9b7f8284575df239d5bcf07b5365d099} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}} biomesh\+::fiber2\+D\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption}) const}
+
+Return vertex at the specified index.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em idx} & The index at which fiber vertex is located.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vertex at index \textquotesingle{}idx\textquotesingle{}. 
+\end{DoxyReturn}
+\Hypertarget{classbiomesh_1_1fiber2D_ad146b0f07d9deb11e5cad4f006466d68}\label{classbiomesh_1_1fiber2D_ad146b0f07d9deb11e5cad4f006466d68} 
+\index{biomesh::fiber2D@{biomesh::fiber2D}!size@{size}}
+\index{size@{size}!biomesh::fiber2D@{biomesh::fiber2D}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t biomesh\+::fiber2\+D\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the grid point count.
+
+\begin{DoxyReturn}{Returns}
+The grid point count. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber2d.\+hpp\item 
+/home/ghoshgm/\+Desktop/dev/biomesh/src/biomesh\+\_\+fiber2d.\+cpp\end{DoxyCompactItemize}

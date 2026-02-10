@@ -1,102 +1,42 @@
 # BioMesh
-**BioMesh** is a C++ library to generate computational meshes for skeletal muscle simulations.
 
-The software is developed at the University of Stuttgart.
+**BioMesh** is an open source C++ library for generating computational meshes for skeletal muscle simulations.
 
-## Dependencies
-* VTK 9.3.0 or newer
-* Eigen 3.4.0 or newer
-* JsonCpp 1.9.5 or newer
-* Boost 1.74.0 or newer
+BioMesh is intended to be used as a thirdparty meshing tool for the **OpenDiHu** library.
 
-## Building dependencies
-The dependencies can be built from source or package managers like Spack, apt.
+It is being actively developed at the [University of Stuttgart](https://www.ipvs.uni-stuttgart.de/departments/sgs/).
 
-Make sure you have Spack installed on your machine.\
-Instructions to build Spack:
-```
-git clone https://github.com/spack/spack.git
-cd spack
-. share/spack/setup-env.sh
-```
+## Purpose
 
-### VTK
-Building VTK from source is advisable.\
-The Spack container for VTK has build issues.
-```
-git clone https://github.com/Kitware/VTK.git
-mkdir vtk_build && cd vtk_build
-cmake path/to/vtk/source
-make -j8
-```
-### Eigen
-Using Spack is easier and faster.
-```
-spack install eigen
-```
-### JsonCpp
-Using Spack is easier and faster.
-```
-spack install jsoncpp
-```
-### Boost
-Using apt is easier and faster.
-```
-sudo apt-get update && sudo apt-get install libboost-all-dev
-```
+A crucial part of neuromuscular simulations involves modelling the interaction between muscle components. The core biological strucuture of a muscle is composed of fibers, sacromeres and muscle belly, this naturally results in complex configurations with meshes in different dimensions:
 
-## Compiler support
-* GCC 11.4.0 or newer
+- **0D** meshes for sarcomeres  
+- **1D** meshes for muscle fibers  
+- **3D** meshes for mechanical deformation and EMG simulations on the muscle belly.
 
-## OS support
-* Ubuntu 22.04
+Therefore, it becomes necessary to develop a specialized meshing tool to accurately capture the muscle deformations and neural responses.
 
-## Build
-CMake is required to build BioMesh from source.  
-The default directory for installtion is the build directory.
+The BioMesh library is being developed to offer implementations of these meshing algorithms. In literature, researchers have used MRI scans and CT-Scans as the starting point in the meshing workflow. It has been observed that the workflows are not optimized. We primarily build upon the work of [Benjamin Maier](https://doi.org/10.48550/arXiv.2107.07104) and offer an alternative approach. In our work we primarily use Ultrasound Imaging data (Vector Fields indicating local fiber orientations) as a starting point for mesh generation. Our approach is a two-step process:
 
-### Obtaining the source code
-The source code is hosted on GitHub.  
-```
-git clone https://github.com/opendihu/biomesh.git
-```
+1. **Generation of muscle fibers as 1D meshes**
+2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
-### Configuration
-`-DCMAKE_BUILD_TYPE` enables debug mode.  
-It activates assertions and additional code verifications.  
-Set to 'debug' to enable.  
+## Installation
+Refer to the [install](doc/INSTALLATION.md) document for building and installation.
 
-`-DCMAKE_PREFIX_PATH` points CMake to the build directories of dependencies.
+## Getting started
+- If this your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
+- For a minimal hello world example you may refer to [helloworld](doc/HELLOWORLD.md).
 
-An example configuration line for debug builds:  
-```
-cmake -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_FLAGS="-O0 -g -Wall" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
-```
+## Documentation
+- BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.
+- Refer to [roadmap](doc/ROADMAP.md) to get latest development status.
 
-An example configuration line for release builds:  
-```
-cmake -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter" -DCMAKE_PREFIX_PATH="path/to/dependencies" path/to/source
-```
+## Contributing
+BioMesh is an open-source project and contributions from the community are much appreciated.
 
-### Compilation
-Run the command: 
-```
-make
-```  
-
-**NOTE:** Parallel builds are not supported at the moment.
-
-### Testing
-
-Tests can executed via 
-```
-ctest path/to/build/dir
-```  
-
-For checking memory leaks use 
-```
-ctest path/to/build/dir -T memcheck
-``` 
+Refer to the [contributing](doc/CONTRIBUTING.md) document for guidelines.
 
 ## License
-The BioMesh library is distributed under the MIT License.
+BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
+file for details.

@@ -1,0 +1,56 @@
+\doxysection{biomesh Namespace Reference}
+\hypertarget{namespacebiomesh}{}\label{namespacebiomesh}\index{biomesh@{biomesh}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacebiomesh_1_1affine__transform}{affine\+\_\+transform}}
+\item 
+namespace \mbox{\hyperlink{namespacebiomesh_1_1visualization}{visualization}}
+\begin{DoxyCompactList}\small\item\em Class for exporting data for visualization using paraview. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classbiomesh_1_1cell__table}{cell\+\_\+table}}
+\begin{DoxyCompactList}\small\item\em Class to perform cell classification for the VTK structured grid. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1configuration}{configuration}}
+\begin{DoxyCompactList}\small\item\em Class for parsing the configuration file for generating fibers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1fiber}{fiber}}
+\begin{DoxyCompactList}\small\item\em Base class for modelling muscle fibers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1fiber2D}{fiber2D}}
+\begin{DoxyCompactList}\small\item\em Class for modelling a 2D fiber. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1fiber3D}{fiber3D}}
+\begin{DoxyCompactList}\small\item\em Class for modelling a 3D fiber. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1fiber__grid}{fiber\+\_\+grid}}
+\begin{DoxyCompactList}\small\item\em Class for modelling the set of fibers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1json__parser}{json\+\_\+parser}}
+\begin{DoxyCompactList}\small\item\em Class for parsing JSON files. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\+\_\+plane}}
+\begin{DoxyCompactList}\small\item\em Class to model the seed plane for seed vertices. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1seeder}{seeder}}
+\begin{DoxyCompactList}\small\item\em Class for generating seed vertices for the fibers. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1stopwatch}{stopwatch}}
+\begin{DoxyCompactList}\small\item\em Class for measuring wall time and CPU time. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\+\_\+field}}
+\begin{DoxyCompactList}\small\item\em Class to load and preprocess vector data from a vtk file. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1vertex}{vertex}}
+\begin{DoxyCompactList}\small\item\em Base class for vertices/points in the Euclidean space. This class defines all basic functions and members. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1vertex2D}{vertex2D}}
+\begin{DoxyCompactList}\small\item\em Derived class for 2D vertices/points in the Eucledian space. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classbiomesh_1_1vertex3D}{vertex3D}}
+\begin{DoxyCompactList}\small\item\em Derived class for 3D vertices/points in the Eucledian space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacebiomesh_aa400dd975c876d219e9fe7d18dc23e72}\label{namespacebiomesh_aa400dd975c876d219e9fe7d18dc23e72} 
+vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ {\bfseries add\+Both\+XLayers} (vtk\+Structured\+Grid \texorpdfstring{$\ast$}{*}sgrid, int num\+Layers, const std\+::string \&vector\+Name)
+\item 
+\Hypertarget{namespacebiomesh_a80eac277290a3c1c628f6ee87b1199d2}\label{namespacebiomesh_a80eac277290a3c1c628f6ee87b1199d2} 
+vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ {\bfseries add\+Both\+YLayers} (vtk\+Structured\+Grid \texorpdfstring{$\ast$}{*}sgrid, int num\+Layers, const std\+::string \&vector\+Name)
+\item 
+\Hypertarget{namespacebiomesh_aa663b653bfd4e7abac5f184bc764454a}\label{namespacebiomesh_aa663b653bfd4e7abac5f184bc764454a} 
+vtk\+Smart\+Pointer$<$ vtk\+Structured\+Grid $>$ {\bfseries add\+Both\+ZLayers} (vtk\+Structured\+Grid \texorpdfstring{$\ast$}{*}sgrid, int num\+Layers, const std\+::string \&vector\+Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File for interpolation methods in 2D/3D. 

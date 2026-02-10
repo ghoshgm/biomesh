@@ -1,0 +1,50 @@
+\doxysection{biomesh\+\_\+seed\+\_\+plane.\+hpp}
+\hypertarget{biomesh__seed__plane_8hpp_source}{}\label{biomesh__seed__plane_8hpp_source}\index{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_seed\_plane.hpp@{/home/ghoshgm/Desktop/dev/biomesh/src/biomesh\_seed\_plane.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BIOMESH\_SEED\_PLANE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BIOMESH\_SEED\_PLANE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vtkCell.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vtkCutter.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vtkPlane.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vtkPolyData.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vtkTriangle.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <biomesh\_vector\_field.hpp>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacebiomesh}{biomesh}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\_plane}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{using\ }plane\_point\ =\ std::tuple<double,\ double,\ double>;}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{using\ }plane\_normal\ =\ std::tuple<double,\ double,\ double>;}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{using\ }surface\_triangulation\ =\ vtkNew<vtkPolyData>;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{classbiomesh_1_1seed__plane}{seed\_plane}}\ (\textcolor{keyword}{const}\ plane\_point\ \&ppoint,\ \textcolor{keyword}{const}\ plane\_normal\ \&pnormal);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{classbiomesh_1_1seed__plane_a430f62d45d0b11554b8bf47d68829faa}{\string~seed\_plane}}\ ();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classbiomesh_1_1seed__plane_a4ba1b3ffe8724a159cab1aa7065fec04}{intersection}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classbiomesh_1_1vector__field}{vector\_field}}\ \&vfield);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00063\ \ \ vtkCell\ *\mbox{\hyperlink{classbiomesh_1_1seed__plane_a906bc1770b92efa212df00cc07d2ebc7}{operator[]\ }}(\textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classbiomesh_1_1seed__plane_a4e877ee837564f3912a9a325b3616a89}{triangle\_count}}\ ()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ plane\_point\ m\_ppoint;}
+\DoxyCodeLine{00072\ \ \ plane\_normal\ m\_pnormal;}
+\DoxyCodeLine{00073\ \ \ surface\_triangulation\ m\_striangulation;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \}\ \textcolor{comment}{//\ namespace\ biomesh}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
