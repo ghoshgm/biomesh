@@ -119,18 +119,9 @@ This step is optional and is only meant for visualization.
 ## Running the executable
 The executable is by default installed in ```examples/cuboid_fibers``` folder in the **build directory**.
 
-Lets say your directory tree looks like:
-```
-biomesh/
-biomesh_build/
-```
-
 For this example, the command line syntax:
 ```
-biomesh_build/examples/cuboid_fibers \
-   biomesh/examples/cuboid_fibers/cuboidal_vector_field.vtk \
-   vectors \
-   biomesh/examples/cuboid_fibers/fiber_config.xml
+cuboid_fibers path/to/cuboidal_vector_field.vtk vectors path/to/fiber_config.xml
 ```
 
 ## Output
