@@ -13,7 +13,7 @@ We refer to the ```cuboid_fibers``` example located in the ```examples``` direct
 The input files to run the examples is located in the ```examples/cuboid_fibers``` folder in the **source directory.**
 - ```cuboidal_vector_field.vtk```
 Visualization in ```paraview```:
-![cuboidal_vector_field](doc/images/cuboidal_vector_field.png)
+![cuboidal_vector_field](images/cuboidal_vector_field.png)
 
 - ```fiber_config.xml```
 Overview of content:
@@ -138,4 +138,4 @@ The fibers can be visualized using ```paraview```.
 
 The red dots represent the fiber vertices.
 
-![cuboidal_fiber_output](doc/images/cuboidal_fiber_output.png)
+![cuboidal_fiber_output](images/cuboidal_fiber_output.png)
