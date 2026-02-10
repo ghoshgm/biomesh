@@ -30,7 +30,7 @@ Refer to the [install](doc/INSTALLATION.md) document for building and installati
 
 ## Documentation
 - BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.
-- Refer to [roadmap](ROADMAP.md) to get latest development status. 
+- Refer to [roadmap](doc/ROADMAP.md) to get latest development status.
 
 ## Contributing
 BioMesh is an open-source project and contributions from the community are much appreciated.
@@ -38,5 +38,5 @@ BioMesh is an open-source project and contributions from the community are much 
 Refer to the [contributing](doc/CONTRIBUTING.md) document for guidelines.
 
 ## License
-BioMesh is released under the MIT License — see the [LICENSE](LICENSE.md)
+BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
 file for details.
