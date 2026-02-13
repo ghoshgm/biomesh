@@ -26,5 +26,5 @@ add_subdirectory(src)
 add_subdirectory(examples)
 
 # Unit tests.
-#include(CTest)
-#add_subdirectory(test)
+include(CTest)
+add_subdirectory(test)

@@ -9,8 +9,8 @@ main (int argc, char **argv)
 
   c.read_config_file ();
 
-  int vertex_count = c.get_value<int> ("vertex_count");
-  assert (vertex_count == 200);
+  int seed_vertex_count = c.get_value<int> ("seed_vertex_count");
+  assert (seed_vertex_count == 200);
 
   double vertex_width = c.get_value<double> ("vertex_width");
   assert (vertex_width == 0.14);
