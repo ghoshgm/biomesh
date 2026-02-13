@@ -207,51 +207,59 @@ The first step is to identify the bounds of vector field. It represents the regi
     \\
     \texttt{\textbf{Algorithm:}}
 \begin{algorithmic}[1]
-    \Require Structured grid $G$, cell classification map $C$, configuration parameters $T$
+    \Require Structured grid $G$, cell classification $C$, configuration parameters $T$, direction $D$
     \Ensure Fiber $f$ generated from seed vertex $s$
 
     \State $t_{\text{start}} \gets 0$
     \State $\Delta t \gets vertex\_width(T)$
     \State $vc \gets vertex\_count(T)$
-    \State $t_{\text{end}} \gets \Delta t \cdot vc$
     \State $s \gets$ seed vertex
     \State Initialize Runge--Kutta 4 integrator $I$
 
-    \If{$\text{strategy}(T) = \text{static}$}
+    \If{$ strategy(T) = \text{static}$}
         \State $\text{adaptivity} \gets \text{false}$
-    \ElsIf{$\text{strategy}(T) = \text{adaptive}$}
+    \ElsIf{$ strategy(T) = \text{adaptive}$}
         \State $\text{adaptivity} \gets \text{true}$
     \EndIf
 
+    \State $N_{\text{adaptive}} = 0$
     \State $N_{\text{adaptive}}^{\max} \gets \text{adaptive\_steps\_max}(T)$
 
-     \While{$t_{\text{start}} < t_{\text{end}} \;\land\; s \in G$}
+    \State $cid \gets \mathrm{Index}\!\left(
+    \left\{ c \in G \mid s \in c \right\}
+\right)$
+
+     \While{$C(cid) = 1 \lor C(cid) = 2$}
 
         \If{$\neg \text{adaptivity} \;\lor\; 
             (\text{adaptivity} \land N_{\text{adaptive}}^{\max} \text{ reached})$}
 
             \State $v_{curr} \gets s$
-            \If{ v \neq \text{last}(f)$}
+            \If{ $v_{curr} \neq \text{last}(f)$}
                 \State $f \gets f \cup \{v_{curr}\}$ \Comment{Append vertex to fiber}
             \EndIf
         \EndIf
 
-        \State $i \gets \text{search\_grid}(v, G)$
+        \State $cid \gets \mathrm{Index}\!\left(
+    \left\{ c \in G \mid v_{curr} \in c \right\}
+\right)$
+        \State $v_{previous} \gets v_{curr}$
         \State $v_{curr} \gets I(G, v)$ \Comment{Advance one integration step}
 
         \If{$v_{curr} \neq v_{previous}$}
             \State $v_{diff} \gets v_{new} - v_{previous}$
-            \If{\text{$backward\_direction$}}
+            \If{\text{$D \gets 1$}}
                 \State $v_{diff} \gets -v_{diff}$
             \EndIf
         \EndIf
 
         \If{$C(i) = 0$}
             \If{$\text{adaptivity}$ }
-                \If{$N_{\text{adaptive}}^{\max}  \text{reached}$}
+                \If{$N_{\text{adaptive}}^{\max} = N_{\text{adaptive}}$}
                     \State \textbf{break}
                 \Else
                     \State $\Delta t \gets \frac{\Delta t}{2}$ \Comment{Reduce step size}
+                    \State $N_{\text{adaptive}} \gets N_{\text{adaptive}} + 1$
                 \EndIf
             \Else
                 \State \textbf{break}

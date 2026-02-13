@@ -21,7 +21,6 @@ Overview of content:
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
     <seed_vertex_count>4</seed_vertex_count>
-    <vertex_count>10</vertex_count>
     <vertex_width>0.5</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>

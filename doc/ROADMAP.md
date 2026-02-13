@@ -12,7 +12,7 @@ This document outlines the current status, known limitations, and planned future
 
 ## Limitations
 
-1. The number of vertices may vary between fibers due to the physical bounds of the vector fields derived from imaging data. While a maximum vertex count can be specified in the configuration file, the current implementation does not enforce a fixed vertex count across all fibers; individual fibers may terminate before reaching the specified maximum.
+1. The number of vertices may vary between fibers due to the physical bounds of the vector fields derived from imaging data. The current implementation does not enforce a fixed vertex count across all fibers.
 2. Seed vertices can be specified manually via JSON files; however, this functionality is not part of the planned development roadmap. It is available only for specialized use cases on the `feature-legacy-seeder` branch.
 3. Support for 2D features has been discontinued and is not planned for the foreseeable future. These components may be phased out entirely in future releases.
 
@@ -22,3 +22,4 @@ This document outlines the current status, known limitations, and planned future
 2. Development of parallelization strategies to improve runtime performance.
 3. Introduction of more rigorous validation routines for fiber generation. Currently, validation is limited to detecting duplicate fiber vertices.
 4. The current seed vertex generation algorithm relies on random sampling. Developing methods to control the spatial distribution and pattern of seed vertices is an area of interest.
+5. Implement code to enforce a fixed vertex count across all fibers. This may require an update to the existing adaptive time stepping strategy.

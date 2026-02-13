@@ -17,7 +17,6 @@ muscle fiber. The file uses the legacy VTK format.
 - **Configuration file:** The data represents the parameters that define the
 **fiber_grid**. The file uses the XML format. The parameters are as follows:
     - **seed_vertex_count:** The total count of seed vertices required.
-    - **vertex_count**: The total count of vertices on a single fiber. The count may be lower if some vertices exceed the bounds of the vector field
     - **vertex_width**: The distance between two vertices.
     - **integration_scheme:** The numeric integration scheme for tracing the fiber path. **Runge-Kutta4** is the default scheme for now.
     - **strategy**: It decides if the time stepping for numeric stepping is static or adaptive.
@@ -30,7 +29,6 @@ muscle fiber. The file uses the legacy VTK format.
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
     <seed_vertex_count>100</seed_vertex_count>
-    <vertex_count>200</vertex_count>
     <vertex_width>0.14</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
