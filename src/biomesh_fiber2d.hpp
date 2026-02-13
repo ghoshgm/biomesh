@@ -20,7 +20,7 @@ namespace biomesh
  * NOTE: This class is not actively maintained any more. Eventually
  * the 2D features need to be deprecated.
  */
-class fiber2D : public fiber
+class fiber2D : public fiber<fiber2D>
 {
 public:
   /**

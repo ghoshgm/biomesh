@@ -31,15 +31,17 @@ namespace biomesh
  * to sequentially compute the next fiber vertex.
  * The output is a set of vertices which define the fiber geometry.
  */
-class fiber
+template <typename Derived> class fiber
 {
 public:
   /**
    * Function to generate the fiber coordinates.
    */
-  virtual void generate_fiber (const vector_field &vfield, int dir,
-                               configuration config)
-      = 0;
+  void
+  generate_fiber (const vector_field &vfield, int dir, configuration config)
+  {
+    static_cast<Derived *> (this)->generate_fiber (vfield, dir, config);
+  }
 };
 
 } // namespace biomesh

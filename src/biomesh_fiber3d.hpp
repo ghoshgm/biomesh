@@ -16,7 +16,7 @@ namespace biomesh
  * to sequentially compute the next fiber vertex.
  * The output is a set of vertices which define the fiber geometry.
  */
-class fiber3D : public fiber
+class fiber3D : public fiber<fiber3D>
 {
 public:
   /**
@@ -24,19 +24,17 @@ public:
    *
    * The seed coordinates are set to 0 by default.
    *
-   * @param[in] gpoint_count The number of grid points on fiber.
-   * Let's say you want 4 grid points then the first point will be the seed.
+   * @param[in] width The distance between two fiber vertices.
    */
-  fiber3D (size_t gpoint_count, double width);
+  fiber3D (double width);
 
   /**
    * Constructor.
    *
    * @param[in] seed The initial vertex of the fiber.
-   * @param[in] gpoint_count The number of grid points on fiber.
-   * Let's say you want 4 grid points then the first point will be the seed.
+   * @param[in] width The distance between two fiber vertices.
    */
-  fiber3D (const vertex3D &seed, size_t gpoint_count, double width);
+  fiber3D (const vertex3D &seed, double width);
 
   /**
    * Copy constructor.
@@ -101,9 +99,18 @@ public:
    */
   bool operator== (const fiber3D &other) const;
 
+  /**
+   * Function to reverse the order of vertices.
+   */
   void reverse ();
 
-  int check_duplicates ();
+  /**
+   * Test the validity of the fiber.
+   *
+   * Currently, we only check for duplicate vertices
+   * because the diffusion solver diverges if duplicates exist.
+   */
+  bool is_valid () const;
 
 private:
   vertex3D m_seed;

@@ -29,7 +29,6 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   s.generate_seeds (vfield, splane);
 
   int fiber_index = 0;
-  size_t fpoint_count = (size_t)m_config.get_value<int> ("vertex_count");
   double width = m_config.get_value<double> ("vertex_width");
 
   BIOMESH_LINFO ("Fiber grid generation begin.");
@@ -39,7 +38,7 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   for (const vertex &seed : s)
     {
       /* Initialize the fiber. */
-      fiber f (seed, fpoint_count, width);
+      fiber f (seed, width);
 
       /* Generate fiber in forward direction. */
       f.generate_fiber (vfield, 1, m_config);
@@ -57,7 +56,19 @@ fiber_grid<fiber, vertex>::generate_fiber_grid (const vector_field &vfield)
   BIOMESH_LINFO ("Fiber grid generation end.");
   timer.end ();
 
-  return BIOMESH_SUCCESS;
+  bool valid = true;
+  BIOMESH_LINFO ("Fiber grid validity check begin.");
+  for (const fiber &f : m_fiber_set)
+    {
+      if (!(f.is_valid ()))
+        {
+          valid = false;
+          break;
+        }
+    }
+  BIOMESH_LINFO ("Fiber grid validity check end.");
+
+  return (valid) ? BIOMESH_SUCCESS : BIOMESH_ERROR;
 }
 
 template <class fiber, class vertex>

@@ -11,8 +11,8 @@
 #include <string>
 
 /* Utility macros. */
-#define BIOMESH_SUCCESS 1
-#define BIOMESH_ERROR 0
+#define BIOMESH_SUCCESS 0
+#define BIOMESH_ERROR 1
 
 #ifdef BIOMESH_ENABLE_2D
 #define BIOMESH_DIM 2

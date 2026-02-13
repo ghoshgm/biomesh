@@ -2,19 +2,16 @@
 #include <biomesh_fiber3d.hpp>
 
 #include <algorithm>
+#include <unordered_set>
 
 namespace biomesh
 {
-fiber3D::fiber3D (size_t gpoint_count, double width)
-    : m_gpoint_count{ gpoint_count }, m_width{ width }
-{
-  m_fiber_vertices.reserve (m_gpoint_count);
-}
+fiber3D::fiber3D (double width) : m_width{ width } {}
 
-fiber3D::fiber3D (const vertex3D &seed, size_t gpoint_count, double width)
-    : m_seed{ seed }, m_gpoint_count{ gpoint_count }, m_width{ width }
+fiber3D::fiber3D (const vertex3D &seed, double width)
+    : m_seed{ seed }, m_width{ width }
 {
-  m_fiber_vertices.reserve (m_gpoint_count);
+  m_fiber_vertices.push_back (m_seed);
 }
 
 fiber3D::fiber3D (const fiber3D &other)
@@ -140,7 +137,6 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
   BIOMESH_ASSERT ((sgrid != nullptr));
 
   double t_start = 0.0;
-  double t_end = m_gpoint_count * m_width;
   double dt = m_width;
   std::vector<double> vertex{ m_seed ('x'), m_seed ('y'), m_seed ('z') };
 
@@ -159,8 +155,18 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
   int adaptive_count = 0;
   int adaptive_tol = config.get_value<int> ("adaptive_steps_max");
 
+  int subid;
+  double pcoords[3];
+  double weights[VTK_CELL_SIZE];
+
+  /* The initial seed vertex. */
+  auto cell_id = -1;
+  cell_id = sgrid->FindCell (vertex.data (), nullptr, -1, 0, subid, pcoords,
+                             weights);
+  BIOMESH_ASSERT ((cell_id > 0));
+
   /* Compute fibers. */
-  while (t_start < t_end and is_inside_grid (sgrid, vertex))
+  while (vfield[cell_id] == 2 or vfield[cell_id] == 1)
     {
       if (!adaptive or (adaptive and adaptive_count == adaptive_tol))
         {
@@ -180,7 +186,6 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
         }
 
       /* Do one step of numeric integration. */
-      int cell_id = 0;
       rk4_stepper.do_step (
           [&] (const std::vector<double> &svec, std::vector<double> &drdt,
                double t) {
@@ -204,6 +209,7 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
             }
         }
 
+      /*Terminating condition. */
       if (vfield[cell_id] == 0)
         {
           if (adaptive and adaptive_count <= adaptive_tol)
@@ -223,6 +229,7 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
             }
         }
 
+      /* Update current vertex. */
       Eigen::Vector3d v_new = vv1 + ((cv / cv.norm ()) * dt);
       vertex[0] = v_new (0);
       vertex[1] = v_new (1);
@@ -275,26 +282,35 @@ fiber3D::reverse ()
   std::reverse (m_fiber_vertices.begin (), m_fiber_vertices.end ());
 }
 
-int
-fiber3D::check_duplicates ()
+bool
+fiber3D::is_valid () const
 {
-  int result = -1;
-  for (size_t ii = 1; ii < m_fiber_vertices.size (); ++ii)
+  struct vertex3DHash
+  {
+    std::size_t
+    operator() (const vertex3D &v) const
     {
-      auto v1 = m_fiber_vertices[ii - 1];
-      auto v2 = m_fiber_vertices[ii];
+      // Use std::hash to hash individual components
+      std::size_t h1 = std::hash<double>{}(v ('x'));
+      std::size_t h2 = std::hash<double>{}(v ('y'));
+      std::size_t h3 = std::hash<double>{}(v ('z'));
 
-      if (v1 == v2)
+      // Combine hashes using bit shifting and XOR to reduce collisions
+      // A common hash-combining technique
+      return h1 ^ (h2 << 1) ^ (h3 << 2);
+    }
+  };
+
+  std::unordered_set<vertex3D, vertex3DHash> s;
+
+  for (const auto &v : m_fiber_vertices)
+    {
+      if (!s.insert (v).second)
         {
-          std::cout << "-------------- duplicate exists at index " << ii
-                    << std::endl;
-          v1.print ();
-          v2.print ();
-          result = ii;
-          break;
+          return false; // duplicate found
         }
     }
-  return result;
+  return true;
 }
 
 } // namespace biomesh
