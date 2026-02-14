@@ -10,7 +10,7 @@ main (int argc, char **argv)
 {
   biomesh::json_parser jp (argv[1]);
   int ret = jp.read ();
-  assert (ret == true);
+  assert (ret == BIOMESH_SUCCESS);
 
   return EXIT_SUCCESS;
 }
