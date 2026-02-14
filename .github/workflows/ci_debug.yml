@@ -43,3 +43,23 @@ jobs:
 
           make -j$(nproc)
           sudo make install
+          cd ..
+
+      - name: Install Eigen
+        run: |
+          sudo apt install libeigen3-dev
+
+      - name: Install Boost
+        run: |
+          sudo apt-get install libboost-all-dev
+
+      - name: Install jsoncpp
+        run: |
+          sudo apt-get install libjsoncpp-dev
+
+      - name: Install libxml2
+        run: |
+          sudo apt-get install libxml2-dev
+          
+
+      
