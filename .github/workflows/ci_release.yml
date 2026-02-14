@@ -1,4 +1,4 @@
-name: CI for debug builds
+name: CI for release builds
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - "**.cmake.in"
       - "**.cpp"
       - "**.hpp"
-      - ".github/workflows/ci_debug.yml"
+      - ".github/workflows/ci_release.yml"
   pull_request:
   release:
     types: [published]
