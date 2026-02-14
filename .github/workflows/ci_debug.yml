@@ -1,0 +1,45 @@
+name: CI for debug builds
+
+on:
+  push:
+    paths:
+      - "**/CMakeLists.txt"
+      - "**.cmake"
+      - "**.cmake.in"
+      - "**.cpp"
+      - "**.hpp"
+      - ".github/workflows/ci_debug.yml"
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            build-essential \
+            cmake \
+            git \
+            libxt-dev \
+            libgl1-mesa-dev \
+            libglu1-mesa-dev
+
+      - name: Install VTK from source
+        run: |
+          git clone --depth 1 https://github.com/Kitware/VTK.git
+          mkdir vtk-build
+          cd vtk-build
+          cmake ../VTK \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr/local \
+
+          make -j$(nproc)
+          sudo make install
