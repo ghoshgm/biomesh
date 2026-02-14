@@ -1,0 +1,83 @@
+name: CI for debug builds
+
+on:
+  push:
+    paths:
+      - "**/CMakeLists.txt"
+      - "**.cmake"
+      - "**.cmake.in"
+      - "**.cpp"
+      - "**.hpp"
+      - ".github/workflows/ci_debug.yml"
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            build-essential \
+            cmake \
+            git \
+            libxt-dev \
+            libgl1-mesa-dev \
+            libglu1-mesa-dev
+
+      - name: Install VTK from source
+        run: |
+          git clone --depth 1 https://github.com/Kitware/VTK.git
+          mkdir vtk-build
+          cd vtk-build
+          cmake ../VTK \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr/local \
+
+          make -j$(nproc)
+          sudo make install
+          cd ..
+
+      - name: Install Eigen
+        run: |
+          sudo apt install libeigen3-dev
+
+      - name: Install Boost
+        run: |
+          sudo apt-get install libboost-all-dev
+
+      - name: Install jsoncpp
+        run: |
+          sudo apt-get install libjsoncpp-dev
+
+      - name: Install libxml2
+        run: |
+          sudo apt-get install libxml2-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure for Debug build
+        run: |
+            git checkout feature-CRTP
+            cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=release \
+            -DCMAKE_CXX_FLAGS="-O2 -Wall -Wno-unused-parameter"
+
+      - name: Compile
+        run: |
+            cmake --build build
+
+      - name: Run Unit Tests
+        run: |
+            cd build
+            ctest --output-on-failure
+
+      - name: Run Valgrind
+        run: |
+          cd build
+          ctest -T memcheck
