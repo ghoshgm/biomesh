@@ -27,7 +27,8 @@ jobs:
             git \
             libxt-dev \
             libgl1-mesa-dev \
-            libglu1-mesa-dev
+            libglu1-mesa-dev \
+            valgrind
 
       - name: Install VTK from source
         run: |
