@@ -1,6 +1,6 @@
 
 # Gather all header files.
-file(GLOB_RECURSE BIOMESH_HEADERS ${CMAKE_CURRENT_SOURCE_DIR} *.hpp *.h)
+file(GLOB_RECURSE BIOMESH_HEADERS ${CMAKE_CURRENT_SOURCE_DIR} *.hpp *.h *.tpp)
 
 # Gather all source files.
 file(GLOB_RECURSE BIOMESH_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
@@ -53,4 +53,5 @@ target_link_libraries(biomesh PUBLIC
                            Eigen3::Eigen
                            ${JSONCPP_LIBRARIES}
                            ${LIBXML2_LIBRARIES}
+                           Boost::boost
                      )

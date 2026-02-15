@@ -11,6 +11,9 @@ include(cmake/find_dependencies.cmake)
 
 # Configure biomesh.
 #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/results)
 include(cmake/config.cmake)
 message(STATUS "-------- SUMMARY --------")
