@@ -60,7 +60,7 @@ Refer to the **Benchmarks** section for comparison between runtime with CRTP and
 
 ### Overview
 - This benchmark measures the runtime performance when every fiber has equal vertex counts.
-- The ```tube_fibers``` example was used for measurements.
+- The ```cuboid_fibers``` example was used for measurements.
 - The benchmark was executed serially.
 
 ### Hardware
@@ -83,6 +83,7 @@ Refer to the **Benchmarks** section for comparison between runtime with CRTP and
 | 100000      | 5610230.8736               |
 
 ![Benchmark Plot](images/equal_vertex_count_benchmark.png)
+
 *Figure: Plot demonstrating scaling results with equal vertex counts.*
 
 ### CASE 3: CRTP benchmark
