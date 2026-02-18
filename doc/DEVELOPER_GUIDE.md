@@ -56,7 +56,36 @@ Refer to the **Benchmarks** section for comparison between runtime with CRTP and
 ![Benchmark Plot](images/random_vertex_count_benchmark.png)  
 *Figure: Plot demonstrating scaling results with random vertex counts.*
 
-### CASE 2: CRTP benchmark
+### CASE 2: Equal vertex count benchmark
+
+### Overview
+- This benchmark measures the runtime performance when every fiber has equal vertex counts.
+- The ```tube_fibers``` example was used for measurements.
+- The benchmark was executed serially.
+
+### Hardware
+| Component        | Details                               |
+|-----------------|--------------------------------------|
+| CPU              | Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz |
+| Cores / Threads  | 8 / 16                               |
+| L1 Cache         | 128 KB                           |
+| L2 Cache         | 1 MB                            |
+| L3 Cache         | 6 MB                                  |
+
+### Results
+
+| Fiber Count |  Wall time (ms)|
+|------------:|----------------------------|
+| 10          | 502.2362                   |
+| 100         | 5272.9212                  |
+| 1000        | 50020.0531                 |
+| 10000       | 522941.6485                |
+| 100000      | 5610230.8736               |
+
+![Benchmark Plot](images/equal_vertex_count_benchmark.png)
+*Figure: Plot demonstrating scaling results with equal vertex counts.*
+
+### CASE 3: CRTP benchmark
 
 ### Overview
 - This benchmark measures the runtime performance when using static polymorphism via the CRTP pattern for the ```fiber``` class heiarchy.
