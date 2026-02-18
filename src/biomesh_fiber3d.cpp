@@ -119,6 +119,7 @@ compute_vector (vtkStructuredGrid *sgrid, const std::vector<double> &svec,
     }
 }
 
+#if 0
 static bool
 is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
 {
@@ -127,6 +128,7 @@ is_inside_grid (vtkStructuredGrid *sgrid, const std::vector<double> &v)
           and (v[1] >= bb[2] and v[1] <= bb[3])
           and (v[2] >= bb[4] and v[2] <= bb[5]));
 }
+#endif
 
 void
 fiber3D::generate_fiber (const vector_field &vfield, int dir,
@@ -289,6 +291,9 @@ fiber3D::reverse ()
 bool
 fiber3D::is_valid () const
 {
+  /**
+   * TODO: Move this functor into the vertex base class.
+   */
   struct vertex3DHash
   {
     std::size_t

@@ -26,7 +26,7 @@ json_parser::read ()
   BIOMESH_LINFO ("Input JSON file path: " + m_file_path);
   BIOMESH_LINFO ("JSON file read begin.");
   bool success = reader.parse (m_file, m_jstring);
-  BIOMESH_ASSERT (success == true);
+  BIOMESH_ASSERT ((success == true));
   BIOMESH_LINFO ("JSON file read end.");
 
   /* Close the JSON file. */

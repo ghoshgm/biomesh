@@ -11,7 +11,7 @@ vertex::~vertex () {}
 double
 vertex::operator() (char dir) const
 {
-  BIOMESH_ASSERT (dir == 'x' || dir == 'y' || dir == 'z');
+  BIOMESH_ASSERT ((dir == 'x') || (dir == 'y') || (dir == 'z'));
   if (dir == 'x')
     return m_position (0);
   if (dir == 'y')

@@ -13,7 +13,7 @@ biomesh::cell_table::classify_cells (vtkSmartPointer<vtkStructuredGrid> sgrid,
                                      const std::string &vfield_tag)
 {
   BIOMESH_LINFO ("Cell classification begin.");
-  BIOMESH_ASSERT (sgrid != nullptr);
+  BIOMESH_ASSERT ((sgrid != nullptr));
   size_t cell_count = sgrid->GetNumberOfCells ();
 
   for (size_t ii = 0; ii < cell_count; ++ii)

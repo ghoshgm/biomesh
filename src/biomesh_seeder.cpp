@@ -49,6 +49,10 @@ seeder::generate_seeds (const vector_field &vfield, seed_plane &splane)
   vtkNew<vtkMinimalStandardRandomSequence> rng;
   rng->SetSeed (1);
 
+  /**
+   * TODO: Check for possible duplicate seeds.
+   */
+
   for (vtkIdType i = 0; i < m_seed_count; ++i)
     {
       rng->Next ();
