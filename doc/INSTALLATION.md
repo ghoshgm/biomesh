@@ -89,4 +89,13 @@ Tests for memory leaks
 ctest /path/to/build/directory -T memcheck
 ```
 
-## Linking BioMesh for your CMake project
+### Linking BioMesh for your CMake project
+
+Use these commands in your root CMakeLists.txt
+```bash
+find_package(biomesh REQUIRED)
+...
+target_link_libraries(project_name PUBLIC BIOMESH::biomesh)
+```
+
+**NOTE:** Since BioMesh has external dependencies, if the dependencies are not installed in the typical GNU install locations then make sure you tell CMake the path to the install directory via ```-DCMAKE_INSTALL_PREFIX```.
