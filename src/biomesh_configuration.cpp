@@ -92,7 +92,7 @@ configuration::read_config_file ()
           xmlFree (content);
 
           if (key == "vertex_count" || key == "seed_vertex_count"
-              || key == "adaptive_steps_max")
+              || key == "adaptive_steps_max" || key == "time_step_max")
             {
               m_settings[key] = std::stoi (text);
             }

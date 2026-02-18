@@ -4,6 +4,7 @@
     <vertex_width>0.14</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
+    <time_step_max>1600</time_step_max>
     <adaptive_steps_max>1000</adaptive_steps_max>
     <strategy>static</strategy>
 

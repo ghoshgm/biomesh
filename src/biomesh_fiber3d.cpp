@@ -165,8 +165,11 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
                              weights);
   BIOMESH_ASSERT ((cell_id > 0));
 
+  int t = 0;
+  int t_max = config.get_value<int> ("time_step_max");
+
   /* Compute fibers. */
-  while (vfield[cell_id] == 2 or vfield[cell_id] == 1)
+  while ((vfield[cell_id] == 2 or vfield[cell_id] == 1) and t < t_max)
     {
       if (!adaptive or (adaptive and adaptive_count == adaptive_tol))
         {
@@ -247,6 +250,7 @@ fiber3D::generate_fiber (const vector_field &vfield, int dir,
 
       /* Increment step. */
       t_start += dt;
+      ++t;
     }
 }
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fiber_set>
-    <seed_vertex_count>4</seed_vertex_count>
+    <seed_vertex_count>10000</seed_vertex_count>
     <vertex_width>0.01</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
+    <time_step_max>1600</time_step_max>
     <adaptive_steps_max>0</adaptive_steps_max>
     <strategy>static</strategy>
 

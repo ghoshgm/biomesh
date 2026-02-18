@@ -12,6 +12,9 @@ main (int argc, char **argv)
   int seed_vertex_count = c.get_value<int> ("seed_vertex_count");
   assert (seed_vertex_count == 200);
 
+  int time_step_max = c.get_value<int> ("time_step_max");
+  assert (time_step_max == 1600);
+
   double vertex_width = c.get_value<double> ("vertex_width");
   assert (vertex_width == 0.14);
 
