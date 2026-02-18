@@ -46,6 +46,7 @@ make -j8
 ```bash
 git clone https://github.com/ghoshgm/biomesh.git
 ```
+**NOTE:** All latest updates are on the ```develop``` branch.
 
 ### 2. Configuration:
 It is always good practice to keep the build directory separate to keep the source directory clean.
