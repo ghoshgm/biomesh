@@ -19,6 +19,7 @@ muscle fiber. The file uses the legacy VTK format.
     - **seed_vertex_count:** The total count of seed vertices required.
     - **vertex_width**: The distance between two vertices.
     - **integration_scheme:** The numeric integration scheme for tracing the fiber path. **Runge-Kutta4** is the default scheme for now.
+    - **time_step_max:** The maximum numeric integration time steps to be executed.
     - **strategy**: It decides if the time stepping for numeric stepping is static or adaptive.
     - **adaptive_steps_max:** The count of adaptive time steps to be performed.
     - **plane_point:** The point of the **seed_plane**.
@@ -32,6 +33,7 @@ muscle fiber. The file uses the legacy VTK format.
     <vertex_width>0.14</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
+    <time_step_max>1600</time_step_max>
     <adaptive_steps_max>0</adaptive_steps_max>
     <strategy>static</strategy>
 

@@ -214,6 +214,8 @@ The first step is to identify the bounds of vector field. It represents the regi
     \State $\Delta t \gets vertex\_width(T)$
     \State $vc \gets vertex\_count(T)$
     \State $s \gets$ seed vertex
+    \State $t \gets 0$
+    \State $t_{max} \gets time\_step\_max(T)$
     \State Initialize Runge--Kutta 4 integrator $I$
 
     \If{$ strategy(T) = \text{static}$}
@@ -229,7 +231,7 @@ The first step is to identify the bounds of vector field. It represents the regi
     \left\{ c \in G \mid s \in c \right\}
 \right)$
 
-     \While{$C(cid) = 1 \lor C(cid) = 2$}
+     \While{$(C(cid) = 1 \lor C(cid) = 2) \And t < t_{max}$}
 
         \If{$\neg \text{adaptivity} \;\lor\; 
             (\text{adaptivity} \land N_{\text{adaptive}}^{\max} \text{ reached})$}
@@ -353,5 +355,7 @@ All fibers are stored using an \texttt{'array-of-arrays'} data structure.\\
 \draw[->] (fn.east) -- (fn0.west);
 
 \end{tikzpicture}
+
+
 
 \end{document}

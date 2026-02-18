@@ -24,6 +24,7 @@ Overview of content:
     <vertex_width>0.5</vertex_width>
 
     <integration_scheme>runge-kutta4</integration_scheme>
+    <time_step_max>1600</time_step_max>
     <adaptive_steps_max>0</adaptive_steps_max>
     <strategy>static</strategy>
 
