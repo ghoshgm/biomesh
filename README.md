@@ -2,7 +2,7 @@
 
 **BioMesh** is an open source C++ library for generating computational meshes for skeletal muscle simulations.
 
-BioMesh is intended to be used as a thirdparty meshing tool for the **OpenDiHu** library.
+BioMesh is intended to be used as a thirdparty meshing tool for the [OpenDiHu](https://github.com/opendihu/opendihu/tree/develop) simulation software.
 
 It is being actively developed at the [University of Stuttgart](https://www.ipvs.uni-stuttgart.de/departments/sgs/).
 
@@ -21,8 +21,10 @@ The BioMesh library is being developed to offer implementations of these meshing
 1. **Generation of muscle fibers as 1D meshes**
 2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
+To learn more on how BioMesh can be used to create input files for OpenDiHu, refer to the [documentation](doc/OPENDIHU.md).
+
 ## Installation
-Refer to the [install](doc/INSTALLATION.md) document for building and installation.
+Refer to the [installation guide](doc/INSTALLATION.md) for building and installation.
 
 ## Getting started
 - If this your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
