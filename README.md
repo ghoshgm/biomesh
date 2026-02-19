@@ -42,5 +42,5 @@ Refer to the [contributing](doc/CONTRIBUTING.md) document for guidelines.
 BioMesh is released under the MIT License — see the [LICENSE](LICENSE)
 file for details.
 
-## Funding
-BioMesh development was funded by the Deutsche Forschungsgemeinschaft(DFG, German Research Foundation) through [EXC2075](https://gepris.dfg.de/gepris/projekt/390740016?language=en) in Germany's Excellence Strategy.
+## Acknowledgement
+We thank the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) for supporting this work by funding - [EXC2075](https://gepris.dfg.de/gepris/projekt/390740016?language=en) – 390740016 under Germany's Excellence Strategy. We acknowledge the support by the Stuttgart Center for Simulation Science (SimTech).
