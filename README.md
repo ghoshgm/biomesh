@@ -26,7 +26,7 @@ Refer to the [install](doc/INSTALLATION.md) document for building and installati
 
 ## Getting started
 - If this your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
-- For a minimal hello world example you may refer to [helloworld](doc/HELLOWORLD.md).
+- For a minimal example you may refer to [tutorial](doc/TUTORIAL.md).
 
 ## Documentation
 - BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.

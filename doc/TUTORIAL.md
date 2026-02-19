@@ -1,4 +1,4 @@
-# HELLOWORLD
+# TUTORIAL
 
 This document provides a minimal example to demonstrate the usage of BioMesh library.
 
