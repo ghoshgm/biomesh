@@ -21,8 +21,6 @@ The BioMesh library is being developed to offer implementations of these meshing
 1. **Generation of muscle fibers as 1D meshes**
 2. **Construction of the volumetric mesh (3D) using the fiber mesh as the basis**
 
-To learn more on how BioMesh can be used to create input files for OpenDiHu, refer to the [documentation](doc/OPENDIHU.md).
-
 ## Installation
 Refer to the [installation guide](doc/INSTALLATION.md) for building and installation.
 
@@ -34,6 +32,7 @@ Refer to the [installation guide](doc/INSTALLATION.md) for building and installa
 - BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.
 - Refer to the [developer](doc/DEVELOPER_GUIDE.md) page if you wish to develop the source code.
 - Refer to [roadmap](doc/ROADMAP.md) to get latest development status.
+- Refer to the [documentation](doc/OPENDIHU.md) to see muscle simulation results successfully supported by BioMesh.
 
 ## Contributing
 BioMesh is an open-source project and contributions from the community are much appreciated.
