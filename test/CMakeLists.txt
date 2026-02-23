@@ -61,3 +61,8 @@ add_test(NAME test_configuration COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_config
 add_executable(test_seeder test_seeder.cpp)
 target_link_libraries(test_seeder PUBLIC BIOMESH::biomesh)
 add_test(NAME test_seeder COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_seeder)
+
+# Test for lib version.
+add_executable(test_version test_version.cpp)
+target_link_libraries(test_version PUBLIC BIOMESH::biomesh)
+add_test(NAME test_version COMMAND ${CMAKE_CURRENT_BINARY_DIR}/test_version)

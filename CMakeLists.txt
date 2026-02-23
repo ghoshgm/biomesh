@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.13...3.24)
 
 # Project description.
 project(BIOMESH
+VERSION 1.0.0
 LANGUAGES C CXX
-DESCRIPTION "biomesh is a highly scalable meshing library for musculoskeletal simulations."
+DESCRIPTION "biomesh is a meshing library for musculoskeletal simulations."
 )
 
 # Find external dependencies.
@@ -16,14 +17,16 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/results)
 include(cmake/config.cmake)
+
+# Build source.
+add_subdirectory(src)
+
 message(STATUS "-------- SUMMARY --------")
 message(STATUS "CXX: ${BIOMESH_CPP}")
 message(STATUS "CXXFLAGS: ${BIOMESH_CPPFLAGS}")
 message(STATUS "Build: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Install directory: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "-------------------------")
-
-# Build source.
-add_subdirectory(src)
 
 # Build examples.
 add_subdirectory(examples)

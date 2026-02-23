@@ -9,7 +9,12 @@ file(GLOB_RECURSE BIOMESH_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 add_library(biomesh SHARED ${BIOMESH_SOURCES})
 add_library(BIOMESH::biomesh ALIAS biomesh)
 
-message(STATUS ${CMAKE_INSTALL_PREFIX})
+set_target_properties(biomesh PROPERTIES
+      VERSION ${PROJECT_VERSION}
+      SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+
+configure_file(${CMAKE_SOURCE_DIR}/cmake/biomesh_version.hpp.in ${PROJECT_BINARY_DIR}/include/biomesh_version.hpp)
 
 include(GNUInstallDirs)
 target_include_directories(biomesh 
@@ -29,6 +34,7 @@ install(TARGETS biomesh
 
 install(FILES ${BIOMESH_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${PROJECT_BINARY_DIR}/include/biomesh_config.hpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${PROJECT_BINARY_DIR}/include/biomesh_version.hpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(EXPORT biomeshTargets
       FILE biomeshTargets.cmake
