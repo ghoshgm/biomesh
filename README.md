@@ -32,7 +32,7 @@ Refer to the [installation guide](doc/INSTALLATION.md) for building and installa
 - BioMesh uses [Doxygen](https://www.doxygen.nl/) to generate the code documentation.
 - Refer to the [developer](doc/DEVELOPER_GUIDE.md) page if you wish to develop the source code.
 - Refer to [roadmap](doc/ROADMAP.md) to get latest development status.
-- Refer to the [documentation](doc/OPENDIHU.md) to see muscle simulation results successfully supported by BioMesh.
+- Refer to the [simulations](doc/OPENDIHU.md) page to see muscle simulation results successfully supported by BioMesh.
 
 ## Contributing
 BioMesh is an open-source project and contributions from the community are much appreciated.
