@@ -46,4 +46,4 @@ file for details.
 ## Acknowledgement
 We thank the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) for supporting this work by funding - [EXC2075](https://gepris.dfg.de/gepris/projekt/390740016?language=en) – 390740016 under Germany's Excellence Strategy. We acknowledge the support by the Stuttgart Center for Simulation Science (SimTech).
 
-We would like to express our sincere appreciation to [Gerasimos Chourdakis](https://github.com/MakisH) for his insightful guidance and thoughtful advice during the development of BioMesh. His expertise and constructive feedback significantly contributed to the design, direction, and overall quality of the project.
+We would like to express our sincere appreciation to [Gerasimos Chourdakis](https://github.com/MakisH) for his insightful guidance and thoughtful advice during the development of BioMesh.
