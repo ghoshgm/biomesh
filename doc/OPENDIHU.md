@@ -6,11 +6,14 @@
 
 Here we show the results for an OpenDiH chemo-electro-mechanical simulation that takes a `.json` file generated with BioMesh. The file was created by assuming a dummy geometry defined by $R_{inner}= 4.4$ *cm*, $R_{outer}= 3$ *cm* and $L= 12$ *cm*. 
 
+time = 0 ms
+![](images/all_t_0ms.png)
 
-| time = 0 ms | time = 10 ms | time = 20 ms |
-|--------|---------|---------|
-| ![](images/all_t_0ms.png) | ![](images/all_t_10ms.png) | ![](images/all_t_20ms.png) |
+time = 10 ms
+![](images/all_t_10ms.png)
 
+time = 20 ms
+![](images/all_t_20ms.png)
 
 ### Simulating the Tibialis Anterior
 
