@@ -25,7 +25,7 @@ The BioMesh library is being developed to offer implementations of these meshing
 Refer to the [installation guide](doc/INSTALLATION.md) for building and installation.
 
 ## Getting started
-- If this your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
+- If this is your first time using the library, it is highly recommended to read the [introduction](doc/INTRODUCTION.md) to get a basic overview of the library.
 - For a minimal example you may refer to [tutorial](doc/TUTORIAL.md).
 
 ## Documentation
