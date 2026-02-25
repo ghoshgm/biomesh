@@ -76,9 +76,6 @@ For generating 1D fibers we need to answer 3 fundamental questions:
     \item What are the bounds of the muscle ?
 \end{itemize}
 \\
-The \texttt{Seed Surface Generation} routine provides the surface on which the \texttt{Seed Points} are computed. This surface contains the Seed Points, these points mark the beginning of a fiber.\\
-\\
-The \texttt{Cell Classification} routine is the solution to the final 2 questions. The classification contains data about the muscle bounds. The '1' cells mark the end of a fiber. Refer to the \texttt{Algorithms} section for detailed explanation.\\
 \\
 The fiber generation workflow follows these steps sequentially:
 
@@ -89,6 +86,10 @@ The fiber generation workflow follows these steps sequentially:
     \item \texttt{Fiber generation}
     \item \texttt{Fiber grid generation}
 \end{itemize}
+\\
+The \texttt{Seed Plane Generation} routine provides the surface on which the \texttt{Seed Points} are computed. This surface contains the Seed Points, these points mark the beginning of a fiber.\\
+\\
+The \texttt{Cell Classification} routine is the solution to the final 2 questions. The classification contains data about the muscle bounds. The '1' cells mark the end of a fiber. Refer to the \texttt{Algorithms} section for detailed explanation.\\
 
 \subsubsection{Description}
 
