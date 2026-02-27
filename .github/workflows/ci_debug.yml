@@ -85,7 +85,7 @@ jobs:
       - name: Package source with CPack
         run: |
           cd build
-          cpack --config CPackSourceConfig.cmake
+          cpack --config CPackSourceConfig.cmake -G TGZ
 
       - name: Upload source package
         uses: actions/upload-artifact@v4
