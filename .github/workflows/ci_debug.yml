@@ -81,3 +81,14 @@ jobs:
         run: |
           cd build
           ctest -T memcheck
+
+      - name: Package source with CPack
+        run: |
+          cd build
+          cpack --config CPackSourceConfig.cmake
+
+      - name: Upload source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: biomesh-source-${{ github.sha }}
+          path: build/*.tar.gz
